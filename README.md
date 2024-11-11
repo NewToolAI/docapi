@@ -2,7 +2,11 @@
 
 ## TODO
 
-- 支持Azure openeai、通义千问、文心一言等大模型
+- 支持Azure Openai、通义千问、文心一言等大模型
+
+- 发布到pypi
+
+- 支持fastapi、django等框架
 
 - 支持文档更新
 
