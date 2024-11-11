@@ -1,0 +1,26 @@
+import os
+
+from llm.openai_llm import OpenAILLM
+
+
+def build_llm(**kwargs):
+    if kwargs.get('openai_api_key') and kwargs.get('openai_base_url'):
+        api_key = kwargs.get('openai_api_key')
+        base_url = kwargs.get('openai_base_url')
+        return OpenAILLM(api_key=api_key, base_url=base_url)
+
+    elif kwargs.get('openai_api_key'):
+        api_key = kwargs.get('openai_api_key')
+        return OpenAILLM(api_key=api_key)
+
+    elif os.getenv('OPENAI_API_KEY') is not None and os.getenv('OPENAI_API_BASE') is not None:
+        api_key = os.getenv('OPENAI_API_KEY')
+        base_url = os.getenv('OPENAI_API_BASE')
+        return OpenAILLM(api_key=api_key, base_url=base_url)
+
+    elif os.getenv('OPENAI_API_KEY') is not None:
+        api_key = os.getenv('OPENAI_API_KEY')
+        return OpenAILLM(api_key=api_key)
+
+    else:
+        raise ValueError('No LLM provider found')
