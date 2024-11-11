@@ -21,7 +21,7 @@ def scan(server_path):
             break
 
     app = getattr(package, app_name)
-    routes = {}
+    structures = {}
 
     for rule in app.url_map.iter_rules():
         view_func = app.view_functions[rule.endpoint]
@@ -38,15 +38,22 @@ def scan(server_path):
 
         md5 = hashlib.md5(code.encode('utf-8')).hexdigest()
 
-        if path not in routes:
-            routes[path] = {
-                'url_list': [],
-                'md5_list': [],
-                'code_list': []
-            }
+        if path not in structures:
+            structures[path] = []
 
-        routes[path]['url_list'].append(rule.rule)
-        routes[path]['md5_list'].append(md5)
-        routes[path]['code_list'].append(code)
-        
-    return routes
+        structures[path].append({
+            'url': rule.rule,
+            'md5': md5,
+            'code': code
+        })
+
+    structures = _sort_structures(structures)
+    return structures
+
+
+def _sort_structures(structures):
+    new_structures = {}
+    for path, item_list in structures.items():
+        new_structures[path] = sorted(item_list, key=lambda x: x['url'])
+
+    return new_structures

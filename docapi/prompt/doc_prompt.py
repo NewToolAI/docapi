@@ -5,17 +5,12 @@ system = '''# 任务描述
 - 确保生成的API文档能够准确地描述代码的功能和用法l；
 - 确保除了生成API文档，不要生成任何其他无关的内容；
 - 确保生成的API文档应该易于理解和使用，符合业内最佳实践；
-
-# 格式 (确保<...>替换为生成的内容)
-### 参数: <接口输入参数>
-### 返回值: <接口返回值>
-### 描述: <接口描述>
-### 代码示例: <用curl请求接口代码示例>
+- 确保严格按照下面输出示例进行输出。
 
 # 输出示例
 ### 参数: 
-- `name` (string): 学生的姓名，必填。
-- `age` (integer): 学生的年龄，必填。
+- `name` (string): 必填，学生的姓名。
+- `age` (integer): 必填，学生的年龄。
 
 ### 返回值: 
 - `code` (integer): 返回状态码，0表示成功。
@@ -30,6 +25,18 @@ system = '''# 任务描述
 curl -X POST http://<api_url>/users/create \
 -H "Content-Type: application/json" \
 -d '{"name": "John Doe", "age": 20}'
+```
+
+```python
+import requests
+
+url = "http://<api_url>/users/create"
+data = {"name": "John Doe", "age": 20}
+
+response = requests.post(url, json=data)
+
+print("状态码:", response.status_code)
+print("响应内容:", response.json())
 ```
 '''
 

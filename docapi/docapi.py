@@ -1,4 +1,6 @@
+import json
 from pathlib import Path
+from datetime import datetime
 
 from llm import llm_builder
 from prompt import doc_prompt
@@ -7,19 +9,21 @@ from scanner import flask_scanner
 
 DOC_HEAD = '''# {filename}
 
-*path: `{path}`*
+*PATH: `{path}`*
+
+*CREATE TIME: {time}*
 '''
 
-API_HEAD = '''## 接口: {url}
+API_HEAD = '''## API: {url}
 
-*md5: `{md5}`*
+*UPDATE TIME: {time}*
 '''
 
 
 class DocAPI:
 
     @classmethod
-    def build_flask_doc(self):
+    def build_flask(self):
         llm = llm_builder.build_llm()
         return self(llm, flask_scanner, doc_prompt)
 
@@ -28,35 +32,100 @@ class DocAPI:
         self.scanner = scanner
         self.prompt = prompt
 
-    def __call__(self, path, output):
-        routes = self.scanner.scan(path)
-        output = Path(output)
-        output.mkdir(parents=True, exist_ok=True)
+    def generate(self, app_path, doc_dir):
+        doc_dir = Path(doc_dir)
+        doc_dir.mkdir(parents=True, exist_ok=False)
+        structures = self.scanner.scan(app_path)
 
-        for path, info in routes.items():
-            path = Path(path)
-            print('filename:', path.name)
+        for path, item_list in structures.items():
+            path = Path(path).resolve()
+            print(f'Create document for {path.name}.')
+
+            for item in item_list:
+                url = item['url']
+                md5 = item['md5']
+                code = item['code']
+                print(f'- Create document for {url}.')
+
+                item['doc'] = self.llm(system=self.prompt.system, user=self.prompt.user.format(code=code))
+
+            print()
+
+        self._write_doc(doc_dir, structures)
+
+    def update(self, app_path, doc_dir):
+        doc_dir = Path(doc_dir)
+        doc_dir.mkdir(parents=True, exist_ok=True)
+
+        new_structures = self.scanner.scan(app_path)
+        old_structures = json.loads((doc_dir / 'doc.json').read_text(encoding='utf-8'))
+        merged_structures = {}
+
+        for path, item_list in new_structures.items():
+            path = Path(path).resolve()
+            print(f'Update document for {path.name}.')
+            path = str(path)
+
+            if path not in old_structures:
+                for item in item_list:
+                    item['doc'] = self.llm(system=self.prompt.system, user=self.prompt.user.format(code=item['code']))
+                    url = item['url']
+                    print(f'- Create document for {url}.')
+
+                merged_structures[path] = item_list        
+            else:
+                new_item_list = item_list
+                old_item_list = old_structures[path]
+                old_url_list = [i['url'] for i in old_item_list]
+                merged_item_list = []
+
+                for item in new_item_list:
+                    url = item['url']
+                    md5 = item['md5']
+
+                    if url in old_url_list:
+                        old_item = old_item_list[old_url_list.index(url)]
+                        if old_item['md5'] == md5:
+                            item['doc'] = old_item['doc']
+                        else:
+                            item['doc'] = self.llm(system=self.prompt.system, user=self.prompt.user.format(code=item['code']))
+                            print(f'- Update document for {url}.')
+                    else:
+                        item['doc'] = self.llm(system=self.prompt.system, user=self.prompt.user.format(code=item['code']))
+                        print(f'- Create document for {url}.')
+
+                    merged_item_list.append(item)
+
+                merged_structures[path] = merged_item_list
+
+            print()
+
+        self._write_doc(doc_dir, merged_structures)
+
+    def _write_doc(self, doc_dir, structures):
+        doc_dir = Path(doc_dir)
+        doc_dir.mkdir(parents=True, exist_ok=True)
+
+        time = datetime.now().strftime('%Y-%m-%d %H:%M')
+
+        for path, item_list in structures.items():
+            path = Path(path).absolute()
 
             doc_str = ''
-            doc_head = DOC_HEAD.format(filename=path.name, path=str(path))
+            doc_head = DOC_HEAD.format(filename=path.name, path=str(path), time=time)
             doc_str += doc_head + '\n'
-            for url, md5, code in zip(info['url_list'], info['md5_list'], info['code_list']):
-                print('\turl:', url)
-                print()
 
-                api_head = API_HEAD.format(url=url, md5=md5)
-                doc_str += api_head + '\n'
+            for item in item_list:
+                url = item['url']
+                md5 = item['md5']
+                code = item['code']
+                doc = item['doc']
 
-                api_content = self.llm(model='gpt-4o-mini', system=self.prompt.system, input=self.prompt.user.format(code=code))
-                doc_str += api_content + '\n'
+                api_head = API_HEAD.format(url=url, time=time)
+                doc_str += api_head + '\n' + doc + '\n'
 
-            doc_path = output / f'{path.stem}.md'
-            doc_path.write_text(doc_str)
+            doc_path = doc_dir / f'{path.stem}.md'
+            doc_path.write_text(doc_str, encoding='utf-8')
 
-
-if __name__ == '__main__':
-    import dotenv
-    dotenv.load_dotenv()
-
-    docapi = DocAPI.build_flask_doc()
-    docapi('../test/flask_server.py', '../test/docs')
+        doc_json_path = doc_dir / 'doc.json'
+        doc_json_path.write_text(json.dumps(structures, indent=2, ensure_ascii=False), encoding='utf-8')
