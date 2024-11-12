@@ -72,5 +72,3 @@ docapi update server.py ./docs --lang zh --config config.yaml
 - Support custom documentation templates
 - Multi-threaded request acceleration
 - Import to Postman
-- :w
-- 
