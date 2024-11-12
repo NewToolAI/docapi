@@ -22,7 +22,7 @@ pip install docapi -i https://pypi.org/simple
 #### github源码安装
 
 ```bash
-pip install git+https://github.com/Shulin-Zhang/docapi
+pip install -U git+https://github.com/Shulin-Zhang/docapi
 ```
 
 ## 使用方法

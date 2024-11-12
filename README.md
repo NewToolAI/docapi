@@ -16,7 +16,7 @@ pip install docapi
 
 or
 
-pip install docapi -i https://pypi.org/simple
+pip install -U docapi -i https://pypi.org/simple
 ```
 
 #### GitHub source code installation
