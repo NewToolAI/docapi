@@ -47,7 +47,7 @@ class Main:
 
     @staticmethod
     def serve(doc_dir='./docs'):
-        '''Under development'''
+        '''Under development.'''
 
 def run():
     return Fire(Main)

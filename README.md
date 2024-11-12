@@ -23,7 +23,7 @@ pip install docapi -i https://pypi.org/simple
 
 ### 注意
 
-**使用docapi时必须在api项目的环境中。***
+**使用docapi时必须在api项目的环境中。**
 
 ### 方法一
 ```bash
@@ -67,10 +67,12 @@ docapi update server.py./docs --lang zh --config config.yaml
 
 ## TODO
 
-- 支持文心一言、智普AI等大模型
+- 支持文心一言、智谱AI等大模型
 
 - 支持fastapi、django等框架
 
 - 支持文档在线web页面展示
 
 - 支持自定义文档模版
+
+- 多线程加速请求
