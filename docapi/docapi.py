@@ -1,17 +1,16 @@
 import json
 from pathlib import Path
 from datetime import datetime
+import yaml
 
 from llm import llm_builder
-from prompt import doc_prompt
+from prompt import doc_prompt_zh, doc_prompt_en
 from scanner import flask_scanner
 
 
 DOC_HEAD = '''# {filename}
 
 *PATH: `{path}`*
-
-*CREATE TIME: {time}*
 '''
 
 API_HEAD = '''## API: {url}
@@ -23,9 +22,22 @@ API_HEAD = '''## API: {url}
 class DocAPI:
 
     @classmethod
-    def build_flask(self):
-        llm = llm_builder.build_llm()
-        return self(llm, flask_scanner, doc_prompt)
+    def build_flask(self, lang='zh', config=None):
+        if config:
+            with open(config, 'r') as f:
+                config = yaml.load(f, Loader=yaml.FullLoader)
+                llm = llm_builder.build_llm(**config)
+        else:
+            llm = llm_builder.build_llm()
+
+        if lang == 'zh':
+            prompt = doc_prompt_zh
+        elif lang == 'en':
+            prompt = doc_prompt_en
+        else:
+            raise ValueError(f'Unknown language: {lang}')
+
+        return self(llm, flask_scanner, prompt)
 
     def __init__(self, llm, scanner, prompt):
         self.llm = llm
@@ -34,7 +46,7 @@ class DocAPI:
 
     def generate(self, app_path, doc_dir):
         doc_dir = Path(doc_dir)
-        doc_dir.mkdir(parents=True, exist_ok=False)
+        doc_dir.mkdir(parents=True, exist_ok=True)
         structures = self.scanner.scan(app_path)
 
         for path, item_list in structures.items():
@@ -109,10 +121,10 @@ class DocAPI:
         time = datetime.now().strftime('%Y-%m-%d %H:%M')
 
         for path, item_list in structures.items():
-            path = Path(path).absolute()
+            path = Path(path).resolve()
 
             doc_str = ''
-            doc_head = DOC_HEAD.format(filename=path.name, path=str(path), time=time)
+            doc_head = DOC_HEAD.format(filename=path.name, path=str(path))
             doc_str += doc_head + '\n'
 
             for item in item_list:

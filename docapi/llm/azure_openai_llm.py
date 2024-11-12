@@ -1,17 +1,17 @@
-from openai import OpenAI
+from openai import AzureOpenAI
 
 from llm.base_llm import BaseLLM
 
 
-class OpenAILLM(BaseLLM):
+class AzureOpenAILLM(BaseLLM):
 
-    def __init__(self, api_key=None, base_url=None, model='gpt-4o-mini'):
+    def __init__(self, api_key=None, endpoint=None, api_version=None, model='gpt-4o-mini'):
         self._model = model
 
-        if api_key and base_url:
-            self.client = OpenAI(base_url=base_url, api_key=api_key)
+        if api_key and endpoint and api_version:
+            self.client = AzureOpenAI(api_key=api_key, azure_endpoint=endpoint, api_version=api_version)
         else:
-            self.client = OpenAI()
+            self.client = AzureOpenAI()
 
         print(f'Using model: {self._model}\n')
 
