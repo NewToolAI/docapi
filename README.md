@@ -35,6 +35,8 @@ docapi update server.py
 ```
 
 ### 方法二
+
+生成配置文件
 ```bash
 docapi init
 ```

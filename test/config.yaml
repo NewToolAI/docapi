@@ -1,0 +1,17 @@
+# OpenAI
+
+openai_api_key: null
+
+openai_base_url: null
+
+openai_model: null
+
+# Azure OpenAI
+
+azure_api_key: null
+
+azure_endpoint: null
+
+azure_api_version: null
+
+azure_model: null

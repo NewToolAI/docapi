@@ -42,8 +42,9 @@ class Main:
             output (str, optional): Path to the output directory. Defaults to './'.
         '''
         raw_path = Path(__file__).parent / 'config.yaml'
-        shutil.copy(str(raw_path), output)
-        print(f'Create config file: {output}')
+        output = Path(output) / 'config.yaml'
+        shutil.copy(str(raw_path), str(output))
+        print(f'Create config file to {str(output)}')
 
     @staticmethod
     def serve(doc_dir='./docs'):
