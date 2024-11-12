@@ -45,7 +45,7 @@ docapi init
 ```yaml
 openai_api_key: xxx
 
-openai_base_url: 'http://ip:port:v1'
+openai_base_url: 'http://ip:port/v1'
 
 openai_model: 'qwen-plus'
 ```
