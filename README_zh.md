@@ -89,7 +89,7 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 
 - 支持fastapi、django等框架
 
-~~- 支持文档在线web页面展示~~
+- ~~支持文档在线web页面展示~~
 
 - 支持自定义文档模版
 
