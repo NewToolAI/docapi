@@ -79,7 +79,7 @@ docapi update server.py./docs --lang zh --config config.yaml
 
 - 支持fastapi、django等框架
 
-- 支持文档在线web页面展示
+~~- 支持文档在线web页面展示~~
 
 - 支持自定义文档模版
 

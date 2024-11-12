@@ -5,3 +5,4 @@ include config.yaml
 recursive-include llm *
 recursive-include prompt *
 recursive-include scanner *
+recursive-include web *

@@ -6,6 +6,7 @@ import yaml
 from docapi.llm import llm_builder
 from docapi.prompt import doc_prompt_zh, doc_prompt_en
 from docapi.scanner import flask_scanner
+from docapi.web import web_builder
 
 
 DOC_HEAD = '''# {filename}
@@ -113,6 +114,9 @@ class DocAPI:
             print()
 
         self._write_doc(doc_dir, merged_structures)
+
+    def serve(self, doc_dir, ip='127.0.0.1', port=8080):
+        web_builder.serve(doc_dir, ip, port)
 
     def _write_doc(self, doc_dir, structures):
         doc_dir = Path(doc_dir)

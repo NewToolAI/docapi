@@ -47,8 +47,19 @@ class Main:
         print(f'Create config file to {str(output)}')
 
     @staticmethod
-    def serve(doc_dir='./docs'):
-        '''Under development.'''
+    def serve(doc_dir='./docs', lang='zh', ip='127.0.0.1', port=8080, config=None):
+        '''Start the document web server.
+        
+        Args:
+            doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
+            lang (str, optional): Language of the documentation. Defaults to 'zh'.
+            ip (str, optional): IP address of the document web server. Defaults to '127.0.0.1'.
+            port (int, optional): Port of the document web server. Defaults to 8080.
+            config (str, optional): Path to the configuration file. Defaults to None.
+        '''
+        docapi = DocAPI.build_flask(lang, config)
+        docapi.serve(doc_dir, ip, port)
+
 
 def run():
     return Fire(Main)

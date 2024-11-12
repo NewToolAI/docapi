@@ -73,7 +73,7 @@ docapi update server.py ./docs --lang zh --config config.yaml
 ## TODO
 - Support models like Wenxin Yiyan, Zhipu AI, etc.
 - Support frameworks like FastAPI, Django, etc.
-- Support online web page display of documentation
+~~- Support online web page display of documentation~~
 - Support custom documentation templates
 - Multi-threaded request acceleration
 - Import to Postman
