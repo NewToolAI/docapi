@@ -1,7 +1,8 @@
 ![image](assets/logo.png)
 
-[![GitHub Code License](https://img.shields.io/github/license/Shulin-Zhang/docapi)](LICENSE)
-[![GitHub last commit](https://img.shields.io/github/last-commit/Shulin-Zhang/docapi)](https://github.com/Shulin-Zhang/docapi/commits/main)
+
+![Python Version](https://img.shields.io/badge/python-3.8+-aff.svg)
+![Lisence](https://img.shields.io/badge/license-Apache%202-dfd.svg)
 [![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
 
