@@ -1,6 +1,5 @@
 ![image](assets/logo.png)
 
-
 ![Python Version](https://img.shields.io/badge/python-3.8+-aff.svg)
 ![Lisence](https://img.shields.io/badge/license-Apache%202-dfd.svg)
 [![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
