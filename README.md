@@ -33,9 +33,14 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 ```bash
 export OPENAI_API_KEY=your_key
 
+# Generate API documentation
 docapi generate server.py
 
+# Update API documentation
 docapi update server.py
+
+# Start the web service
+docapi serve
 ```
 
 #### Method 2
@@ -57,9 +62,14 @@ openai_model: 'qwen-plus'
 ```
 
 ```bash
+# Generate API documentation
 docapi generate server.py ./docs --lang zh --config config.yaml
 
+# Update API documentation
 docapi update server.py ./docs --lang zh --config config.yaml
+
+# Start the web service
+docapi serve ./docs -h 127.0.0.1 -p 9000
 ```
 
 ## Supported Models

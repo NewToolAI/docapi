@@ -35,9 +35,14 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 ```bash
 export OPENAI_API_KEY=your_key
 
+# 生成文档
 docapi generate server.py
 
+# 更新文档
 docapi update server.py
+
+# 启动web服务
+docapi serve
 ```
 
 #### 方法二
@@ -56,9 +61,14 @@ openai_base_url: 'http://ip:port/v1'
 openai_model: 'qwen-plus'
 ```
 ```bash
+# 生成文档
 docapi generate server.py ./docs --lang zh --config config.yaml
 
+# 更新文档
 docapi update server.py./docs --lang zh --config config.yaml
+
+# 启动web服务
+docapi serve ./docs -h 127.0.0.1 -p 9000
 ```
 
 ## 支持模型
