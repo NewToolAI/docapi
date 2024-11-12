@@ -14,14 +14,6 @@ def build_web_config(doc_dir):
         'docs_dir': str(doc_dir.resolve()),
     }
 
-    index_path = doc_dir / 'index.md'
-    index_path.write_text(f'''## DocAPI is a Python package that automatically generates API documentation using LLM.
-
-## DocAPI是一个Python包，它使用LLM自动生成API文档。
-
-#### [Github: https://github.com/Shulin-Zhang/docapi](https://github.com/Shulin-Zhang/docapi)                      
-''')
-
     config['nav'].append({
         'Home': 'index.md'
     })
@@ -33,7 +25,6 @@ def build_web_config(doc_dir):
         config['nav'].append({
             path.stem: path.name
         })
-
 
     output = doc_dir /'web.yaml'
     with open(str(output), 'w', encoding='utf-8') as f:

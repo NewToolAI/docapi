@@ -9,31 +9,33 @@ class Main:
     '''DocAPI is a Python package that automatically generates API documentation using LLM. '''        
 
     @staticmethod
-    def generate(app_path, doc_dir='./docs', lang='zh', config=None):
+    def generate(app_path=None, doc_dir='./docs', lang='zh', auto_scan=False, config=None):
         '''Generate API documentation.
         Args:
             app_path (str): Path to the API service entry.
             doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
+            auto_scan(bool, optional): Whether to automatically scan the API service entry. Defaults to False.
             config (str, optional): Path to the configuration file. Defaults to None.
         '''
-        docapi = DocAPI.build_flask(lang, config)
-        docapi.generate(app_path, doc_dir)
+        docapi = DocAPI.build(lang, config)
+        docapi.generate(app_path, doc_dir, auto_scan=auto_scan)
 
     @staticmethod
-    def update(app_path, doc_dir='./docs', lang='zh', config=None):
+    def update(app_path=None, doc_dir='./docs', lang='zh', auto_scan=False, config=None):
         '''Update API documentation.
         Args:
             app_path (str): Path to the API service entry.
             doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
+            auto_scan(bool, optional): Whether to automatically scan the API service entry. Defaults to False.
             config (str, optional): Path to the configuration file. Defaults to None.
         '''
-        docapi = DocAPI.build_flask(lang, config)
+        docapi = DocAPI.build(lang, config)
         try:
-            docapi.update(app_path, doc_dir)
+            docapi.update(app_path, doc_dir, auto_scan=auto_scan)
         except FileNotFoundError:
-            docapi.generate(app_path, doc_dir)
+            docapi.generate(app_path, doc_dir, auto_scan=auto_scan)
 
     @staticmethod
     def init(output='./'):
@@ -41,13 +43,11 @@ class Main:
         Args:
             output (str, optional): Path to the output directory. Defaults to './'.
         '''
-        raw_path = Path(__file__).parent / 'config.yaml'
-        output = Path(output) / 'config.yaml'
-        shutil.copy(str(raw_path), str(output))
-        print(f'Create config file to {str(output)}')
+        docapi = DocAPI.build() 
+        docapi.init(output)
 
     @staticmethod
-    def serve(doc_dir='./docs', lang='zh', ip='127.0.0.1', port=8080, config=None):
+    def serve(doc_dir='./docs', ip='127.0.0.1', port=8080):
         '''Start the document web server.
         
         Args:
@@ -57,7 +57,7 @@ class Main:
             port (int, optional): Port of the document web server. Defaults to 8080.
             config (str, optional): Path to the configuration file. Defaults to None.
         '''
-        docapi = DocAPI.build_flask(lang, config)
+        docapi = DocAPI.build()
         docapi.serve(doc_dir, ip, port)
 
 

@@ -8,19 +8,25 @@ You are a master of API documentation generation, capable of creating relevant A
 - Ensure that the output strictly follows the example format below, output the document in English.
 
 # Output Example
-### Parameters: 
+
+## API - /users/create
+
+#### Update time
+{time}
+
+#### Parameters
 - `name` (string): Required. The name of the student.
 - `age` (integer): Required. The age of the student.
 
-### Return Values: 
+#### Return Values
 - `code` (integer): Return status code, where 0 indicates success.
 - `data` (object): Contains the created user information, including `name` and `age` fields.
 - `error` (string|null): Error message, null if successful.
 
-### Description: 
+#### Description
 This endpoint is used to create a new student system user. The user needs to provide a name and age, and the endpoint will return the created user information.
 
-### Code Example: 
+#### Code Example
 ```bash
 curl -X POST http://<api_url>/users/create \
 -H "Content-Type: application/json" \

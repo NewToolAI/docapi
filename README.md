@@ -26,7 +26,8 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 ```
 
 ## Usage
-**Note: You must be in the environment of your API project when using docapi.**
+
+**auto_scan is only valid for flask projects and must be used in the environment of api projects.**
 
 #### Method 1
 
@@ -34,10 +35,10 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 export OPENAI_API_KEY=your_key
 
 # Generate API documentation
-docapi generate server.py
+docapi generate server.py --auto_scan
 
 # Update API documentation
-docapi update server.py
+docapi update server.py --auto_scan
 
 # Start the web service
 docapi serve
@@ -54,40 +55,67 @@ docapi init
 Edit the config.yaml file
 
 ```yaml
+# API file list
+
+api_files: 
+  - 'flask_server.py'
+  - 'flask_api.py'
+
+# OpenAI
+
 openai_api_key: xxx
 
 openai_base_url: 'http://ip:port/v1'
 
 openai_model: 'qwen-plus'
+
+# Azure OpenAI
+
+azure_api_key: null
+
+azure_endpoint: null
+
+azure_api_version: null
+
+azure_model: null
 ```
 
 ```bash
 # Generate API documentation
-docapi generate server.py ./docs --lang zh --config config.yaml
+docapi generate --doc_dir ./docs --lang zh --config config.yaml
 
 # Update API documentation
-docapi update server.py ./docs --lang zh --config config.yaml
+docapi update --doc_dir ./docs --lang zh --config config.yaml
 
 # Start the web service
 docapi serve ./docs -h 127.0.0.1 -p 9000
 ```
 
 ## Supported Models
+
 - OpenAI
+
 - AzureOpenAI
+
 - Tongyi Qianwen
 
 ## Supported API Frameworks
-- Flask
+
+Manually specifying the API file list is valid for any API framework. Automatic scanning is only valid for the Flask framework.
 
 ## API Web Page
 
 ![image](assets/example1.png)
 
 ## TODO
-- Support models like Wenxin Yiyan, Zhipu AI, etc.
-- Support frameworks like FastAPI, Django, etc.
-- ~~Support online web page display of documentation~~
-- Support custom documentation templates
-- Multi-threaded request acceleration
-- Import to Postman
+- Supports large models such as Wenxin Yiyan and Zhipu AI.
+
+- Supports automatic scanning of frameworks such as fastapi and Django.
+
+- ~~Supports online web page display of documents.~~
+
+- Supports custom document templates.
+
+- Multithreading accelerates requests.
+
+- Import to postman.

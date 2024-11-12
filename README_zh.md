@@ -29,17 +29,18 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 #### 注意
 
-**使用docapi时必须在api项目的环境中。**
-
 #### 方法一
+
+**auto_scan只对flask项目有效，必须在api项目的环境中使用。**
+
 ```bash
 export OPENAI_API_KEY=your_key
 
 # 生成文档
-docapi generate server.py
+docapi generate server.py --auto_scan
 
 # 更新文档
-docapi update server.py
+docapi update server.py --auto_scan
 
 # 启动web服务
 docapi serve
@@ -47,25 +48,48 @@ docapi serve
 
 #### 方法二
 
+**手动指定API服务服务文件列表，对任何框架都有效**
+
 生成配置文件
+
 ```bash
 docapi init
 ```
 
 编辑`config.yaml`文件
+
 ```yaml
+# API file list
+
+api_files: 
+  - 'flask_server.py'
+  - 'flask_api.py'
+
+# OpenAI
+
 openai_api_key: xxx
 
 openai_base_url: 'http://ip:port/v1'
 
 openai_model: 'qwen-plus'
+
+# Azure OpenAI
+
+azure_api_key: null
+
+azure_endpoint: null
+
+azure_api_version: null
+
+azure_model: null
 ```
+
 ```bash
 # 生成文档
-docapi generate server.py ./docs --lang zh --config config.yaml
+docapi generate --doc_dir ./docs --lang zh --config config.yaml
 
 # 更新文档
-docapi update server.py./docs --lang zh --config config.yaml
+docapi update --doc_dir ./docs --lang zh --config config.yaml
 
 # 启动web服务
 docapi serve ./docs -h 127.0.0.1 -p 9000
@@ -81,7 +105,7 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 
 ## 支持API框架
 
-- Flask
+手动指定api文件列表对任何API框架都有效。自动扫描只对Flask框架有效。
 
 ## API Web页面
 
@@ -89,14 +113,14 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 
 ## TODO
 
-- 支持文心一言、智谱AI等大模型
+- 支持文心一言、智谱AI等大模型。
 
-- 支持fastapi、django等框架
+- 支持fastapi、django等框架的自动扫描。
 
-- ~~支持文档在线web页面展示~~
+- ~~支持文档在线web页面展示。~~
 
-- 支持自定义文档模版
+- 支持自定义文档模版。
 
-- 多线程加速请求
+- 多线程加速请求。
 
-- 导入到postman
+- 导入到postman。

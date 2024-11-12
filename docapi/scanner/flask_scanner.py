@@ -25,7 +25,7 @@ def scan(server_path):
 
     for rule in app.url_map.iter_rules():
         view_func = app.view_functions[rule.endpoint]
-        path = inspect.getfile(view_func)
+        path = str(Path(inspect.getfile(view_func)).resolve())
 
         if path.endswith('/site-packages/flask/app.py'):
             continue

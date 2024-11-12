@@ -1,3 +1,9 @@
+# API file list
+
+api_files: 
+  - 'xxx.py'
+  - 'abc/bcd.py'
+
 # OpenAI
 
 openai_api_key: null
