@@ -80,6 +80,10 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 ## Supported API Frameworks
 - Flask
 
+## API Web Page
+
+![image](assets/example1.png)
+
 ## TODO
 - Support models like Wenxin Yiyan, Zhipu AI, etc.
 - Support frameworks like FastAPI, Django, etc.

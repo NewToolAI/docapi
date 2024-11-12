@@ -83,6 +83,10 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 
 - Flask
 
+## API Web页面
+
+![image](assets/example1.png)
+
 ## TODO
 
 - 支持文心一言、智谱AI等大模型
