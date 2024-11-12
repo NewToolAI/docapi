@@ -7,7 +7,7 @@
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
 
 
-## docapi是一个用大模型自动生成API文档的python包，会自动扫描API的路由结构，生成或更新API文档。
+## docapi是一个用大模型自动生成API文档的python包，会自动扫描API的路由结构，生成或更新API文档，并给出代码调用示例。
 
 ## 安装
 
@@ -78,3 +78,5 @@ docapi update server.py./docs --lang zh --config config.yaml
 - 支持自定义文档模版
 
 - 多线程加速请求
+
+- 导入到postman
