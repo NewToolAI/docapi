@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-from llm.base_llm import BaseLLM
+from docapi.llm.base_llm import BaseLLM
 
 
 class OpenAILLM(BaseLLM):

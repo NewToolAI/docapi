@@ -1,7 +1,7 @@
 import os
 
-from llm.openai_llm import OpenAILLM
-from llm.azure_openai_llm import AzureOpenAILLM
+from docapi.llm.openai_llm import OpenAILLM
+from docapi.llm.azure_openai_llm import AzureOpenAILLM
 
 
 def build_llm(**kwargs):

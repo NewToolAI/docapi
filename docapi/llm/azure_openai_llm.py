@@ -1,6 +1,6 @@
 from openai import AzureOpenAI
 
-from llm.base_llm import BaseLLM
+from docapi.llm.base_llm import BaseLLM
 
 
 class AzureOpenAILLM(BaseLLM):

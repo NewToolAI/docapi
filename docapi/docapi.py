@@ -3,9 +3,9 @@ from pathlib import Path
 from datetime import datetime
 import yaml
 
-from llm import llm_builder
-from prompt import doc_prompt_zh, doc_prompt_en
-from scanner import flask_scanner
+from docapi.llm import llm_builder
+from docapi.prompt import doc_prompt_zh, doc_prompt_en
+from docapi.scanner import flask_scanner
 
 
 DOC_HEAD = '''# {filename}
