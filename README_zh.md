@@ -8,7 +8,7 @@
 
 \[ 中文 | [English](README.md) \]
 
-### DocAPI是一个用大模型自动生成API文档的python包，会自动扫描API的路由结构，生成或更新API文档，并给出代码调用示例。
+#### DocAPI是一个用大模型自动生成API文档的python包，会自动扫描API的路由结构，生成或更新API文档，并给出代码调用示例。
 
 ## 安装
 
@@ -20,13 +20,19 @@ pip install docapi
 pip install docapi -i https://pypi.org/simple
 ```
 
+#### github源码安装
+
+```bash
+pip install git+https://github.com/Shulin-Zhang/docapi
+```
+
 ## 使用方法
 
-### 注意
+#### 注意
 
 **使用docapi时必须在api项目的环境中。**
 
-### 方法一
+#### 方法一
 ```bash
 export OPENAI_API_KEY=your_key
 
@@ -35,7 +41,7 @@ docapi generate server.py
 docapi update server.py
 ```
 
-### 方法二
+#### 方法二
 
 生成配置文件
 ```bash

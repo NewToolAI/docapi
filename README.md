@@ -8,7 +8,7 @@
 
 \[ English | [中文](README_zh.md) \]
 
-### DocAPI is a Python package that automatically generates API documentation using large models. It scans the API route structure, generates or updates the documentation, and provides code call examples.
+#### DocAPI is a Python package that automatically generates API documentation using large models. It scans the API route structure, generates or updates the documentation, and provides code call examples.
 
 ## Installation
 
@@ -20,10 +20,16 @@ or
 pip install docapi -i https://pypi.org/simple
 ```
 
+#### GitHub source code installation
+
+```bash
+pip install git+https://github.com/Shulin-Zhang/docapi
+```
+
 ## Usage
 **Note: You must be in the environment of your API project when using docapi.**
 
-### Method 1
+#### Method 1
 
 ```bash
 export OPENAI_API_KEY=your_key
@@ -33,7 +39,7 @@ docapi generate server.py
 docapi update server.py
 ```
 
-### Method 2
+#### Method 2
 
 Generate the configuration file
 
@@ -57,15 +63,15 @@ docapi generate server.py ./docs --lang zh --config config.yaml
 docapi update server.py ./docs --lang zh --config config.yaml
 ```
 
-### Supported Models
+## Supported Models
 - OpenAI
 - AzureOpenAI
 - Tongyi Qianwen
 
-### Supported API Frameworks
+## Supported API Frameworks
 - Flask
 
-### TODO
+## TODO
 - Support models like Wenxin Yiyan, Zhipu AI, etc.
 - Support frameworks like FastAPI, Django, etc.
 - Support online web page display of documentation
