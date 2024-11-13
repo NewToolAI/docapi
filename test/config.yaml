@@ -1,8 +1,8 @@
 # API file list
 
 api_files: 
-  - 'xxx.py'
-  - 'abc/bcd.py'
+  - 'flask_server.py'
+  - 'flask_api.py'
 
 # OpenAI
 

@@ -9,33 +9,28 @@ class Main:
     '''DocAPI is a Python package that automatically generates API documentation using LLM. '''        
 
     @staticmethod
-    def generate(app_path=None, doc_dir='./docs', lang='zh', auto_scan=False, config=None):
+    def generate(app_path=None, doc_dir='./docs', lang='zh', config=None):
         '''Generate API documentation.
         Args:
             app_path (str): Path to the API service entry.
             doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
-            auto_scan(bool, optional): Whether to automatically scan the API service entry. Defaults to False.
             config (str, optional): Path to the configuration file. Defaults to None.
         '''
         docapi = DocAPI.build(lang, config)
-        docapi.generate(app_path, doc_dir, auto_scan=auto_scan)
+        docapi.generate(app_path, doc_dir)
 
     @staticmethod
-    def update(app_path=None, doc_dir='./docs', lang='zh', auto_scan=False, config=None):
+    def update(app_path=None, doc_dir='./docs', lang='zh', config=None):
         '''Update API documentation.
         Args:
             app_path (str): Path to the API service entry.
             doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
-            auto_scan(bool, optional): Whether to automatically scan the API service entry. Defaults to False.
             config (str, optional): Path to the configuration file. Defaults to None.
         '''
         docapi = DocAPI.build(lang, config)
-        try:
-            docapi.update(app_path, doc_dir, auto_scan=auto_scan)
-        except FileNotFoundError:
-            docapi.generate(app_path, doc_dir, auto_scan=auto_scan)
+        docapi.update(app_path, doc_dir)
 
     @staticmethod
     def init(output='./'):
