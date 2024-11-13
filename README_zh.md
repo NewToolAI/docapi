@@ -104,7 +104,9 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 
 ## 支持API框架
 
-手动指定api文件列表对任何API框架都有效。自动扫描只对Flask框架有效。
+- Flask
+  
+自动扫描只对Flask框架有效，推荐Flask服务上使用。
 
 ## API Web页面
 

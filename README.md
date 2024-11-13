@@ -102,7 +102,9 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 
 ## Supported API Frameworks
 
-Manually specifying the API file list is valid for any API framework. Automatic scanning is only valid for the Flask framework.
+- Flask
+  
+Automatic scanning is only valid for the Flask framework and is recommended for use on Flask services.
 
 ## API Web Page
 
