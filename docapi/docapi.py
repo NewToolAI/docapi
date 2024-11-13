@@ -295,6 +295,8 @@ class DocAPI:
             doc_head = DOC_HEAD.format(filename=path.name, path=str(path))
             doc_str += doc_head + '\n'
 
+            item_list = sorted(item_list, key=lambda x: x['url'])
+
             for item in item_list:
                 doc = item['doc']
                 doc_str += doc + '\n---\n\n'
