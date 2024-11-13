@@ -27,20 +27,18 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 ## 使用方法
 
-#### 注意
+#### 方法一(推荐)
 
-#### 方法一
-
-**auto_scan只对flask项目有效，必须在api项目的环境中使用。**
+**自动扫描路由结构，只对flask项目有效，必须在api项目的环境中使用。**
 
 ```bash
 export OPENAI_API_KEY=your_key
 
 # 生成文档
-docapi generate server.py --auto_scan
+docapi generate server.py
 
 # 更新文档
-docapi update server.py --auto_scan
+docapi update server.py
 
 # 启动web服务
 docapi serve

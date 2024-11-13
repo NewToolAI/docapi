@@ -27,18 +27,18 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 ## Usage
 
-**auto_scan is only valid for flask projects and must be used in the environment of api projects.**
+#### Method 1 (Recommended)
 
-#### Method 1
+**Automatically scan the routing structure. This is only valid for flask projects and must be used in the environment of api projects.**
 
 ```bash
 export OPENAI_API_KEY=your_key
 
 # Generate API documentation
-docapi generate server.py --auto_scan
+docapi generate server.py
 
 # Update API documentation
-docapi update server.py --auto_scan
+docapi update server.py
 
 # Start the web service
 docapi serve

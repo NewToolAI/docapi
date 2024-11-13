@@ -179,7 +179,7 @@ class DocAPI:
                 url = item['url']
                 md5 = item['md5']
                 code = item['code']
-                print(f'- Create document for {url}.')
+                print(f' - Create document for {url}.')
 
                 time = datetime.now().strftime('%Y-%m-%d %H:%M')
                 item['doc'] = self.llm(system=self.prompt.system.format(time=time), 
