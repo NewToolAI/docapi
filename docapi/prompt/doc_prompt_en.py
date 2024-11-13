@@ -30,13 +30,13 @@ This endpoint is used to create a new student system user. The user needs to pro
 ```bash
 curl -X POST http://<api_url>/users/create \
 -H "Content-Type: application/json" \
--d '{"name": "John Doe", "age": 20}'
+-d '{{"name": "John Doe", "age": 20}}'
 
 ```python
 import requests
 
 url = "http://<api_url>/users/create"
-data = {"name": "John Doe", "age": 20}
+data = {{"name": "John Doe", "age": 20}}
 
 response = requests.post(url, json=data)
 
