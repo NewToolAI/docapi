@@ -1,5 +1,3 @@
-import shutil
-from pathlib import Path
 from fire import Fire
 
 from docapi.docapi import DocAPI
@@ -44,7 +42,6 @@ class Main:
     @staticmethod
     def serve(doc_dir='./docs', ip='127.0.0.1', port=8080):
         '''Start the document web server.
-        
         Args:
             doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
