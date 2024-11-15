@@ -15,12 +15,14 @@ def scan(server_path):
     sys.path.pop(0)
     code = inspect.getsource(package)
 
-    for line in code.split('\n'):
-        if 'Flask(__name__)' in line:
-            app_name = line.split('=')[0].strip()
+    for name in dir(package):
+        module = getattr(package, name)
+
+        from flask import Flask
+        if isinstance(module, Flask):
+            app = module
             break
 
-    app = getattr(package, app_name)
     structures = {}
 
     for rule in app.url_map.iter_rules():

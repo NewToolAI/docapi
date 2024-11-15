@@ -6,11 +6,11 @@ api_files:
 
 # OpenAI
 
-openai_api_key: null
+openai_api_key: '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'
 
 openai_base_url: null
 
-openai_model: null
+openai_model: 'gpt-4o-mini'
 
 # Azure OpenAI
 
