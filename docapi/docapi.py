@@ -16,6 +16,13 @@ DOC_HEAD = '''# {filename}
 *Path: `{path}`*
 '''
 
+INDEX_STR = '''## DocAPI is a Python package that automatically generates API documentation using LLM.
+
+## DocAPI是一个Python包，它使用LLM自动生成API文档。
+
+#### [Github: https://github.com/Shulin-Zhang/docapi](https://github.com/Shulin-Zhang/docapi)                      
+'''
+
 
 class DocAPI:
 
@@ -308,10 +315,5 @@ class DocAPI:
 
     def _write_index(self, doc_dir):
         index_path = Path(doc_dir) / 'index.md'
-        index_path.write_text(f'''## DocAPI is a Python package that automatically generates API documentation using LLM.
-
-## DocAPI是一个Python包，它使用LLM自动生成API文档。
-
-#### [Github: https://github.com/Shulin-Zhang/docapi](https://github.com/Shulin-Zhang/docapi)                      
-''')
+        index_path.write_text(INDEX_STR, encoding='utf-8')
 
