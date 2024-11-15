@@ -45,6 +45,25 @@ docapi update server.py
 docapi serve
 ```
 
+或
+
+```bash
+export OPENAI_API_KEY=your_key
+
+export OPENAI_API_BASE=api_base_url
+
+export OPENAI_API_MODEL=model_name
+
+# 生成文档
+docapi generate server.py
+
+# 更新文档
+docapi update server.py
+
+# 启动web服务
+docapi serve
+```
+
 #### Method 2
 
 Generate the configuration file
