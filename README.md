@@ -8,7 +8,7 @@
 
 \[ English | [中文](README_zh.md) \]
 
-#### DocAPI is a Python package that automatically generates API documentation using large models. It scans the API route structure, generates or updates the documentation, and provides code call examples.
+DocAPI is a Python package that automatically generates API documentation using a large model. It automatically scans the API routing structure, generates or updates API documentation, gives code call examples, and deploys and displays documentation using web pages.
 
 ## Installation
 

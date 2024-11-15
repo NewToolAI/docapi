@@ -8,7 +8,7 @@
 
 \[ 中文 | [English](README.md) \]
 
-#### DocAPI是一个用大模型自动生成API文档的python包，会自动扫描API的路由结构，生成或更新API文档，并给出代码调用示例。
+DocAPI是一个用大模型自动生成API文档的python包，会自动扫描API的路由结构，生成或更新API文档，给出代码调用示例，并用web页面部署展示文档。
 
 ## 安装
 
