@@ -14,9 +14,11 @@
 
 ```bash
 pip install docapi
+```
 
 或
 
+```bash
 pip install -U docapi -i https://pypi.org/simple
 ```
 

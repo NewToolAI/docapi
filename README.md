@@ -14,9 +14,11 @@
 
 ```bash
 pip install docapi
+```
 
 or
 
+```bash
 pip install -U docapi -i https://pypi.org/simple
 ```
 
@@ -45,7 +47,7 @@ docapi update server.py
 docapi serve
 ```
 
-或
+or
 
 ```bash
 export OPENAI_API_KEY=your_key
