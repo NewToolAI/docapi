@@ -8,7 +8,19 @@
 
 \[ English | [中文](README_zh.md) \]
 
-DocAPI is a Python package that automatically generates API documentation using a large model. It automatically scans the API routing structure, generates or updates API documentation, gives code call examples, and deploys and displays documentation using web pages.
+DocAPI is a Python package that uses LLM to automatically generate API documentation.
+
+## Features
+
+- Supports Flask framework to automatically scan the routing structure of API services;
+
+- Supports large models such as Tongyi Qianwen, OpenAI, Azure OpenAI, etc.;
+
+- Supports Chinese and English;
+
+- Supports automatic document generation and partial document update;
+
+- Supports web page deployment to display API documentation.
 
 ## Installation
 

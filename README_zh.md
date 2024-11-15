@@ -8,7 +8,19 @@
 
 \[ 中文 | [English](README.md) \]
 
-DocAPI是一个用大模型自动生成API文档的python包，会自动扫描API的路由结构，生成或更新API文档，给出代码调用示例，并用web页面部署展示文档。
+DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包。
+
+## 特性
+
+- 支持Flask框架自动扫描API服务的路由结构；
+  
+- 支持通义千问、OpenAI、Azure OpenAI等大模型；
+  
+- 支持中文、英文；
+
+- 支持自动生成文档和局部更新文档；
+
+- 支持web页面部署展示API文档。
 
 ## 安装
 
