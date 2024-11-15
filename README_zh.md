@@ -12,13 +12,13 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包。
 
 ## 特性
 
-- 支持Flask框架自动扫描API服务的路由结构；
+- 对于Flask框架支持自动扫描API服务的路由结构；
   
-- 支持通义千问、OpenAI、Azure OpenAI等大模型；
+- 支持通义千问、OpenAI、Azure OpenAI、开源模型等；
   
-- 支持中文、英文；
-
 - 支持自动生成文档和局部更新文档；
+
+- 支持中文、英文文档；
 
 - 支持web页面部署展示API文档。
 

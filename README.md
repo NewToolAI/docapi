@@ -12,13 +12,13 @@ DocAPI is a Python package that uses LLM to automatically generate API documenta
 
 ## Features
 
-- Supports Flask framework to automatically scan the routing structure of API services;
+- The Flask framework supports automatic scanning of the routing structure of API services;
 
-- Supports large models such as Tongyi Qianwen, OpenAI, Azure OpenAI, etc.;
-
-- Supports Chinese and English;
+- Supports Tongyi Qianwen, OpenAI, Azure OpenAI, open source models, etc.
 
 - Supports automatic document generation and partial document update;
+
+- Support Chinese and English documents;
 
 - Supports web page deployment to display API documentation.
 
