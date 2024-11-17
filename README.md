@@ -53,10 +53,10 @@ export OPENAI_API_KEY=api_key
 export OPENAI_API_MODEL=gpt-4o-mini
 
 # Generate documents
-docapi generate server.py
+docapi generate server.py --lang en
 
 # Update documents
-docapi update server.py
+docapi update server.py --lang en
 
 # Start web service
 docapi serve
@@ -71,10 +71,10 @@ export OPENAI_API_BASE=api_base_url
 export OPENAI_API_MODEL=model_name
 
 # Generate documents
-docapi generate server.py
+docapi generate server.py --lang en
 
 # Update documents
-docapi update server.py
+docapi update server.py --lang en
 
 # Start web service
 docapi serve
@@ -89,10 +89,10 @@ export QIANFAN_SECRET_KEY=secret_key
 export QIANFAN_MODEL=ERNIE-3.5-8K
 
 # Generate documents
-docapi generate server.py
+docapi generate server.py --lang en
 
 # Update documents
-docapi update server.py
+docapi update server.py --lang en
 
 # Start web service
 docapi serve
@@ -152,10 +152,10 @@ azure_model: null
 
 ```bash
 # Generate API documentation
-docapi generate --doc_dir ./docs --lang zh --config config.yaml
+docapi generate --doc_dir ./docs --lang zh --config config.yaml --lang en
 
 # Update API documentation
-docapi update --doc_dir ./docs --lang zh --config config.yaml
+docapi update --doc_dir ./docs --lang zh --config config.yaml --lang en
 
 # Start the web service
 docapi serve ./docs -h 127.0.0.1 -p 9000
