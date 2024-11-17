@@ -14,7 +14,7 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包。
 
 - 对于Flask框架支持自动扫描API服务的路由结构；
   
-- 支持通义千问、OpenAI、Azure OpenAI、开源模型等；
+- 支持多种国内外商业和开源模型等；
   
 - 支持自动生成文档和局部更新文档；
 
@@ -46,8 +46,11 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 **自动扫描路由结构，只对flask项目有效，必须在api项目的环境中使用。**
 
+OpenAI:
 ```bash
-export OPENAI_API_KEY=your_key
+export OPENAI_API_KEY=api_key
+
+export OPENAI_API_MODEL=gpt-4o-mini
 
 # 生成文档
 docapi generate server.py
@@ -59,14 +62,47 @@ docapi update server.py
 docapi serve
 ```
 
-或
-
+千问, 开源模型:
 ```bash
-export OPENAI_API_KEY=your_key
+export OPENAI_API_KEY=api_key
 
 export OPENAI_API_BASE=api_base_url
 
 export OPENAI_API_MODEL=model_name
+
+# 生成文档
+docapi generate server.py
+
+# 更新文档
+docapi update server.py
+
+# 启动web服务
+docapi serve
+```
+
+百度千帆:
+```bash
+export QIANFAN_ACCESS_KEY=access_key
+
+export QIANFAN_SECRET_KEY=secret_key
+
+export QIANFAN_MODEL=ERNIE-3.5-8K
+
+# 生成文档
+docapi generate server.py
+
+# 更新文档
+docapi update server.py
+
+# 启动web服务
+docapi serve
+```
+
+智谱AI:
+```bash
+export ZHIPUAI_API_KEY=api_key
+
+export ZHIPUAI_MODEL=glm-4-flash
 
 # 生成文档
 docapi generate server.py
@@ -127,6 +163,10 @@ docapi update --doc_dir ./docs --lang zh --config config.yaml
 docapi serve ./docs -h 127.0.0.1 -p 9000
 ```
 
+## 更新日志
+
+- [2024-11-17] 支持智谱AI，百度千帆模型，优化文档结构，增加javascript代码示例。
+
 ## 支持模型
 
 - OpenAI
@@ -134,6 +174,12 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 - AzureOpenAI
 
 - 通义千问
+
+- 智谱AI
+
+- 百度千帆
+
+- 开源模型
 
 ## 支持API框架
 
@@ -147,7 +193,7 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 
 ## TODO
 
-- 支持文心一言、智谱AI等大模型。
+- ~~支持文心一言、智谱AI等大模型。~~
 
 - 支持fastapi、django等框架的自动扫描。
 

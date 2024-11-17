@@ -3,6 +3,7 @@
 __pycache__
 .DS_Store
 test/docs
+test/config.yaml
 docapi.egg-info
 dist
 build

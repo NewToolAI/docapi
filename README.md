@@ -18,7 +18,7 @@ DocAPI is a Python package that uses LLM to automatically generate API documenta
 
 - Supports automatic document generation and partial document update;
 
-- Support Chinese and English documents;
+- Supports Chinese and English documents;
 
 - Supports web page deployment to display API documentation.
 
@@ -46,35 +46,71 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 **Automatically scan the routing structure. This is only valid for flask projects and must be used in the environment of api projects.**
 
+OpenAI:
 ```bash
-export OPENAI_API_KEY=your_key
+export OPENAI_API_KEY=api_key
 
-# Generate API documentation
+export OPENAI_API_MODEL=gpt-4o-mini
+
+# Generate documents
 docapi generate server.py
 
-# Update API documentation
+# Update documents
 docapi update server.py
 
-# Start the web service
+# Start web service
 docapi serve
 ```
 
-or
-
+Qianwen, open source model:
 ```bash
-export OPENAI_API_KEY=your_key
+export OPENAI_API_KEY=api_key
 
 export OPENAI_API_BASE=api_base_url
 
 export OPENAI_API_MODEL=model_name
 
-# 生成文档
+# Generate documents
 docapi generate server.py
 
-# 更新文档
+# Update documents
 docapi update server.py
 
-# 启动web服务
+# Start web service
+docapi serve
+```
+
+Baidu Qianfan:
+```bash
+export QIANFAN_ACCESS_KEY=access_key
+
+export QIANFAN_SECRET_KEY=secret_key
+
+export QIANFAN_MODEL=ERNIE-3.5-8K
+
+# Generate documents
+docapi generate server.py
+
+# Update documents
+docapi update server.py
+
+# Start web service
+docapi serve
+```
+
+ZhipuAI:
+```bash
+export ZHIPUAI_API_KEY=api_key
+
+export ZHIPUAI_MODEL=glm-4-flash
+
+# Generate documents
+docapi generate server.py
+
+# Update documents
+docapi update server.py
+
+# Start web service
 docapi serve
 ```
 
@@ -125,6 +161,10 @@ docapi update --doc_dir ./docs --lang zh --config config.yaml
 docapi serve ./docs -h 127.0.0.1 -p 9000
 ```
 
+## Update log
+
+- [2024-11-17] Support Zhipu AI, Baidu Qianfan model, optimize document structure, and add javascript code examples.
+
 ## Supported Models
 
 - OpenAI
@@ -132,6 +172,12 @@ docapi serve ./docs -h 127.0.0.1 -p 9000
 - AzureOpenAI
 
 - Tongyi Qianwen
+
+- Zhipu AI
+
+- Baidu Qianfan
+
+- Open source model
 
 ## Supported API Frameworks
 
