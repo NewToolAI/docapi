@@ -1,8 +1,6 @@
 import json
 from pathlib import Path
 from datetime import datetime
-import hashlib
-import yaml
 import shutil
 
 from docapi.llm import llm_builder
@@ -27,16 +25,8 @@ INDEX_STR = '''## DocAPI is a Python package that automatically generates API do
 class DocAPI:
 
     @classmethod
-    def build(self, lang=None, config=None):
-        if config:
-            with open(config, 'r') as f:
-                config = yaml.load(f, Loader=yaml.FullLoader)
-                llm = llm_builder.build_llm(**config)
-        else:
-            llm = llm_builder.build_llm()
-
-            if llm is None:
-                ValueError('No LLM provider found')
+    def build(self, lang=None):
+        llm = llm_builder.build_llm()
 
         if lang == 'zh':
             prompt = doc_prompt_zh
@@ -47,13 +37,12 @@ class DocAPI:
         else:
             raise ValueError(f'Unknown language: {lang}')
 
-        return self(llm, flask_scanner, prompt, config)
+        return self(llm, flask_scanner, prompt)
 
-    def __init__(self, llm, scanner, prompt, config=None):
+    def __init__(self, llm, scanner, prompt):
         self.llm = llm
         self.scanner = scanner
         self.prompt = prompt
-        self.config = config
 
     def init(self, output):
         raw_path = Path(__file__).parent / 'config.yaml'
@@ -62,118 +51,15 @@ class DocAPI:
         print(f'Create config file to {str(output)}')
 
     def generate(self, file_path, doc_dir):
-        if file_path:
-            self.auto_generate(file_path, doc_dir)
-        elif self.config:
-            self.manual_generate(doc_dir)
-        else:
-            raise Exception('Input is wrong.')
-
+        self.auto_generate(file_path, doc_dir)
         self._write_index(doc_dir)
 
     def update(self, file_path, doc_dir):
-        if file_path:
-            self.auto_update(file_path, doc_dir)
-        elif self.config:
-            self.manual_update(doc_dir)
-        else:
-            raise Exception('Input is wrong.')
-
+        self.auto_update(file_path, doc_dir)
         self._write_index(doc_dir)
 
     def serve(self, doc_dir, ip='127.0.0.1', port=8080):
         web_builder.serve(doc_dir, ip, port)
-
-    def manual_generate(self, doc_dir):
-        doc_dir = Path(doc_dir)
-        doc_json_file = doc_dir / 'doc.json'
-        result = []
-
-        for doc_file in doc_dir.glob('*.md'):
-            doc_file.unlink()
-
-        for path in self.config['api_files']:
-            result.append(self.file_generate(path, doc_dir))
-            print(f'Create document for {Path(path).name}')
-
-        doc_json_file.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
-
-    def manual_update(self, doc_dir):
-        doc_dir = Path(doc_dir)
-        doc_json_file = doc_dir / 'doc.json'
-
-        old_item_list = json.loads(doc_json_file.read_text(encoding='utf-8'))
-        old_path_set = {i['path'] for i in old_item_list}
-        new_path_set = {str(Path(i).resolve()) for i in self.config['api_files']}
-
-        del_path_set = old_path_set - new_path_set
-        add_path_set = new_path_set - old_path_set
-        keep_path_set = old_path_set & new_path_set
-
-        result = []
-
-        for path in sorted(del_path_set):
-            print(f'Delete document for {Path(path).name}')
-
-        for path in sorted(add_path_set):
-            result.append(self.file_generate(path, str(doc_dir)))
-            print(f'Add document for {Path(path).name}')
-
-        for path in sorted(keep_path_set):
-            result.append(self.file_update(path, str(doc_dir)))
-
-        doc_json_file.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
-
-    def file_generate(self, file_path, doc_dir):
-        file_path = Path(file_path)
-        doc_dir = Path(doc_dir)
-        doc_file = (doc_dir / file_path.name).with_suffix('.md')
-
-        code = file_path.read_text(encoding='utf-8')
-        time = datetime.now().strftime('%Y-%m-%d %H:%M')
-        doc = self.llm(system=self.prompt.system.format(time=time), 
-                       user=self.prompt.user.format(code=code))
-        md5 = hashlib.md5(code.encode('utf-8')).hexdigest()
-        doc = DOC_HEAD.format(filename=file_path.name, path=str(file_path.resolve())) + '\n' + doc
-
-        item = {
-            'path': str(file_path.resolve()),
-            'code': code,
-            'md5': md5,
-            'doc': doc
-        }
-        doc_file.write_text(doc, encoding='utf-8')
-        return item
-
-    def file_update(self, file_path, doc_dir):
-        file_path = Path(file_path)
-        doc_dir = Path(doc_dir)
-        doc_json_file = doc_dir / 'doc.json'
-
-        code = file_path.read_text(encoding='utf-8')
-        new_md5 = hashlib.md5(code.encode('utf-8')).hexdigest()
-        old_item_list = json.loads(doc_json_file.read_text(encoding='utf-8'))
-
-        for item in old_item_list:
-            old_md5 = item['md5']
-            old_path = item['path']
-            old_doc = item['doc']
-
-            if str(file_path.resolve()) == old_path and new_md5 == old_md5:
-                doc_file = doc_dir / f'{file_path.stem}.md'
-                doc_file.write_text(old_doc, encoding='utf-8')
-                print(f'Keep document for {file_path.name}.')
-                return item
-            elif str(file_path.resolve()) == old_path:
-                result = self.file_generate(str(file_path), str(doc_dir))
-                print(f'Update document for {file_path.name}')
-                return result
-            else:
-                pass
-        else:
-            result = self.file_generate(str(file_path), str(doc_dir))
-            print(f'Add document for {file_path.name}')
-            return result
 
     def auto_generate(self, app_path, doc_dir):
         doc_dir = Path(doc_dir)

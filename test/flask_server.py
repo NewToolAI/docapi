@@ -16,10 +16,10 @@ def get_users():
     return jsonify(code=0, data=data, error=None)
 
 
-# @app.route('/users/<int:user_id>', methods=['GET'])
-# def get_user(user_id):
-#     '''获取用户信息'''
-#     return f"User {user_id}"
+@app.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    '''获取用户信息'''
+    return f"User {user_id}"
 
 
 # 创建学生系统用户

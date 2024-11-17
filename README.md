@@ -14,7 +14,7 @@ DocAPI is a Python package that uses LLM to automatically generate API documenta
 
 - The Flask framework supports automatic scanning of the routing structure of API services;
 
-- Supports a variety of domestic and foreign commercial and open source models;
+- Supports a variety of mainstream commercial and open source models at home and abroad;
 
 - Supports automatic document generation and partial document update;
 
@@ -41,8 +41,6 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 ```
 
 ## Usage
-
-#### Method 1 (Recommended)
 
 **Automatically scan the routing structure. This is only valid for flask projects and must be used in the environment of api projects.**
 
@@ -114,56 +112,9 @@ docapi update server.py
 docapi serve
 ```
 
-#### Method 2
-
-Generate the configuration file
-
-```bash
-docapi init
-```
-
-Edit the config.yaml file
-
-```yaml
-# API file list
-
-api_files: 
-  - 'flask_server.py'
-  - 'flask_api.py'
-
-# OpenAI
-
-openai_api_key: xxx
-
-openai_base_url: 'http://ip:port/v1'
-
-openai_model: 'qwen-plus'
-
-# Azure OpenAI
-
-azure_api_key: null
-
-azure_endpoint: null
-
-azure_api_version: null
-
-azure_model: null
-```
-
-```bash
-# Generate API documentation
-docapi generate --doc_dir ./docs --lang zh --config config.yaml --lang en
-
-# Update API documentation
-docapi update --doc_dir ./docs --lang zh --config config.yaml --lang en
-
-# Start the web service
-docapi serve ./docs -h 127.0.0.1 -p 9000
-```
-
 ## Changelog
 
-- [2024-11-17] Support Zhipu AI, Baidu Qianfan model, optimize document structure, and add javascript code examples.
+- [2024-11-17] Support Zhipu AI, Baidu Qianfan model, optimize document structure, and add javascript code examples; Remove the execution mode that uses the configuration file.
 
 ## Supported Models
 

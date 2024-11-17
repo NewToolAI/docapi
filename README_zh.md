@@ -14,7 +14,7 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包。
 
 - 对于Flask框架支持自动扫描API服务的路由结构；
   
-- 支持多种国内外商业和开源模型；
+- 支持多种国内外主流商业和开源模型；
   
 - 支持自动生成文档和局部更新文档；
 
@@ -41,8 +41,6 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 ```
 
 ## 使用方法
-
-#### 方法一(推荐)
 
 **自动扫描路由结构，只对flask项目有效，必须在api项目的环境中使用。**
 
@@ -114,58 +112,9 @@ docapi update server.py
 docapi serve
 ```
 
-#### 方法二
-
-**手动指定API服务服务文件列表，对任何框架都有效**
-
-生成配置文件
-
-```bash
-docapi init
-```
-
-编辑`config.yaml`文件
-
-```yaml
-# API file list
-
-api_files: 
-  - 'flask_server.py'
-  - 'flask_api.py'
-
-# OpenAI
-
-openai_api_key: xxx
-
-openai_base_url: 'http://ip:port/v1'
-
-openai_model: 'qwen-plus'
-
-# Azure OpenAI
-
-azure_api_key: null
-
-azure_endpoint: null
-
-azure_api_version: null
-
-azure_model: null
-```
-
-```bash
-# 生成文档
-docapi generate --doc_dir ./docs --lang zh --config config.yaml
-
-# 更新文档
-docapi update --doc_dir ./docs --lang zh --config config.yaml
-
-# 启动web服务
-docapi serve ./docs -h 127.0.0.1 -p 9000
-```
-
 ## 更新日志
 
-- [2024-11-17] 支持智谱AI，百度千帆模型，优化文档结构，增加javascript代码示例。
+- [2024-11-17] 支持智谱AI，百度千帆模型，优化文档结构，增加javascript代码示例；去除使用配置文件的执行方式。
 
 ## 支持模型
 
