@@ -191,7 +191,7 @@ Automatic scanning is only valid for the Flask framework and is recommended for 
 
 ## TODO
 
-- Supports large models such as Wenxin Yiyan and Zhipu AI.
+- ~Supports large models such as Wenxin Yiyan and Zhipu AI.~
 
 - Supports automatic scanning of frameworks such as fastapi and Django.
 
