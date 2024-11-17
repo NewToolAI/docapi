@@ -21,3 +21,17 @@ azure_endpoint: null
 azure_api_version: null
 
 azure_model: null
+
+# 百度千帆
+
+qianfan_access_key: null
+
+qianfan_secret_key: null
+
+qianfan_model: null
+
+# 智谱
+
+zhisuan_access_key: null
+
+zhipuai_model: null

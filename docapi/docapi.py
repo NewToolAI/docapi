@@ -35,6 +35,9 @@ class DocAPI:
         else:
             llm = llm_builder.build_llm()
 
+            if llm is None:
+                ValueError('No LLM provider found')
+
         if lang == 'zh':
             prompt = doc_prompt_zh
         elif lang == 'en':

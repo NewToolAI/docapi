@@ -193,7 +193,7 @@ Automatic scanning is only valid for the Flask framework and is recommended for 
 
 - ~Supports large models such as Wenxin Yiyan and Zhipu AI.~
 
-- Supports automatic scanning of frameworks such as fastapi and Django.
+- Supports automatic scanning of frameworks such as Django.
 
 - ~~Supports online web page display of documents.~~
 

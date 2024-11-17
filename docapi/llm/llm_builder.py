@@ -36,4 +36,4 @@ def build_llm(**kwargs):
         return ZhipuLLM(api_key=api_key, model=model)
 
     else:
-        raise ValueError('No LLM provider found')
+        pass
