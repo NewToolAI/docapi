@@ -3,3 +3,4 @@ fire==0.7.0
 pyyaml==6.0.2
 mkdocs==1.6.1
 qianfan==0.4.12
+zhipuai==2.1.5.20230904
