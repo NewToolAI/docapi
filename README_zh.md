@@ -25,7 +25,7 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包。
 ## 安装
 
 ```bash
-pip install docapi
+pip install -U docapi
 ```
 
 或
@@ -60,7 +60,27 @@ docapi update server.py
 docapi serve
 ```
 
-千问, 开源模型:
+Azure OpenAI:
+```bash
+export AZURE_OPENAI_API_KEY=api_key
+
+export AZURE_OPENAI_ENDPOINT=endpoint
+
+export OPENAI_API_VERSION=version
+
+export AZURE_OPENAI_MODEL=gpt-4o-mini
+
+# 生成文档
+docapi generate server.py
+
+# 更新文档
+docapi update server.py
+
+# 启动web服务
+docapi serve
+```
+
+千问, 开源模型部署:
 ```bash
 export OPENAI_API_KEY=api_key
 
@@ -110,6 +130,27 @@ docapi update server.py
 
 # 启动web服务
 docapi serve
+```
+
+## 代码调用
+```python
+import os
+from docapi import DocAPI, llm_builder, prompt
+from docapi.scanner import flask_scanner
+
+os.environ['OPENAI_API_KEY'] = "api_key"
+os.environ['OPENAI_API_BASE'] = "api_base"
+os.environ['OPENAI_API_MODEL'] = "model_name"
+
+docapi = DocAPI.build(lang="zh")
+
+# docapi = DocAPI(llm=llm_builder.build_llm(), scanner=flask_scanner, prompt=prompt.doc_prompt_zh)
+
+docapi.generate("flask_project/flask_server.py", "docs")
+
+# docapi.update("flask_project/flask_server.py", "docs")
+
+# docapi.serve("docs", ip="127.0.0.1", port=8080)
 ```
 
 ## 更新日志

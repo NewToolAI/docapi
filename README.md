@@ -25,7 +25,7 @@ DocAPI is a Python package that uses LLM to automatically generate API documenta
 ## Installation
 
 ```bash
-pip install docapi
+pip install -U docapi
 ```
 
 or
@@ -60,7 +60,27 @@ docapi update server.py --lang en
 docapi serve
 ```
 
-Qianwen, open source model:
+Azure OpenAI:
+```bash
+export AZURE_OPENAI_API_KEY=api_key
+
+export AZURE_OPENAI_ENDPOINT=endpoint
+
+export OPENAI_API_VERSION=version
+
+export AZURE_OPENAI_MODEL=gpt-4o-mini
+
+# 生成文档
+docapi generate server.py
+
+# 更新文档
+docapi update server.py
+
+# 启动web服务
+docapi serve
+```
+
+Qianwen, Open source deployment:
 ```bash
 export OPENAI_API_KEY=api_key
 
@@ -112,6 +132,27 @@ docapi update server.py
 docapi serve
 ```
 
+## Code calls
+```python
+import os
+from docapi import DocAPI, llm_builder, prompt
+from docapi.scanner import flask_scanner
+
+os.environ['OPENAI_API_KEY'] = "api_key"
+os.environ['OPENAI_API_BASE'] = "api_base"
+os.environ['OPENAI_API_MODEL'] = "model_name"
+
+docapi = DocAPI.build(lang="en")
+
+# docapi = DocAPI(llm=llm_builder.build_llm(), scanner=flask_scanner, prompt=prompt.doc_prompt_en)
+
+docapi.generate("flask_project/flask_server.py", "docs")
+
+# docapi.update("flask_project/flask_server.py", "docs")
+
+# docapi.serve("docs", ip="127.0.0.1", port=8080)
+```
+
 ## Changelog
 
 - [2024-11-17] Support Zhipu AI, Baidu Qianfan model, optimize document structure, and add javascript code examples; Remove the execution mode that uses the configuration file.
@@ -142,7 +183,7 @@ Automatic scanning is only valid for the Flask framework and is recommended for 
 
 ## TODO
 
-- ~Supports large models such as Wenxin Yiyan and Zhipu AI.~
+- ~~Supports large models such as Wenxin Yiyan and Zhipu AI.~~
 
 - Supports automatic scanning of frameworks such as Django.
 

@@ -9,7 +9,7 @@ You are a master of API documentation generation, capable of creating relevant A
 
 # Output Example
 
-### API - /users/create
+### POST - /users/create
 
 ##### Update time
 {time}

@@ -9,7 +9,7 @@ system = '''# 任务描述
 
 # 输出示例
 
-### API - /users/create
+### POST - /users/create
 
 ##### 更新时间
 {time}

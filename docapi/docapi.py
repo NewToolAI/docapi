@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 from datetime import datetime
-import shutil
 
 from docapi.llm import llm_builder
 from docapi.prompt import doc_prompt_zh, doc_prompt_en
@@ -25,30 +24,24 @@ INDEX_STR = '''## DocAPI is a Python package that automatically generates API do
 class DocAPI:
 
     @classmethod
-    def build(self, lang=None):
-        llm = llm_builder.build_llm()
-
+    def build(cls, lang=None):
         if lang == 'zh':
-            prompt = doc_prompt_zh
+            llm = llm_builder.build_llm()
+            obj = cls(llm, flask_scanner, doc_prompt_zh)
         elif lang == 'en':
-            prompt = doc_prompt_en
-        elif lang == None:
-            prompt = None
+            llm = llm_builder.build_llm()
+            obj = cls(llm, flask_scanner, doc_prompt_en)
+        elif lang is None:
+            obj = cls(None, None, None)
         else:
             raise ValueError(f'Unknown language: {lang}')
 
-        return self(llm, flask_scanner, prompt)
+        return obj
 
     def __init__(self, llm, scanner, prompt):
         self.llm = llm
         self.scanner = scanner
         self.prompt = prompt
-
-    def init(self, output):
-        raw_path = Path(__file__).parent / 'config.yaml'
-        output = Path(output) / 'config.yaml'
-        shutil.copy(str(raw_path), str(output))
-        print(f'Create config file to {str(output)}')
 
     def generate(self, file_path, doc_dir):
         self.auto_generate(file_path, doc_dir)
@@ -160,7 +153,7 @@ class DocAPI:
 
                 if old_item['md5'] == md5:
                     item['doc'] = old_item['doc']
-                    print(f' - Keep document for {url}.')
+                    print(f' - Reserve document for {url}.')
                 else:
                     time = datetime.now().strftime('%Y-%m-%d %H:%M')
                     item['doc'] = self.llm(system=self.prompt.system.format(time=time),
@@ -204,5 +197,5 @@ class DocAPI:
 
     def _write_index(self, doc_dir):
         index_path = Path(doc_dir) / 'index.md'
-        index_path.write_text(INDEX_STR, encoding='utf-8')
-
+        if not index_path.exists():
+            index_path.write_text(INDEX_STR, encoding='utf-8')
