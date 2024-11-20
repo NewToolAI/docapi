@@ -144,7 +144,10 @@ os.environ['OPENAI_API_MODEL'] = "model_name"
 
 docapi = DocAPI.build(lang="zh")
 
-# docapi = DocAPI(llm=llm_builder.build_llm(), scanner=flask_scanner, prompt=prompt.doc_prompt_zh)
+# template = '''<document template>
+# '''
+
+# docapi = DocAPI(llm=llm_builder.build_llm(), scanner=flask_scanner, prompt=prompt.doc_zh, template=template)
 
 docapi.generate("flask_project/flask_server.py", "docs")
 
