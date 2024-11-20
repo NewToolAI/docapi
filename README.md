@@ -71,13 +71,13 @@ export OPENAI_API_VERSION=version
 export AZURE_OPENAI_MODEL=gpt-4o-mini
 
 # 生成文档
-docapi generate server.py
+docapi generate server.py --template <template_path>
 
 # 更新文档
-docapi update server.py
+docapi update server.py --template <template_path>
 
 # 启动web服务
-docapi serve
+docapi serve docs --ip 0.0.0.0 --port 9000
 ```
 
 Qianwen, Open source deployment:
@@ -157,6 +157,8 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - [2024-11-17] Support Zhipu AI, Baidu Qianfan model, optimize document structure, and add javascript code examples; Remove the execution mode that uses the configuration file.
 
+- [2024-11-20] Support custom document templates.
+
 ## Supported Models
 
 - OpenAI
@@ -189,7 +191,7 @@ Automatic scanning is only valid for the Flask framework and is recommended for 
 
 - ~~Supports online web page display of documents.~~
 
-- Supports custom document templates.
+- ~~Supports custom document templates.~~
 
 - Multithreading accelerates requests.
 

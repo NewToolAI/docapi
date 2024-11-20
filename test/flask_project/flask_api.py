@@ -7,4 +7,4 @@ sub_api = Blueprint('sub_api', __name__)
 @sub_api.route('/users/scores', methods=['GET'])
 def get_names():
     ID = request.args.get('ID')
-    return f"scores of {ID}"
+    return f"Scores of {ID}"

@@ -6,27 +6,29 @@ class Main:
     '''DocAPI is a Python package that automatically generates API documentation using LLM. '''        
 
     @staticmethod
-    def generate(app_path=None, doc_dir='./docs', lang='zh'):
+    def generate(app_path, doc_dir='./docs', lang='zh', template=None):
         '''Generate API documentation.
         Args:
-            app_path (str): Path to the API service entry.
+            app_path (str, necessary): Path to the API service entry.
             doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
             config (str, optional): Path to the configuration file. Defaults to None.
+            template (str, optional): Path to the template file. Defaults to None.
         '''
-        docapi = DocAPI.build(lang)
+        docapi = DocAPI.build(lang, template)
         docapi.generate(app_path, doc_dir)
 
     @staticmethod
-    def update(app_path=None, doc_dir='./docs', lang='zh'):
+    def update(app_path, doc_dir='./docs', lang='zh', template=None):
         '''Update API documentation.
         Args:
-            app_path (str): Path to the API service entry.
+            app_path (str, necessary): Path to the API service entry.
             doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
             config (str, optional): Path to the configuration file. Defaults to None.
+            template (str, optional): Path to the template file. Defaults to None.
         '''
-        docapi = DocAPI.build(lang)
+        docapi = DocAPI.build(lang, template)
         docapi.update(app_path, doc_dir)
 
     @staticmethod

@@ -1,4 +1,3 @@
-import inspect
 from flask import Flask, request, jsonify
 from flask_api import sub_api
 
@@ -7,13 +6,16 @@ app.register_blueprint(sub_api, url_prefix='/sub_api')
 
 
 # 获取年级学生列表
-@app.route('/users/list', methods=['GET'])
+@app.route('/users/list', methods=['GET', 'POST'])
 def get_users():
-    parmams = request.get_json()
-    grade = parmams['grade']
-    data = f'List of {grade} students'.split(' ')
+    try:
+        parmams = request.get_json()
+        grade = parmams['grade']
+        data = f'List of {grade} students'.split(' ')
 
-    return jsonify(code=0, data=data, error=None)
+        return jsonify(code=0, data=data, error=None)
+    except Exception as e:
+        return jsonify(code=1, data=None, error=str(e))
 
 
 @app.route('/users/<int:user_id>', methods=['GET'])

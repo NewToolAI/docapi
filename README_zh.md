@@ -71,13 +71,13 @@ export OPENAI_API_VERSION=version
 export AZURE_OPENAI_MODEL=gpt-4o-mini
 
 # 生成文档
-docapi generate server.py
+docapi generate server.py --template <template_path>
 
 # 更新文档
-docapi update server.py
+docapi update server.py --template <template_path>
 
 # 启动web服务
-docapi serve
+docapi serve docs --ip 0.0.0.0 --port 9000
 ```
 
 千问, 开源模型部署:
@@ -157,6 +157,8 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - [2024-11-17] 支持智谱AI，百度千帆模型，优化文档结构，增加javascript代码示例；去除使用配置文件的执行方式。
 
+- [2024-11-20] 支持自定义文档模版。
+
 ## 支持模型
 
 - OpenAI
@@ -189,7 +191,7 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - ~~支持文档在线web页面展示。~~
 
-- 支持自定义文档模版。
+- ~~支持自定义文档模版。~~
 
 - 多线程加速请求。
 

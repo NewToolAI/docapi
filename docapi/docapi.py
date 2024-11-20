@@ -3,7 +3,7 @@ from pathlib import Path
 from datetime import datetime
 
 from docapi.llm import llm_builder
-from docapi.prompt import doc_prompt_zh, doc_prompt_en
+from docapi.prompt import doc_zh, doc_en
 from docapi.scanner import flask_scanner
 from docapi.web import web_builder
 
@@ -17,31 +17,46 @@ INDEX_STR = '''## DocAPI is a Python package that automatically generates API do
 
 ## DocAPI是一个Python包，它使用LLM自动生成API文档。
 
-#### [Github: https://github.com/Shulin-Zhang/docapi](https://github.com/Shulin-Zhang/docapi)                      
+[Github: https://github.com/Shulin-Zhang/docapi](https://github.com/Shulin-Zhang/docapi)                      
 '''
+
+TEMPLATE_ZH = (Path(__file__).parent / 'template' / 'flask_zh.md').read_text(encoding='utf-8')
+
+TEMPLATE_EN = (Path(__file__).parent / 'template' / 'flask_en.md').read_text(encoding='utf-8')
 
 
 class DocAPI:
 
     @classmethod
-    def build(cls, lang=None):
+    def build(cls, lang=None, template=None):
         if lang == 'zh':
+            if template is None:
+                template = TEMPLATE_ZH
+            else:
+                template = Path(template).read_text(encoding='utf-8')
+
             llm = llm_builder.build_llm()
-            obj = cls(llm, flask_scanner, doc_prompt_zh)
+            obj = cls(llm, flask_scanner, doc_zh, template)
         elif lang == 'en':
+            if template is None:
+                template = TEMPLATE_EN
+            else:
+                template = Path(template).read_text(encoding='utf-8')
+
             llm = llm_builder.build_llm()
-            obj = cls(llm, flask_scanner, doc_prompt_en)
+            obj = cls(llm, flask_scanner, doc_en, template)
         elif lang is None:
-            obj = cls(None, None, None)
+            obj = cls(None, None, None, None)
         else:
             raise ValueError(f'Unknown language: {lang}')
 
         return obj
 
-    def __init__(self, llm, scanner, prompt):
+    def __init__(self, llm, scanner, prompt, template):
         self.llm = llm
         self.scanner = scanner
         self.prompt = prompt
+        self.template = template
 
     def generate(self, file_path, doc_dir):
         self.auto_generate(file_path, doc_dir)
@@ -66,13 +81,13 @@ class DocAPI:
 
             for item in item_list:
                 url = item['url']
-                md5 = item['md5']
                 code = item['code']
                 print(f' - Create document for {url}.')
 
-                time = datetime.now().strftime('%Y-%m-%d %H:%M')
-                item['doc'] = self.llm(system=self.prompt.system.format(time=time), 
-                                       user=self.prompt.user.format(code=code))
+                time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                system = self.prompt.system.format(template=self.template.format(datetime=time))
+                user = self.prompt.user.format(code=code)
+                item['doc'] = self.llm(system=system, user=user)
 
             print()
 
@@ -107,9 +122,13 @@ class DocAPI:
             merged_item_list = []
             for item in item_list:
                 url = item['url']
-                time = datetime.now().strftime('%Y-%m-%d %H:%M')
-                item['doc'] = self.llm(system=self.prompt.system.format(time=time),
-                                       user=self.prompt.user.format(code=item['code']))
+                code = item['code']
+
+                time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                system = self.prompt.system.format(template=self.template.format(datetime=time))
+                user = self.prompt.user.format(code=code)
+                item['doc'] = self.llm(system=system, user=user)
+
                 merged_item_list.append(item)
                 print(f' - Add document for {url}.')
 
@@ -139,15 +158,20 @@ class DocAPI:
 
             for item in add_item_list:
                 url = item['url']
-                time = datetime.now().strftime('%Y-%m-%d %H:%M')
-                item['doc'] = self.llm(system=self.prompt.system.format(time=time),
-                                       user=self.prompt.user.format(code=item['code']))
+                code = item['code']
+
+                time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                system = self.prompt.system.format(template=self.template.format(datetime=time))
+                user = self.prompt.user.format(code=code)
+                item['doc'] = self.llm(system=system, user=user)
+
                 merged_item_list.append(item) 
                 print(f' - Add document for {url}.')
 
             for item in keep_item_list:
                 url = item['url']
                 md5 = item['md5']
+                code = item['code']
 
                 old_item = old_item_list[old_url_list.index(url)]
 
@@ -155,9 +179,11 @@ class DocAPI:
                     item['doc'] = old_item['doc']
                     print(f' - Reserve document for {url}.')
                 else:
-                    time = datetime.now().strftime('%Y-%m-%d %H:%M')
-                    item['doc'] = self.llm(system=self.prompt.system.format(time=time),
-                                           user=self.prompt.user.format(code=item['code']))
+                    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    system = self.prompt.system.format(template=self.template.format(datetime=time))
+                    user = self.prompt.user.format(code=code)
+                    item['doc'] = self.llm(system=system, user=user)
+
                     print(f' - Update document for {url}.')
 
                 merged_item_list.append(item)
@@ -175,6 +201,8 @@ class DocAPI:
         doc_json_path.unlink(missing_ok=True)
 
         for doc_file in doc_dir.glob('*.md'):
+            if doc_file.name == 'index.md':
+                continue
             doc_file.unlink()
 
         for path, item_list in structures.items():
