@@ -89,10 +89,10 @@ export OPENAI_API_BASE=api_base_url
 export OPENAI_API_MODEL=model_name
 
 # Generate documents
-docapi generate server.py --lang en
+docapi generate server.py --lang en --workers 6
 
 # Update documents
-docapi update server.py --lang en
+docapi update server.py --lang en --workers 6
 
 # Start web service
 docapi serve

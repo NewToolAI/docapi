@@ -89,10 +89,10 @@ export OPENAI_API_BASE=api_base_url
 export OPENAI_API_MODEL=model_name
 
 # 生成文档
-docapi generate server.py
+docapi generate server.py --workers 6
 
 # 更新文档
-docapi update server.py
+docapi update server.py --workers 6
 
 # 启动web服务
 docapi serve
