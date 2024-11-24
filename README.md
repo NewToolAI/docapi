@@ -162,6 +162,8 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - [2024-11-20] Support custom document templates.
 
+- [2024-11-24] Support multi-threaded acceleration requests.
+
 ## Supported Models
 
 - OpenAI
@@ -196,6 +198,6 @@ Automatic scanning is only valid for the Flask framework and is recommended for 
 
 - ~~Supports custom document templates.~~
 
-- Multithreading accelerates requests.
+- ~~Multithreading accelerates requests.~~
 
 - Import to postman.

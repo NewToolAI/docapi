@@ -162,6 +162,8 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - [2024-11-20] 支持自定义文档模版。
 
+- [2024-11-24] 支持多线程加速请求。
+
 ## 支持模型
 
 - OpenAI
@@ -196,6 +198,6 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - ~~支持自定义文档模版。~~
 
-- 多线程加速请求。
+- ~~多线程加速请求。~~
 
 - 导入到postman。

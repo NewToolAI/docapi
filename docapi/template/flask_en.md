@@ -26,11 +26,11 @@ def get_users():
 
 This interface is used to obtain a list of students in a specified grade. The user needs to provide a grade parameter, and the interface will return a list of students in that grade.
 
-##### Parameters
+##### Parameters - Json
 
 - `grade` (string): Required, grade name.
 
-##### Return value
+##### Return value - Json
 
 - `code` (integer): Return status code, 0 means success.
 

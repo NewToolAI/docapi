@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="docapi",  # 包名
-    version="0.1.2",  # 初始版本号
+    version="0.1.3",  # 初始版本号
     author="ZhangShulin",
     author_email="zhangslwork@yeah.net",
     description="DocAPI is a Python package that automatically generates API documentation using LLM.",
