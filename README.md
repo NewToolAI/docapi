@@ -22,6 +22,14 @@ DocAPI is a Python package that uses LLM to automatically generate API documenta
 
 - Supports web page deployment to display API documentation.
 
+## Changelog
+
+- [2024-11-17] Support Zhipu AI, Baidu Qianfan model, optimize document structure, and add javascript code examples; Remove the execution mode that uses the configuration file.
+
+- [2024-11-20] Support custom document templates.
+
+- [2024-11-24] Support multi-threaded acceleration requests.
+
 ## Installation
 
 ```bash
@@ -155,14 +163,6 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 # docapi.serve("docs", ip="127.0.0.1", port=8080)
 ```
-
-## Changelog
-
-- [2024-11-17] Support Zhipu AI, Baidu Qianfan model, optimize document structure, and add javascript code examples; Remove the execution mode that uses the configuration file.
-
-- [2024-11-20] Support custom document templates.
-
-- [2024-11-24] Support multi-threaded acceleration requests.
 
 ## Supported Models
 
