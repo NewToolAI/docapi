@@ -4,23 +4,23 @@
 
 ### GET - /users/{user_id}
 
-##### Update time
+##### 更新时间
 
-2024-11-24 17:54
+2024-11-24 17:55
 
-##### Description
+##### 描述
 
-This interface is used to retrieve information about a specific user. The user ID is provided as a path parameter, and the interface returns the user's information.
+该接口用于获取指定用户的详细信息。用户需要提供用户ID，接口将返回该用户的详细信息。
 
-##### Parameters - Path
+##### 参数 - URL
 
-- `user_id` (integer): Required, the unique identifier of the user.
+- `user_id` (integer): 必填，用户ID。
 
-##### Return value - Text
+##### 返回值 - Text
 
-- A string containing the user's information, formatted as "User {user_id}".
+- 返回一个字符串，包含用户ID的信息。
 
-##### Code example
+##### 代码示例 
 
 **curl:**
 
@@ -37,8 +37,8 @@ url = "http://{API_BASE}/users/1"
 
 response = requests.get(url)
 
-print("status code:", response.status_code)
-print("response content:", response.text)
+print("状态码:", response.status_code)
+print("响应内容:", response.text)
 ```
 
 **javascript:**
@@ -61,33 +61,33 @@ axios.get(url)
 
 ### POST - /users/create
 
-##### Update time
+##### 更新时间
 
-2024-11-24 17:54
+2024-11-24 18:00
 
-##### Description
+##### 描述
 
-This interface is used to create a new student system user. The user needs to provide the name and age parameters, and the interface will return the created user information.
+该接口用于创建学生系统用户。用户需要提供姓名和年龄参数，接口将返回创建的用户信息。
 
-##### Parameters - Json
+##### 参数 - Json
 
-- `name` (string): Required, the name of the user.
-- `age` (integer): Required, the age of the user.
+- `name` (string): 必填，用户姓名。
+- `age` (integer): 必填，用户年龄。
 
-##### Return value - Json
+##### 返回值 - Json
 
-- `code` (integer): Return status code, 0 means success.
-- `data` (object): Contains the created user information.
-  - `name` (string): The name of the user.
-  - `age` (integer): The age of the user.
-- `error` (string): Error message, `null` if successful.
+- `code` (integer): 返回状态码，0表示成功，1表示失败。
+- `data` (object): 包含创建的用户信息。
+  - `name` (string): 用户姓名。
+  - `age` (integer): 用户年龄。
+- `error` (string): 错误信息，成功时为空字符串。
 
-##### Code example
+##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X POST http://{API_BASE}/users/create -H "Content-Type: application/json" -d '{"name": "John Doe", "age": 20}'
+curl -X POST http://{API_BASE}/users/create -H "Content-Type: application/json" -d '{"name": "张三", "age": 18}'
 ```
 
 **python:**
@@ -96,12 +96,12 @@ curl -X POST http://{API_BASE}/users/create -H "Content-Type: application/json" 
 import requests
 
 url = "http://{API_BASE}/users/create"
-data = {"name": "John Doe", "age": 20}
+data = {"name": "张三", "age": 18}
 
 response = requests.post(url, json=data)
 
-print("status code:", response.status_code)
-print("response content:", response.json())
+print("状态码:", response.status_code)
+print("响应内容:", response.json())
 ```
 
 **javascript:**
@@ -110,7 +110,7 @@ print("response content:", response.json())
 const axios = require('axios');
 
 const url = 'http://{API_BASE}/users/create';
-const data = { name: 'John Doe', age: 20 };
+const data = { name: '张三', age: 18 };
 
 axios.post(url, data)
     .then(response => {
@@ -125,30 +125,30 @@ axios.post(url, data)
 
 ### GET | POST - /users/list
 
-##### Update time
+##### 更新时间
 
-2024-11-24 17:54
+2024-11-24 17:55
 
-##### Description
+##### 描述
 
-This interface is used to obtain a list of students in a specified grade. The user needs to provide a grade parameter, and the interface will return a list of students in that grade.
+该接口用于获取指定年级的学生列表。用户需要提供年级参数，接口将返回该年级的学生列表。
 
-##### Parameters - Json
+##### 参数 - Json
 
-- `grade` (string): Required, grade name.
+- `grade` (string): 必填，年级名称。
 
-##### Return value - Json
+##### 返回值 - Json
 
-- `code` (integer): Return status code, 0 means success.
-- `data` (array): Contains a list of students in that grade.
-- `error` (string): Error message, `null` if successful.
+- `code` (integer): 返回状态码，0表示成功，1表示失败。
+- `data` (array): 包含该年级的学生列表。
+- `error` (string): 错误信息，成功时为 `null`。
 
-##### Code example
+##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X GET http://{API_BASE}/users/list -H "Content-Type: application/json" -d '{"grade": "grade 1"}'
+curl -X GET http://{API_BASE}/users/list -H "Content-Type: application/json" -d '{"grade": "高一"}'
 ```
 
 **python:**
@@ -157,12 +157,12 @@ curl -X GET http://{API_BASE}/users/list -H "Content-Type: application/json" -d 
 import requests
 
 url = "http://{API_BASE}/users/list"
-data = {"grade": "grade 1"}
+data = {"grade": "高一"}
 
 response = requests.get(url, json=data)
 
-print("status code:", response.status_code)
-print("response content:", response.json())
+print("状态码:", response.status_code)
+print("响应内容:", response.json())
 ```
 
 **javascript:**
@@ -171,18 +171,16 @@ print("response content:", response.json())
 const axios = require('axios');
 
 const url = 'http://{API_BASE}/users/list';
-const data = { grade: 'grade 1' };
+const data = { grade: '高一' };
 
 axios.get(url, { params: data })
     .then(response => {
-        console.log('Status code:', response.status);
-        console.log('Response content:', response.data);
+        console.log('状态码:', response.status);
+        console.log('响应内容:', response.data);
     })
     .catch(error => {
-        console.error('Error:', error.response ? error.response.data : error.message);
+        console.error('错误:', error.response ? error.response.data : error.message);
     });
 ```
-
-**Note:** The `error` field in the response will be `null` if the request is successful.
 ---
 
