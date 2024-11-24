@@ -13,7 +13,7 @@ class BaiduLLM(BaseLLM):
             os.environ['QIANFAN_SECRET_KEY'] = secret_key
 
         self.chat_comp = qianfan.ChatCompletion()
-        print(f'Using model: {self._model}\n')
+        print(f'Using model: {self._model}.\n')
 
     def __call__(self, system, user):
         response = self.chat_comp.do(

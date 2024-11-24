@@ -56,7 +56,7 @@ class Main:
             port (int, optional): Port of the document web server. Defaults to 8080.
             config (str, optional): Path to the configuration file. Defaults to None.
         '''
-        docapi = DocAPI.build()
+        docapi = DocAPI.build_empty()
         docapi.serve(doc_dir, ip, port)
 
 

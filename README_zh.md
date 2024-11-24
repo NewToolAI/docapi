@@ -18,7 +18,7 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包。
   
 - 支持自动生成文档和局部更新文档；
 
-- 支持中文、英文文档；
+- 支持多种语言的API文档（需要大模型支持）；
 
 - 支持web页面部署展示API文档。
 
@@ -143,19 +143,13 @@ docapi serve
 ## 代码调用
 ```python
 import os
-from docapi import DocAPI, llm_builder, prompt
-from docapi.scanner import flask_scanner
+from docapi import DocAPI
 
 os.environ['OPENAI_API_KEY'] = "api_key"
 os.environ['OPENAI_API_BASE'] = "api_base"
 os.environ['OPENAI_API_MODEL'] = "model_name"
 
 docapi = DocAPI.build(lang="zh")
-
-# template = '''<document template>
-# '''
-
-# docapi = DocAPI(llm=llm_builder.build_llm(), scanner=flask_scanner, prompt=prompt.doc_zh, template=template)
 
 docapi.generate("flask_project/flask_server.py", "docs")
 

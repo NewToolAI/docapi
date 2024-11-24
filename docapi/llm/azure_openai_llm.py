@@ -17,7 +17,7 @@ class AzureOpenAILLM(BaseLLM):
             kwargs['api_version'] = api_version
 
         self.client = AzureOpenAI(**kwargs)
-        print(f'Using model: {self._model}\n')
+        print(f'Using model: {self._model}.\n')
 
     def __call__(self, system, user):
         response = self.client.chat.completions.create(

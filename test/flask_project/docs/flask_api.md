@@ -4,23 +4,23 @@
 
 ### GET - /users/scores
 
-##### 更新时间
+##### Update time
 
-2024-11-24 09:19:56
+2024-11-24 17:54
 
-##### 描述
+##### Description
 
-该接口用于获取指定学生的成绩列表。用户需要提供学生的ID参数，接口将返回该学生的成绩信息。
+This interface is used to obtain the scores of a student specified by their ID. The user needs to provide an ID parameter, and the interface will return the scores of the student with that ID.
 
-##### 参数 - Query
+##### Parameters - Query
 
-- `ID` (string): 必填，学生的唯一标识符。
+- `ID` (string): Required, student ID.
 
-##### 返回值 - Text
+##### Return value - Text
 
-- 返回一个字符串，包含指定学生的成绩信息。
+- A string containing the scores of the specified student.
 
-##### 代码示例 
+##### Code example
 
 **curl:**
 
@@ -38,8 +38,8 @@ params = {"ID": "12345"}
 
 response = requests.get(url, params=params)
 
-print("状态码:", response.status_code)
-print("响应内容:", response.text)
+print("status code:", response.status_code)
+print("response content:", response.text)
 ```
 
 **javascript:**

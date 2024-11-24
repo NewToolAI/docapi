@@ -1,11 +1,11 @@
 import json
 from pathlib import Path
-from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 
 from docapi.llm import llm_builder
-from docapi.prompt import doc_zh, doc_en
-from docapi.scanner import flask_scanner
+from docapi.prompt import prompt_builder   
+from docapi.scanner import scanner_builder
+from docapi.template import template_builder
 from docapi.web import web_builder
 
 
@@ -21,50 +21,39 @@ INDEX_STR = '''## DocAPI is a Python package that automatically generates API do
 [Github: https://github.com/Shulin-Zhang/docapi](https://github.com/Shulin-Zhang/docapi)                      
 '''
 
-TEMPLATE_ZH = (Path(__file__).parent / 'template' / 'flask_zh.md').read_text(encoding='utf-8')
-
-TEMPLATE_EN = (Path(__file__).parent / 'template' / 'flask_en.md').read_text(encoding='utf-8')
-
-
 class DocAPI:
 
     @classmethod
-    def build(cls, lang=None, template=None, workers=4):
-        if lang == 'zh':
-            if template is None:
-                template = TEMPLATE_ZH
-            else:
-                template = Path(template).read_text(encoding='utf-8')
-
-            llm = llm_builder.build_llm()
-            obj = cls(llm, flask_scanner, doc_zh, template, workers)
-        elif lang == 'en':
-            if template is None:
-                template = TEMPLATE_EN
-            else:
-                template = Path(template).read_text(encoding='utf-8')
-
-            llm = llm_builder.build_llm()
-            obj = cls(llm, flask_scanner, doc_en, template, workers)
-        elif lang is None:
-            obj = cls(None, None, None, None, workers)
+    def build(cls, lang, template=None, workers=4):
+        if template is None:
+            template = template_builder.build_template(lang)
         else:
-            raise ValueError(f'Unknown language: {lang}')
+            template = Path(template).read_text(encoding='utf-8')
 
-        return obj
+        prompt = prompt_builder.build_prompt(lang, template)
+        llm = llm_builder.build_llm()
 
-    def __init__(self, llm, scanner, prompt, template, workers=4):
+        print(f'Using language: {lang}.\n')
+
+        return cls(llm, prompt, workers=workers)
+
+    @classmethod
+    def build_empty(cls):
+        return cls(None, None, None)
+
+    def __init__(self, llm, prompt, scanner=None, workers=4):
         self.llm = llm
         self.scanner = scanner
         self.prompt = prompt
-        self.template = template
         self.workers = workers
 
     def generate(self, file_path, doc_dir):
+        self.scanner = scanner_builder.build_scanner(file_path)
         self.auto_generate(file_path, doc_dir)
         self._write_index(doc_dir)
 
     def update(self, file_path, doc_dir):
+        self.scanner = scanner_builder.build_scanner(file_path)
         self.auto_update(file_path, doc_dir)
         self._write_index(doc_dir)
 
@@ -89,8 +78,7 @@ class DocAPI:
                     code = item['code']
                     print(f' - Create document for {url}.')
 
-                    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    system = self.prompt.system.format(template=self.template.format(datetime=time))
+                    system = self.prompt.system
                     user = self.prompt.user.format(code=code)
 
                     job = executor.submit(self.llm, system=system, user=user)
@@ -138,8 +126,7 @@ class DocAPI:
                     url = item['url']
                     code = item['code']
 
-                    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    system = self.prompt.system.format(template=self.template.format(datetime=time))
+                    system = self.prompt.system
                     user = self.prompt.user.format(code=code)
 
                     job = executor.submit(self.llm, system=system, user=user)
@@ -177,8 +164,7 @@ class DocAPI:
                     url = item['url']
                     code = item['code']
 
-                    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    system = self.prompt.system.format(template=self.template.format(datetime=time))
+                    system = self.prompt.system
                     user = self.prompt.user.format(code=code)
 
                     job = executor.submit(self.llm, system=system, user=user)
@@ -198,8 +184,7 @@ class DocAPI:
                         item['doc'] = old_item['doc']
                         print(f' - Reserve document for {url}.')
                     else:
-                        time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                        system = self.prompt.system.format(template=self.template.format(datetime=time))
+                        system = self.prompt.system
                         user = self.prompt.user.format(code=code)
 
                         job = executor.submit(self.llm, system=system, user=user)

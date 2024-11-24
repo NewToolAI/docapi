@@ -15,7 +15,7 @@ class OpenAILLM(BaseLLM):
             kwargs['base_url'] = base_url
 
         self.client = OpenAI(**kwargs)
-        print(f'Using model: {self._model}\n')
+        print(f'Using model: {self._model}.\n')
 
     def __call__(self, system, user):
         response = self.client.chat.completions.create(

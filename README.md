@@ -18,7 +18,7 @@ DocAPI is a Python package that uses LLM to automatically generate API documenta
 
 - Supports automatic document generation and partial document update;
 
-- Supports Chinese and English documents;
+- Support API documentation in multiple languages ​​(requires large model support);
 
 - Supports web page deployment to display API documentation.
 
@@ -143,19 +143,13 @@ docapi serve
 ## Code calls
 ```python
 import os
-from docapi import DocAPI, llm_builder, prompt
-from docapi.scanner import flask_scanner
+from docapi import DocAPI
 
 os.environ['OPENAI_API_KEY'] = "api_key"
 os.environ['OPENAI_API_BASE'] = "api_base"
 os.environ['OPENAI_API_MODEL'] = "model_name"
 
 docapi = DocAPI.build(lang="en")
-
-# template = '''<document template>
-# '''
-
-# docapi = DocAPI(llm=llm_builder.build_llm(), scanner=flask_scanner, prompt=prompt.doc_en, template=template)
 
 docapi.generate("flask_project/flask_server.py", "docs")
 
