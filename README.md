@@ -215,4 +215,4 @@ Automatic scanning is only valid for the Flask framework and is recommended for 
 
 - Import to postman.
 
-- Support Window operating system.
+- Support Windows operating system.

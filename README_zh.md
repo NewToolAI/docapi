@@ -215,4 +215,4 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - 支持django框架的路由自动扫描。
 
-- 支持Window系统.
+- 支持Windows操作系统.
