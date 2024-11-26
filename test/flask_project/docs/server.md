@@ -1,31 +1,31 @@
-# flask_server.py
+# server.py
 
-*Path: `/Volumes/DATA/工作/Work/my_project/docapi/test/flask_project/flask_server.py`*
+*Path: `/Volumes/DATA/工作/Work/my_project/docapi/test/flask_project/server.py`*
 
 ### GET - /users/{user_id}
 
 ##### 更新时间
 
-2024-11-24 17:55
+2024-11-26 15:46
 
 ##### 描述
 
-该接口用于获取指定用户的详细信息。用户需要提供用户ID，接口将返回该用户的详细信息。
+该接口用于获取指定用户ID的用户信息。
 
-##### 参数 - URL
+##### 参数 - Path
 
 - `user_id` (integer): 必填，用户ID。
 
-##### 返回值 - Text
+##### 返回值 - String
 
-- 返回一个字符串，包含用户ID的信息。
+- 返回指定用户ID的用户信息。
 
 ##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X GET http://{API_BASE}/users/1
+curl -X GET http://{API_BASE}/users/123
 ```
 
 **python:**
@@ -33,7 +33,7 @@ curl -X GET http://{API_BASE}/users/1
 ```python
 import requests
 
-url = "http://{API_BASE}/users/1"
+url = "http://{API_BASE}/users/123"
 
 response = requests.get(url)
 
@@ -46,7 +46,7 @@ print("响应内容:", response.text)
 ```javascript
 const axios = require('axios');
 
-const url = 'http://{API_BASE}/users/1';
+const url = 'http://{API_BASE}/users/123';
 
 axios.get(url)
     .then(response => {
@@ -63,11 +63,11 @@ axios.get(url)
 
 ##### 更新时间
 
-2024-11-24 18:00
+2024-11-26 15:46
 
 ##### 描述
 
-该接口用于创建学生系统用户。用户需要提供姓名和年龄参数，接口将返回创建的用户信息。
+该接口用于创建一个新的学生系统用户。用户需要提供姓名和年龄参数，接口将返回新创建用户的详细信息。
 
 ##### 参数 - Json
 
@@ -76,11 +76,9 @@ axios.get(url)
 
 ##### 返回值 - Json
 
-- `code` (integer): 返回状态码，0表示成功，1表示失败。
-- `data` (object): 包含创建的用户信息。
-  - `name` (string): 用户姓名。
-  - `age` (integer): 用户年龄。
-- `error` (string): 错误信息，成功时为空字符串。
+- `code` (integer): 返回状态码，0表示成功。
+- `data` (object): 包含新创建用户的详细信息，包含 `name` 和 `age` 字段。
+- `error` (null): 无错误时返回 `null`。
 
 ##### 代码示例 
 
@@ -127,7 +125,7 @@ axios.post(url, data)
 
 ##### 更新时间
 
-2024-11-24 17:55
+2024-11-26 15:46
 
 ##### 描述
 
@@ -141,7 +139,7 @@ axios.post(url, data)
 
 - `code` (integer): 返回状态码，0表示成功，1表示失败。
 - `data` (array): 包含该年级的学生列表。
-- `error` (string): 错误信息，成功时为 `null`。
+- `error` (string): 错误信息，成功时为 `None`。
 
 ##### 代码示例 
 

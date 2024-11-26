@@ -48,12 +48,16 @@ class DocAPI:
         self.workers = workers
 
     def generate(self, file_path, doc_dir):
-        self.scanner = scanner_builder.build_scanner(file_path)
+        if self.scanner is None:
+            self.scanner = scanner_builder.build_scanner(file_path)
+
         self.auto_generate(file_path, doc_dir)
         self._write_index(doc_dir)
 
     def update(self, file_path, doc_dir):
-        self.scanner = scanner_builder.build_scanner(file_path)
+        if self.scanner is None:
+            self.scanner = scanner_builder.build_scanner(file_path)
+
         self.auto_update(file_path, doc_dir)
         self._write_index(doc_dir)
 

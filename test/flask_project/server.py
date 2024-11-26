@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_api import sub_api
+from sub_api import sub_api
 
 app = Flask(__name__)
 app.register_blueprint(sub_api, url_prefix='/sub_api')

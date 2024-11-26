@@ -30,6 +30,8 @@ DocAPI is a Python package that uses LLM to automatically generate API documenta
 
 - [2024-11-24] Support multi-threaded acceleration requests.
 
+- [2024-11-26] Support .env to load environment variables and multi-language documents.
+
 ## Installation
 
 ```bash
@@ -52,7 +54,7 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 **Automatically scan the routing structure. This is only valid for flask projects and must be used in the environment of api projects.**
 
-OpenAI:
+**OpenAI:**
 ```bash
 export OPENAI_API_KEY=api_key
 
@@ -68,7 +70,7 @@ docapi update server.py --lang en
 docapi serve
 ```
 
-Azure OpenAI:
+**Azure OpenAI:**
 ```bash
 export AZURE_OPENAI_API_KEY=api_key
 
@@ -88,7 +90,7 @@ docapi update server.py --template <template_path>
 docapi serve docs --ip 0.0.0.0 --port 9000
 ```
 
-Qianwen, Open source deployment:
+**Qianwen, Open source deployment:**
 ```bash
 export OPENAI_API_KEY=api_key
 
@@ -106,7 +108,7 @@ docapi update server.py --lang en --workers 6
 docapi serve
 ```
 
-Baidu Qianfan:
+**Baidu Qianfan:**
 ```bash
 export QIANFAN_ACCESS_KEY=access_key
 
@@ -124,7 +126,7 @@ docapi update server.py --lang en
 docapi serve
 ```
 
-ZhipuAI:
+**ZhipuAI:**
 ```bash
 export ZHIPUAI_API_KEY=api_key
 
@@ -138,6 +140,23 @@ docapi update server.py
 
 # Start web service
 docapi serve
+```
+
+**.env environment variable file:**
+```bash
+# Edit .env to the current execution command directory
+vi .env
+```
+
+```.env
+OPENAI_API_KEY='xxx'
+OPENAI_API_BASE='xxx'
+OPENAI_API_MODEL='xxx'
+```
+
+```bash
+# Generate documents
+docapi generate server.py
 ```
 
 ## Code calls
@@ -186,12 +205,14 @@ Automatic scanning is only valid for the Flask framework and is recommended for 
 
 - ~~Supports large models such as Wenxin Yiyan and Zhipu AI.~~
 
-- Supports automatic scanning of frameworks such as Django.
-
 - ~~Supports online web page display of documents.~~
 
 - ~~Supports custom document templates.~~
 
 - ~~Multithreading accelerates requests.~~
 
+- Supports automatic scanning of frameworks such as Django.
+
 - Import to postman.
+
+- Support Window operating system.

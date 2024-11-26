@@ -1,4 +1,10 @@
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+
+load_dotenv(override=True, dotenv_path=Path(__name__).parent / '.env')
 
 
 def build_llm():

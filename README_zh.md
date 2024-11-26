@@ -30,6 +30,8 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包。
 
 - [2024-11-24] 支持多线程加速请求。
 
+- [2024-11-26] 支持.env加载环境变量和多国语言文档。
+
 ## 安装
 
 ```bash
@@ -52,7 +54,7 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 **自动扫描路由结构，只对flask项目有效，必须在api项目的环境中使用。**
 
-OpenAI:
+**OpenAI:**
 ```bash
 export OPENAI_API_KEY=api_key
 
@@ -68,7 +70,7 @@ docapi update server.py
 docapi serve
 ```
 
-Azure OpenAI:
+**Azure OpenAI:**
 ```bash
 export AZURE_OPENAI_API_KEY=api_key
 
@@ -88,7 +90,7 @@ docapi update server.py --template <template_path>
 docapi serve docs --ip 0.0.0.0 --port 9000
 ```
 
-千问, 开源模型部署:
+**千问, 开源模型部署:**
 ```bash
 export OPENAI_API_KEY=api_key
 
@@ -106,7 +108,7 @@ docapi update server.py --workers 6
 docapi serve
 ```
 
-百度千帆:
+**百度千帆:**
 ```bash
 export QIANFAN_ACCESS_KEY=access_key
 
@@ -124,7 +126,7 @@ docapi update server.py
 docapi serve
 ```
 
-智谱AI:
+**智谱AI:**
 ```bash
 export ZHIPUAI_API_KEY=api_key
 
@@ -138,6 +140,23 @@ docapi update server.py
 
 # 启动web服务
 docapi serve
+```
+
+**.env环境变量文件:**
+```bash
+# 编辑.env到当前执行命令目录下
+vi .env
+```
+
+```.env
+OPENAI_API_KEY='xxx'
+OPENAI_API_BASE='xxx'
+OPENAI_API_MODEL='xxx'
+```
+
+```bash
+# 生成文档
+docapi generate server.py
 ```
 
 ## 代码调用
@@ -186,8 +205,6 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - ~~支持文心一言、智谱AI等大模型。~~
 
-- 支持django框架的路由自动扫描。
-
 - ~~支持文档在线web页面展示。~~
 
 - ~~支持自定义文档模版。~~
@@ -195,3 +212,7 @@ docapi.generate("flask_project/flask_server.py", "docs")
 - ~~多线程加速请求。~~
 
 - 导入到postman。
+
+- 支持django框架的路由自动扫描。
+
+- 支持Window系统.

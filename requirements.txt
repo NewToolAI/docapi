@@ -4,3 +4,4 @@ pyyaml~=6.0.0
 mkdocs~=1.6.0
 qianfan~=0.4.0
 zhipuai~=2.1.0
+python-dotenv~=1.0.0

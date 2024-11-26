@@ -1,31 +1,31 @@
-# flask_api.py
+# sub_api.py
 
-*Path: `/Volumes/DATA/工作/Work/my_project/docapi/test/flask_project/flask_api.py`*
+*Path: `/Volumes/DATA/工作/Work/my_project/docapi/test/flask_project/sub_api.py`*
 
-### GET - /users/scores
+## GET - /users/scores
 
 ##### 更新时间
 
-2024-11-24 17:55
+2024-11-26 15:46
 
 ##### 描述
 
-该接口用于获取指定学生的成绩列表。用户需要提供学生ID参数，接口将返回该学生的成绩信息。
+该接口用于获取指定学生的成绩列表。用户需要提供学生ID，接口将返回该学生的成绩列表。
 
 ##### 参数 - Query
 
 - `ID` (string): 必填，学生ID。
 
-##### 返回值 - Text
+##### 返回值 - String
 
-- 返回一个字符串，包含指定学生的成绩信息。
+- 返回一个包含指定学生ID的成绩字符串。
 
 ##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X GET http://{API_BASE}/users/scores?ID=12345
+curl -X GET "http://{API_BASE}/users/scores?ID=12345"
 ```
 
 **python:**

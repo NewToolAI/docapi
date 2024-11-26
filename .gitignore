@@ -2,7 +2,7 @@
 *.pyc
 __pycache__
 .DS_Store
-test/config.yaml
+.env
 docapi.egg-info
 dist
 build

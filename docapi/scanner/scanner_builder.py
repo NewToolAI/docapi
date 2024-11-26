@@ -13,7 +13,7 @@ def build_scanner(app_path):
         if re.match(r'from .{1,20} import .*|import .*', line):
             import_code += line + '\n'
 
-    if import_code.count('Flask') > import_code.count('Django'):
+    if import_code.count('flask') > import_code.count('django'):
         return FlaskScanner()
     else:
         return DjangoScanner()
