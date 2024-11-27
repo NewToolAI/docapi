@@ -1,5 +1,8 @@
 from time import time
+
 from fire import Fire
+from dotenv import load_dotenv
+
 from docapi.docapi import DocAPI
 
 
@@ -7,7 +10,7 @@ class Main:
     '''DocAPI is a Python package that automatically generates API documentation using LLM. '''        
 
     @staticmethod
-    def generate(app_path, doc_dir='./docs', lang='zh', template=None, workers=4):
+    def generate(app_path, doc_dir='docs', lang='zh', template=None, env='.env', workers=4):
         '''Generate API documentation.
         Args:
             app_path (str, necessary): Path to the API service entry.
@@ -15,9 +18,12 @@ class Main:
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
             config (str, optional): Path to the configuration file. Defaults to None.
             template (str, optional): Path to the template file. Defaults to None.
+            env (str, optional): Path to the environment file. Defaults to '.env'.
             workers (int, optional): Number of workers. Defaults to 4.
         '''
         start = time()
+
+        load_dotenv(override=True, dotenv_path=env)
 
         docapi = DocAPI.build(lang, template, workers)
         docapi.generate(app_path, doc_dir)
@@ -27,7 +33,7 @@ class Main:
         print(f'Time used: {time_used:.2f}s.\n')
 
     @staticmethod
-    def update(app_path, doc_dir='./docs', lang='zh', template=None, workers=4):
+    def update(app_path, doc_dir='docs', lang='zh', template=None, env='.env', workers=4):
         '''Update API documentation.
         Args:
             app_path (str, necessary): Path to the API service entry.
@@ -35,9 +41,12 @@ class Main:
             lang (str, optional): Language of the documentation. Defaults to 'zh'.
             config (str, optional): Path to the configuration file. Defaults to None.
             template (str, optional): Path to the template file. Defaults to None.
+            env (str, optional): Path to the environment file. Defaults to '.env'.
             workers (int, optional): Number of workers. Defaults to 4.
         '''
         start = time()
+
+        load_dotenv(override=True, dotenv_path=env)
 
         docapi = DocAPI.build(lang, template, workers)
         docapi.update(app_path, doc_dir)

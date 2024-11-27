@@ -143,10 +143,6 @@ docapi serve
 ```
 
 **.env环境变量文件:**
-```bash
-# 编辑.env到当前执行命令目录下
-vi .env
-```
 
 ```.env
 OPENAI_API_KEY='xxx'
@@ -156,7 +152,7 @@ OPENAI_API_MODEL='xxx'
 
 ```bash
 # 生成文档
-docapi generate server.py
+docapi generate server.py --env .env
 ```
 
 ## 代码调用

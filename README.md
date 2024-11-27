@@ -143,10 +143,6 @@ docapi serve
 ```
 
 **.env environment variable file:**
-```bash
-# Edit .env to the current execution command directory
-vi .env
-```
 
 ```.env
 OPENAI_API_KEY='xxx'
@@ -156,7 +152,7 @@ OPENAI_API_MODEL='xxx'
 
 ```bash
 # Generate documents
-docapi generate server.py
+docapi generate server.py --env .env
 ```
 
 ## Code calls
