@@ -145,6 +145,7 @@ docapi serve
 **.env environment variable file:**
 
 ```.env
+# .env
 OPENAI_API_KEY='xxx'
 OPENAI_API_BASE='xxx'
 OPENAI_API_MODEL='xxx'
