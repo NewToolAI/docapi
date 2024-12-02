@@ -1,9 +1,0 @@
-include README.md
-include README_zh.md
-include LICENSE
-include requirements.txt
-recursive-include llm *
-recursive-include prompt *
-recursive-include scanner *
-recursive-include web *
-recursive-include template *.md

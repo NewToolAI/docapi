@@ -8,7 +8,7 @@
 
 \[ English | [中文](README_zh.md) \]
 
-DocAPI is a Python package that uses LLM to automatically generate API documentation.
+DocAPI is a Python package that automatically generates API documentation using LLM, with support for both Flask and Django frameworks.
 
 ## Features
 
