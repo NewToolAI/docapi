@@ -8,7 +8,7 @@
 
 \[ 中文 | [English](README.md) \]
 
-DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，支持Flask和Django。
+DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，支持 Flask 和 Django。
 
 ## 特性
 
