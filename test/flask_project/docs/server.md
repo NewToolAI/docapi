@@ -2,25 +2,25 @@
 
 *Path: `/Volumes/DATA/工作/Work/my_project/docapi/test/flask_project/server.py`*
 
-### GET - /users/{user_id}
+### GET - /users/<user_id>
 
 ##### 更新时间
 
-2024-11-27 14:03
+2024-12-02 18:33
 
 ##### 描述
 
-该接口用于获取指定用户的详细信息。用户需要提供用户ID，接口将返回该用户的详细信息。
+该接口用于获取指定用户ID的用户信息。通过访问该路径，可以获取到对应ID的用户信息。
 
-##### 参数 - URL
+##### 参数
 
 - `user_id` (integer): 必填，用户ID。
 
-##### 返回值 - Text
+##### 返回值
 
-- 返回一个字符串，包含用户ID的信息。
+- 返回用户信息字符串，格式为 "User <user_id>"。
 
-##### 代码示例 
+##### 代码示例
 
 **curl:**
 
@@ -63,23 +63,21 @@ axios.get(url)
 
 ##### 更新时间
 
-2024-11-27 14:03
+2024-12-02 18:33
 
 ##### 描述
 
-该接口用于创建学生系统用户。用户需要提供姓名和年龄参数，接口将返回创建的用户信息。
+该接口用于创建学生系统用户。用户需要通过POST请求提交包含用户名和年龄的JSON数据，接口将返回创建的用户信息。
 
 ##### 参数 - Json
 
-- `name` (string): 必填，用户姓名。
+- `name` (string): 必填，用户名。
 - `age` (integer): 必填，用户年龄。
 
 ##### 返回值 - Json
 
 - `code` (integer): 返回状态码，0表示成功，1表示失败。
 - `data` (object): 包含创建的用户信息。
-  - `name` (string): 用户姓名。
-  - `age` (integer): 用户年龄。
 - `error` (string): 错误信息，成功时为空字符串。
 
 ##### 代码示例 
@@ -87,7 +85,7 @@ axios.get(url)
 **curl:**
 
 ```bash
-curl -X POST http://{API_BASE}/users/create -H "Content-Type: application/json" -d '{"name": "张三", "age": 18}'
+curl -X POST http://{API_BASE}/users/create -H "Content-Type: application/json" -d '{"name": "张三", "age": 20}'
 ```
 
 **python:**
@@ -96,7 +94,7 @@ curl -X POST http://{API_BASE}/users/create -H "Content-Type: application/json" 
 import requests
 
 url = "http://{API_BASE}/users/create"
-data = {"name": "张三", "age": 18}
+data = {"name": "张三", "age": 20}
 
 response = requests.post(url, json=data)
 
@@ -110,13 +108,13 @@ print("响应内容:", response.json())
 const axios = require('axios');
 
 const url = 'http://{API_BASE}/users/create';
-const data = { name: '张三', age: 18 };
+const data = { name: '张三', age: 20 };
 
 axios.post(url, data)
     .then(response => {
-        console.log('状态码:', response.status);
+       console.log('状态码:', response.status);
         console.log('响应内容:', response.data);
-    })
+      })
     .catch(error => {
         console.error('错误:', error.response ? error.response.data : error.message);
     });
@@ -127,7 +125,7 @@ axios.post(url, data)
 
 ##### 更新时间
 
-2024-11-27 14:03
+2024-12-02 18:33
 
 ##### 描述
 
@@ -140,8 +138,10 @@ axios.post(url, data)
 ##### 返回值 - Json
 
 - `code` (integer): 返回状态码，0表示成功，1表示失败。
+
 - `data` (array): 包含该年级的学生列表。
-- `error` (string): 错误信息，成功时为 `null`。
+
+- `error` (string): 错误信息，成功时为空字符串。
 
 ##### 代码示例 
 
@@ -175,9 +175,9 @@ const data = { grade: '高一' };
 
 axios.get(url, { params: data })
     .then(response => {
-        console.log('状态码:', response.status);
+       console.log('状态码:', response.status);
         console.log('响应内容:', response.data);
-    })
+      })
     .catch(error => {
         console.error('错误:', error.response ? error.response.data : error.message);
     });

@@ -56,9 +56,9 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 **OpenAI:**
 ```bash
-export OPENAI_API_KEY=api_key
+export DOCAPI_MODEL=openai:gpt-4o-mini
 
-export OPENAI_API_MODEL=gpt-4o-mini
+export OPENAI_API_KEY=api_key
 
 # 生成文档
 docapi generate server.py
@@ -72,13 +72,13 @@ docapi serve
 
 **Azure OpenAI:**
 ```bash
+export DOCAPI_MODEL=azure-openai:gpt-4o-mini
+
 export AZURE_OPENAI_API_KEY=api_key
 
 export AZURE_OPENAI_ENDPOINT=endpoint
 
 export OPENAI_API_VERSION=version
-
-export AZURE_OPENAI_MODEL=gpt-4o-mini
 
 # 生成文档
 docapi generate server.py --template <template_path>
@@ -92,11 +92,11 @@ docapi serve docs --ip 0.0.0.0 --port 9000
 
 **千问, 开源模型部署:**
 ```bash
+export DOCAPI_MODEL=aliyun:qwen-turbo
+
 export OPENAI_API_KEY=api_key
 
 export OPENAI_API_BASE=api_base_url
-
-export OPENAI_API_MODEL=model_name
 
 # 生成文档
 docapi generate server.py --workers 6
@@ -110,11 +110,11 @@ docapi serve
 
 **百度千帆:**
 ```bash
+export DOCAPI_MODEL=baidu:ERNIE-4.0-Turbo-8K
+
 export QIANFAN_ACCESS_KEY=access_key
 
 export QIANFAN_SECRET_KEY=secret_key
-
-export QIANFAN_MODEL=ERNIE-3.5-8K
 
 # 生成文档
 docapi generate server.py
@@ -128,9 +128,9 @@ docapi serve
 
 **智谱AI:**
 ```bash
-export ZHIPUAI_API_KEY=api_key
+export DOCAPI_MODEL=zhipu:glm-4-flash
 
-export ZHIPUAI_MODEL=glm-4-flash
+export ZHIPUAI_API_KEY=api_key
 
 # 生成文档
 docapi generate server.py
@@ -146,9 +146,9 @@ docapi serve
 
 ```.env
 # .env
-OPENAI_API_KEY='xxx'
-OPENAI_API_BASE='xxx'
-OPENAI_API_MODEL='xxx'
+DOCAPI_MODEL = openai:gpt-4o-mini
+
+OPENAI_API_KEY = 'you-api-key'
 ```
 
 ```bash
@@ -162,10 +162,8 @@ import os
 from docapi import DocAPI
 
 os.environ['OPENAI_API_KEY'] = "api_key"
-os.environ['OPENAI_API_BASE'] = "api_base"
-os.environ['OPENAI_API_MODEL'] = "model_name"
 
-docapi = DocAPI.build(lang="zh")
+docapi = DocAPI.build(lang="zh", model="openai:gpt-4o-mini")
 
 docapi.generate("flask_project/flask_server.py", "docs")
 

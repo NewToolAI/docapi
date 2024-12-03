@@ -24,14 +24,14 @@ INDEX_STR = '''## DocAPI is a Python package that automatically generates API do
 class DocAPI:
 
     @classmethod
-    def build(cls, lang, template=None, workers=4):
+    def build(cls, model, lang, template=None, workers=1):
         if template is None:
             template = template_builder.build_template(lang)
         else:
             template = Path(template).read_text(encoding='utf-8')
 
         prompt = prompt_builder.build_prompt(lang, template)
-        llm = llm_builder.build_llm()
+        llm = llm_builder.build_llm(model)
 
         print(f'Using language: {lang}.\n')
 
@@ -41,7 +41,7 @@ class DocAPI:
     def build_empty(cls):
         return cls(None, None, None)
 
-    def __init__(self, llm, prompt, scanner=None, workers=4):
+    def __init__(self, llm, prompt, scanner=None, workers=1):
         self.llm = llm
         self.scanner = scanner
         self.prompt = prompt

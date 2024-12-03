@@ -1,39 +1,43 @@
 import os
 
 
-def build_llm():
+def build_llm(model):
+    provider, model_name = model.split(':', 1)
 
-    if os.getenv('OPENAI_API_KEY') or os.getenv('OPENAI_API_BASE'):
+    if provider in ['openai', 'xai', 'aliyun', 'open-source']:
         from docapi.llm.openai_llm import OpenAILLM
 
         api_key = os.getenv('OPENAI_API_KEY', 'default')
-        base_url = os.getenv('OPENAI_API_BASE')
-        model = os.getenv('OPENAI_API_MODEL', 'gpt-4o-mini')
-        return OpenAILLM(api_key=api_key, base_url=base_url, model=model)
 
-    elif os.getenv('AZURE_OPENAI_API_KEY') and os.getenv('AZURE_OPENAI_ENDPOINT') and os.getenv('OPENAI_API_VERSION'):
+        if provider == 'aliyun':
+            base_url = 'https://dashscope.aliyuncs.com/compatible-mode/v1'
+        elif provider == 'xai':
+            base_url = 'https://api.x.ai/v1'
+        else:
+            base_url = os.getenv('OPENAI_API_BASE')
+
+        return OpenAILLM(api_key=api_key, base_url=base_url, model=model_name)
+
+    elif provider == 'azure-openai':
         from docapi.llm.azure_openai_llm import AzureOpenAILLM
 
         api_key = os.getenv('AZURE_OPENAI_API_KEY', 'default')
         endpoint = os.getenv('AZURE_OPENAI_ENDPOINT')
         api_version = os.getenv('OPENAI_API_VERSION')
-        model = os.getenv('AZURE_OPENAI_MODEL', 'gpt-4o-mini')
-        return AzureOpenAILLM(api_key=api_key, endpoint=endpoint, api_version=api_version, model=model)
+        return AzureOpenAILLM(api_key=api_key, endpoint=endpoint, api_version=api_version, model=model_name)
 
-    elif os.getenv('QIANFAN_ACCESS_KEY') and os.getenv('QIANFAN_SECRET_KEY'):
+    elif provider == 'baidu':
         from docapi.llm.baidu_llm import BaiduLLM
 
         access_key = os.getenv('QIANFAN_ACCESS_KEY')
         secret_key = os.getenv('QIANFAN_SECRET_KEY')
-        model = os.getenv('QIANFAN_MODEL', 'ERNIE-3.5-8K')
-        return BaiduLLM(access_key=access_key, secret_key=secret_key, model=model)
+        return BaiduLLM(access_key=access_key, secret_key=secret_key, model=model_name)
 
-    elif os.getenv('ZHIPUAI_API_KEY'):
+    elif provider == 'zhipu':
         from docapi.llm.zhipu_llm import ZhipuLLM
 
         api_key = os.getenv('ZHIPUAI_API_KEY')
-        model = os.getenv('ZHIPUAI_MODEL', 'glm-4-flash')
-        return ZhipuLLM(api_key=api_key, model=model)
+        return ZhipuLLM(api_key=api_key, model=model_name)
 
     else:
         raise ValueError('No LLM provider found')

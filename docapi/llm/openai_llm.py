@@ -7,14 +7,8 @@ class OpenAILLM(BaseLLM):
 
     def __init__(self, api_key=None, base_url=None, model='gpt-4o-mini'):
         self._model = model
+        self.client = OpenAI(api_key=api_key, base_url=base_url)
 
-        kwargs = {}
-        if api_key:
-            kwargs['api_key'] = api_key
-        if base_url:
-            kwargs['base_url'] = base_url
-
-        self.client = OpenAI(**kwargs)
         print(f'Using model: {self._model}.\n')
 
     def __call__(self, system, user):
