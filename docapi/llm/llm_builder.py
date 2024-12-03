@@ -3,13 +3,17 @@ import os
 
 def build_llm(model):
     provider, model_name = model.split(':', 1)
+    provider = provider.strip().lower()
+    model_name = model_name.strip()
 
     if provider in ['openai', 'xai', 'aliyun', 'open-source']:
         from docapi.llm.openai_llm import OpenAILLM
 
         api_key = os.getenv('OPENAI_API_KEY', 'default')
 
-        if provider == 'aliyun':
+        if provider == 'openai':
+            base_url = None
+        elif provider == 'aliyun':
             base_url = 'https://dashscope.aliyuncs.com/compatible-mode/v1'
         elif provider == 'xai':
             base_url = 'https://api.x.ai/v1'

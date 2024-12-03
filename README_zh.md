@@ -1,7 +1,7 @@
 ![image](assets/logo.png)
 
 ![Python Version](https://img.shields.io/badge/python-3.8+-aff.svg)
-![OS](https://img.shields.io/badge/os-linux%20|%20macOS-blue)
+![OS](https://img.shields.io/badge/os-windows%20|%20linux%20|%20macOS-blue)
 ![Lisence](https://img.shields.io/badge/license-Apache%202-dfd.svg)
 [![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
@@ -9,6 +9,10 @@
 \[ 中文 | [English](README.md) \]
 
 DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，支持 Flask 和 Django。
+
+## 注意
+
+1.x.x版本相对于0.x.x使用方式发生了变化，请参照下面使用方式。
 
 ## 特性
 
@@ -32,13 +36,15 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，支持 Flask 
 
 - [2024-11-26] 支持.env加载环境变量和多国语言文档。
 
+- [2024-12-02] windows操作系统测试通过 (需要使用power shell 或 windows terminal)；新的模型名称提供方式，防止环境变量冲突 (参照下面使用方法)。
+
 ## 安装
 
 ```bash
 pip install -U docapi
 ```
 
-或
+#### pypi官方源安装
 
 ```bash
 pip install -U docapi -i https://pypi.org/simple
@@ -52,7 +58,7 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 ## 使用方法
 
-**自动扫描路由结构，只对flask项目有效，必须在api项目的环境中使用。**
+**docapi建立更新文档需要使用API服务项目环境。**
 
 **OpenAI:**
 ```bash
@@ -90,19 +96,19 @@ docapi update server.py --template <template_path>
 docapi serve docs --ip 0.0.0.0 --port 9000
 ```
 
-**千问, 开源模型部署:**
+**开源模型:**
 ```bash
-export DOCAPI_MODEL=aliyun:qwen-turbo
+export DOCAPI_MODEL=open-source:model_name
 
 export OPENAI_API_KEY=api_key
 
 export OPENAI_API_BASE=api_base_url
 
 # 生成文档
-docapi generate server.py --workers 6
+docapi generate server.py
 
 # 更新文档
-docapi update server.py --workers 6
+docapi update server.py
 
 # 启动web服务
 docapi serve
@@ -121,6 +127,22 @@ docapi generate server.py
 
 # 更新文档
 docapi update server.py
+
+# 启动web服务
+docapi serve
+```
+
+**通义千问:**
+```bash
+export DOCAPI_MODEL=aliyun:qwen-turbo
+
+export OPENAI_API_KEY=api_key
+
+# 生成文档
+docapi generate server.py --workers 6
+
+# 更新文档
+docapi update server.py --workers 6
 
 # 启动web服务
 docapi serve
@@ -165,9 +187,9 @@ os.environ['OPENAI_API_KEY'] = "api_key"
 
 docapi = DocAPI.build(lang="zh", model="openai:gpt-4o-mini")
 
-docapi.generate("flask_project/flask_server.py", "docs")
+docapi.generate("flask_project/server.py", "docs")
 
-# docapi.update("flask_project/flask_server.py", "docs")
+# docapi.update("flask_project/server.py", "docs")
 
 # docapi.serve("docs", ip="127.0.0.1", port=8080)
 ```
@@ -178,20 +200,20 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - AzureOpenAI
 
-- 通义千问
+- XAI
 
-- 智谱AI
+- 开源模型
 
 - 百度千帆
 
-- 开源模型
+- 通义千问
+
+- 智谱AI
 
 ## 支持API框架
 
 - Flask
   
-自动扫描只对Flask框架有效，推荐Flask服务上使用。
-
 ## API Web页面
 
 ![image](assets/example1.png)
@@ -206,8 +228,10 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - ~~多线程加速请求。~~
 
+- ~~支持Windows操作系统.~~
+
+- 支持django框架。
+
+- 大模型封装采用`aisuite`。
+
 - 导入到postman。
-
-- 支持django框架的路由自动扫描。
-
-- 支持Windows操作系统.

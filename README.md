@@ -1,36 +1,42 @@
 ![image](assets/logo.png)
 
 ![Python Version](https://img.shields.io/badge/python-3.8+-aff.svg)
-![OS](https://img.shields.io/badge/os-linux%20|%20macOS-blue)
-![Lisence](https://img.shields.io/badge/license-Apache%202-dfd.svg)
+![OS](https://img.shields.io/badge/os-windows%20|%20linux%20|%20macOS-blue)
+![License](https://img.shields.io/badge/license-Apache%202-dfd.svg)
 [![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
 
-\[ English | [中文](README_zh.md) \]
+\[ [中文](README_zh.md) | English \]
 
-DocAPI is a Python package that automatically generates API documentation using LLM, with support for both Flask and Django frameworks.
+DocAPI is a Python package that leverages LLMs to automatically generate API documentation, supporting both Flask and Django frameworks.
+
+## Notice
+
+The usage of version 1.x.x has changed compared to 0.x.x. Please refer to the instructions below for details.
 
 ## Features
 
-- The Flask framework supports automatic scanning of the routing structure of API services;
+- Automatic scanning of API service routes for the Flask framework;
+  
+- Support for various mainstream commercial and open-source models, both domestic and international;
+  
+- Automatic documentation generation and partial updates;
 
-- Supports a variety of mainstream commercial and open source models at home and abroad;
+- Multi-language API documentation generation (requires large model support);
 
-- Supports automatic document generation and partial document update;
-
-- Support API documentation in multiple languages ​​(requires large model support);
-
-- Supports web page deployment to display API documentation.
+- Web page deployment for API documentation display.
 
 ## Changelog
 
-- [2024-11-17] Support Zhipu AI, Baidu Qianfan model, optimize document structure, and add javascript code examples; Remove the execution mode that uses the configuration file.
+- **[2024-11-17]** Added support for Zhipu AI and Baidu Qianfan models, optimized documentation structure, included JavaScript code examples; removed the execution method using configuration files.
 
-- [2024-11-20] Support custom document templates.
+- **[2024-11-20]** Added support for custom documentation templates.
 
-- [2024-11-24] Support multi-threaded acceleration requests.
+- **[2024-11-24]** Enabled multi-threading for accelerated requests.
 
-- [2024-11-26] Support .env to load environment variables and multi-language documents.
+- **[2024-11-26]** Added support for .env files to load environment variables and multi-language documentation.
+
+- **[2024-12-02]** Successfully tested on Windows OS (requires PowerShell or Windows Terminal); introduced a new way of specifying model names to prevent environment variable conflicts (see usage instructions below).
 
 ## Installation
 
@@ -38,13 +44,13 @@ DocAPI is a Python package that automatically generates API documentation using 
 pip install -U docapi
 ```
 
-or
+#### Install from PyPI Official Repository
 
 ```bash
 pip install -U docapi -i https://pypi.org/simple
 ```
 
-#### GitHub source code installation
+#### Install from GitHub Source
 
 ```bash
 pip install git+https://github.com/Shulin-Zhang/docapi
@@ -52,124 +58,138 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 ## Usage
 
-**Automatically scan the routing structure. This is only valid for flask projects and must be used in the environment of api projects.**
+**docapi requires the API service project environment to create or update documentation.**
 
 **OpenAI:**
 ```bash
+export DOCAPI_MODEL=openai:gpt-4o-mini
+
 export OPENAI_API_KEY=api_key
 
-export OPENAI_API_MODEL=gpt-4o-mini
+# Generate documentation
+docapi generate server.py
 
-# Generate documents
-docapi generate server.py --lang en
+# Update documentation
+docapi update server.py
 
-# Update documents
-docapi update server.py --lang en
-
-# Start web service
+# Start the web service
 docapi serve
 ```
 
 **Azure OpenAI:**
 ```bash
+export DOCAPI_MODEL=azure-openai:gpt-4o-mini
+
 export AZURE_OPENAI_API_KEY=api_key
 
 export AZURE_OPENAI_ENDPOINT=endpoint
 
 export OPENAI_API_VERSION=version
 
-export AZURE_OPENAI_MODEL=gpt-4o-mini
-
-# 生成文档
+# Generate documentation
 docapi generate server.py --template <template_path>
 
-# 更新文档
+# Update documentation
 docapi update server.py --template <template_path>
 
-# 启动web服务
+# Start the web service
 docapi serve docs --ip 0.0.0.0 --port 9000
 ```
 
-**Qianwen, Open source deployment:**
+**Open-Source Models:**
 ```bash
+export DOCAPI_MODEL=open-source:model_name
+
 export OPENAI_API_KEY=api_key
 
 export OPENAI_API_BASE=api_base_url
 
-export OPENAI_API_MODEL=model_name
+# Generate documentation
+docapi generate server.py
 
-# Generate documents
-docapi generate server.py --lang en --workers 6
+# Update documentation
+docapi update server.py
 
-# Update documents
-docapi update server.py --lang en --workers 6
-
-# Start web service
+# Start the web service
 docapi serve
 ```
 
 **Baidu Qianfan:**
 ```bash
+export DOCAPI_MODEL=baidu:ERNIE-4.0-Turbo-8K
+
 export QIANFAN_ACCESS_KEY=access_key
 
 export QIANFAN_SECRET_KEY=secret_key
 
-export QIANFAN_MODEL=ERNIE-3.5-8K
-
-# Generate documents
-docapi generate server.py --lang en
-
-# Update documents
-docapi update server.py --lang en
-
-# Start web service
-docapi serve
-```
-
-**ZhipuAI:**
-```bash
-export ZHIPUAI_API_KEY=api_key
-
-export ZHIPUAI_MODEL=glm-4-flash
-
-# Generate documents
+# Generate documentation
 docapi generate server.py
 
-# Update documents
+# Update documentation
 docapi update server.py
 
-# Start web service
+# Start the web service
 docapi serve
 ```
 
-**.env environment variable file:**
+**Tongyi Qianwen:**
+```bash
+export DOCAPI_MODEL=aliyun:qwen-turbo
+
+export OPENAI_API_KEY=api_key
+
+# Generate documentation
+docapi generate server.py --workers 6
+
+# Update documentation
+docapi update server.py --workers 6
+
+# Start the web service
+docapi serve
+```
+
+**Zhipu AI:**
+```bash
+export DOCAPI_MODEL=zhipu:glm-4-flash
+
+export ZHIPUAI_API_KEY=api_key
+
+# Generate documentation
+docapi generate server.py
+
+# Update documentation
+docapi update server.py
+
+# Start the web service
+docapi serve
+```
+
+**Using .env Environment Variable File:**
 
 ```.env
 # .env
-OPENAI_API_KEY='xxx'
-OPENAI_API_BASE='xxx'
-OPENAI_API_MODEL='xxx'
+DOCAPI_MODEL = openai:gpt-4o-mini
+
+OPENAI_API_KEY = 'your-api-key'
 ```
 
 ```bash
-# Generate documents
+# Generate documentation
 docapi generate server.py --env .env
 ```
 
-## Code calls
+## Code Usage
 ```python
 import os
 from docapi import DocAPI
 
 os.environ['OPENAI_API_KEY'] = "api_key"
-os.environ['OPENAI_API_BASE'] = "api_base"
-os.environ['OPENAI_API_MODEL'] = "model_name"
 
-docapi = DocAPI.build(lang="en")
+docapi = DocAPI.build(lang="zh", model="openai:gpt-4o-mini")
 
-docapi.generate("flask_project/flask_server.py", "docs")
+docapi.generate("flask_project/server.py", "docs")
 
-# docapi.update("flask_project/flask_server.py", "docs")
+# docapi.update("flask_project/server.py", "docs")
 
 # docapi.serve("docs", ip="127.0.0.1", port=8080)
 ```
@@ -178,38 +198,41 @@ docapi.generate("flask_project/flask_server.py", "docs")
 
 - OpenAI
 
-- AzureOpenAI
+- Azure OpenAI
+
+- XAI
+
+- Open-Source Models
+
+- Baidu Qianfan
 
 - Tongyi Qianwen
 
 - Zhipu AI
 
-- Baidu Qianfan
-
-- Open source model
-
 ## Supported API Frameworks
 
 - Flask
   
-Automatic scanning is only valid for the Flask framework and is recommended for use on Flask services.
-
 ## API Web Page
 
 ![image](assets/example1.png)
 
 ## TODO
 
-- ~~Supports large models such as Wenxin Yiyan and Zhipu AI.~~
+- ~~Support large models like Wenxin Yiyan and Zhipu AI.~~
 
-- ~~Supports online web page display of documents.~~
+- ~~Enable online web page documentation display.~~
 
-- ~~Supports custom document templates.~~
+- ~~Add support for custom documentation templates.~~
 
-- ~~Multithreading accelerates requests.~~
+- ~~Implement multi-threading for accelerated requests.~~
 
-- Supports automatic scanning of frameworks such as Django.
+- ~~Support Windows OS.~~
 
-- Import to postman.
+- Add support for Django framework.
 
-- Support Windows operating system.
+- Use `aisuite` for large model encapsulation.
+
+- Enable export to Postman.
+
