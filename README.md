@@ -2,63 +2,63 @@
 
 ![Python Version](https://img.shields.io/badge/python-3.8+-aff.svg)
 ![OS](https://img.shields.io/badge/os-windows%20|%20linux%20|%20macOS-blue)
-![License](https://img.shields.io/badge/license-Apache%202-dfd.svg)
+![Lisence](https://img.shields.io/badge/license-Apache%202-dfd.svg)
 [![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
 
-\[ [中文](README_zh.md) | English \]
+\[ 中文 | [English](README_en.md) \]
 
-DocAPI is a Python package that leverages LLMs to automatically generate API documentation, supporting both Flask and Django frameworks.
+DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，支持 Flask 和 Django。
 
-## Notice
+## 注意
 
-The usage of version 1.x.x has changed compared to 0.x.x. Please refer to the instructions below for details.
+- 1.x.x版本相对于0.x.x使用方式发生了变化，请参照下面的使用方法。
 
-## Features
+- docapi建立更新文档需要使用API服务项目环境。
 
-- Automatic scanning of API service routes for the Flask framework;
+## 特性
+
+- 支持自动扫描API服务的路由结构；
   
-- Support for various mainstream commercial and open-source models, both domestic and international;
+- 支持多种国内外主流商业和开源模型；
   
-- Automatic documentation generation and partial updates;
+- 支持自动生成文档和局部更新文档；
 
-- Multi-language API documentation generation (requires large model support);
+- 支持多种语言的API文档（需要大模型支持）；
 
-- Web page deployment for API documentation display.
+- 支持web页面部署展示API文档。
 
-## Changelog
+## 更新日志
 
-- **[2024-11-17]** Added support for Zhipu AI and Baidu Qianfan models, optimized documentation structure, included JavaScript code examples; removed the execution method using configuration files.
+- [2024-11-17] 支持智谱AI，百度千帆模型，优化文档结构，增加javascript代码示例；去除使用配置文件的执行方式。
 
-- **[2024-11-20]** Added support for custom documentation templates.
+- [2024-11-20] 支持自定义文档模版。
 
-- **[2024-11-24]** Enabled multi-threading for accelerated requests.
+- [2024-11-24] 支持多线程加速请求。
 
-- **[2024-11-26]** Added support for .env files to load environment variables and multi-language documentation.
+- [2024-11-26] 支持.env加载环境变量和多国语言文档。
 
-- **[2024-12-02]** Successfully tested on Windows OS (requires PowerShell or Windows Terminal); introduced a new way of specifying model names to prevent environment variable conflicts (see usage instructions below).
+- [2024-12-02] windows操作系统测试通过 (需要使用power shell 或 windows terminal)；新的模型名称提供方式，防止环境变量冲突 (参照下面使用方法)。
 
-## Installation
+## 安装
 
 ```bash
 pip install -U docapi
 ```
 
-#### Install from PyPI Official Repository
+#### pypi官方源安装
 
 ```bash
 pip install -U docapi -i https://pypi.org/simple
 ```
 
-#### Install from GitHub Source
+#### github源码安装
 
 ```bash
 pip install git+https://github.com/Shulin-Zhang/docapi
 ```
 
-## Usage
-
-**docapi requires the API service project environment to create or update documentation.**
+## 使用方法
 
 **OpenAI:**
 ```bash
@@ -76,163 +76,47 @@ docapi update server.py
 docapi serve
 ```
 
-**Azure OpenAI:**
-```bash
-export DOCAPI_MODEL=azure-openai:gpt-4o-mini
+**[更多使用方法](USAGE.md)**
 
-export AZURE_OPENAI_API_KEY=api_key
 
-export AZURE_OPENAI_ENDPOINT=endpoint
-
-export OPENAI_API_VERSION=version
-
-# Generate documentation
-docapi generate server.py --template <template_path>
-
-# Update documentation
-docapi update server.py --template <template_path>
-
-# Start the web service
-docapi serve docs --ip 0.0.0.0 --port 9000
-```
-
-**Open-Source Models:**
-```bash
-export DOCAPI_MODEL=open-source:model_name
-
-export OPENAI_API_KEY=api_key
-
-export OPENAI_API_BASE=api_base_url
-
-# Generate documentation
-docapi generate server.py
-
-# Update documentation
-docapi update server.py
-
-# Start the web service
-docapi serve
-```
-
-**Baidu Qianfan:**
-```bash
-export DOCAPI_MODEL=baidu:ERNIE-4.0-Turbo-8K
-
-export QIANFAN_ACCESS_KEY=access_key
-
-export QIANFAN_SECRET_KEY=secret_key
-
-# Generate documentation
-docapi generate server.py
-
-# Update documentation
-docapi update server.py
-
-# Start the web service
-docapi serve
-```
-
-**Tongyi Qianwen:**
-```bash
-export DOCAPI_MODEL=aliyun:qwen-turbo
-
-export OPENAI_API_KEY=api_key
-
-# Generate documentation
-docapi generate server.py --workers 6
-
-# Update documentation
-docapi update server.py --workers 6
-
-# Start the web service
-docapi serve
-```
-
-**Zhipu AI:**
-```bash
-export DOCAPI_MODEL=zhipu:glm-4-flash
-
-export ZHIPUAI_API_KEY=api_key
-
-# Generate documentation
-docapi generate server.py
-
-# Update documentation
-docapi update server.py
-
-# Start the web service
-docapi serve
-```
-
-**Using .env Environment Variable File:**
-
-```.env
-# .env
-DOCAPI_MODEL = openai:gpt-4o-mini
-
-OPENAI_API_KEY = 'your-api-key'
-```
-
-```bash
-# Generate documentation
-docapi generate server.py --env .env
-```
-
-## Code Usage
-```python
-import os
-from docapi import DocAPI
-
-os.environ['OPENAI_API_KEY'] = "api_key"
-
-docapi = DocAPI.build(lang="zh", model="openai:gpt-4o-mini")
-
-docapi.generate("flask_project/server.py", "docs")
-
-# docapi.update("flask_project/server.py", "docs")
-
-# docapi.serve("docs", ip="127.0.0.1", port=8080)
-```
-
-## Supported Models
+## 支持模型
 
 - OpenAI
 
-- Azure OpenAI
+- AzureOpenAI
 
 - XAI
 
-- Open-Source Models
+- 开源模型
 
-- Baidu Qianfan
+- 百度千帆
 
-- Tongyi Qianwen
+- 通义千问
 
-- Zhipu AI
+- 智谱AI
 
-## Supported API Frameworks
+## 支持API框架
 
-- Flask
+- Flask (>=3.0.0)
+
+- Django (>=4.2.0)
   
-## API Web Page
+## API Web页面
 
 ![image](assets/example1.png)
 
 ## TODO
 
-- ~~Support large models like Wenxin Yiyan and Zhipu AI.~~
+- ~~支持文心一言、智谱AI等大模型。~~
 
-- ~~Enable online web page documentation display.~~
+- ~~支持文档在线web页面展示。~~
 
-- ~~Add support for custom documentation templates.~~
+- ~~支持自定义文档模版。~~
 
-- ~~Implement multi-threading for accelerated requests.~~
+- ~~多线程加速请求。~~
 
-- ~~Support Windows OS.~~
+- ~~支持Windows操作系统.~~
 
-- Add support for Django framework.
+- ~~支持django框架。~~
 
-- Use `aisuite` for large model encapsulation.
-
-- Enable export to Postman.
-
+- 导入到postman。
