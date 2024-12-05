@@ -15,7 +15,7 @@
 ## 重要提示
 
 - **1.x.x 版本** 相较 **0.x.x** 版本引入了重大变更，请参阅下方最新使用指南。
-- 生成或更新文档需要运行支持的 API 服务。
+- 生成或更新文档需要 API 服务的依赖环境。
 
 ---
 
@@ -23,7 +23,7 @@
 
 - **框架支持**：自动扫描 Flask 和 Django 服务的路由结构；
 - **多模型兼容**：支持多种主流商业及开源大模型；
-- **文档操作**：自动生成完整文档，支持局部更新；
+- **文档操作**：自动生成完整文档，局部更新文档；
 - **多语言支持**：生成多语言 API 文档（需 LLM 支持）；
 - **Web 展示**：支持通过 Web 页面展示 API 文档。
 
@@ -31,12 +31,12 @@
 
 ## 更新日志
 
-- **2024-11-17**：支持智谱 AI 和百度千帆模型，优化文档结构，新增 JavaScript 示例代码；移除配置文件执行模式。
-- **2024-11-20**：新增自定义文档模板支持。
-- **2024-11-24**：引入多线程加速请求处理。
-- **2024-11-26**：支持 `.env` 文件加载环境变量及多国语言文档。
-- **2024-12-02**：Windows 系统测试通过（需 PowerShell 或 Windows Terminal），优化模型名称管理，避免环境变量冲突。
-- **2024-12-05**：全面支持 Django 3、4、5 版本并完成测试。
+- [2024-11-17]：支持智谱 AI 和百度千帆模型，优化文档结构，新增 JavaScript 示例代码；移除配置文件执行模式。
+- [2024-11-20]：新增自定义文档模板支持。
+- [2024-11-24]：引入多线程加速请求处理。
+- [2024-11-26]：支持 `.env` 文件加载环境变量及多国语言文档。
+- [2024-12-02]：Windows 系统测试通过（需 PowerShell 或 Windows Terminal），优化模型名称管理，避免环境变量冲突。
+- [2024-12-05]：全面支持 Django 3、4、5 版本并完成测试。
 
 ---
 
@@ -81,36 +81,36 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 
 ### OpenAI 模型示例
 
-1. 配置模型与密钥：
-   ```bash
-   export DOCAPI_MODEL=openai:gpt-4o-mini
-   export OPENAI_API_KEY=your_api_key
-   ```
+#### 1. 配置模型与密钥：
+```bash
+export DOCAPI_MODEL=openai:gpt-4o-mini
+export OPENAI_API_KEY=your_api_key
+```
 
-2. 生成文档：
-   - Flask 服务：
-     ```bash
-     docapi generate server.py
-     ```
-   - Django 服务：
-     ```bash
-     docapi generate manage.py
-     ```
+#### 2. 生成文档：
+- Flask 服务：
+```bash
+docapi generate server.py
+```
+- Django 服务：
+```bash
+docapi generate manage.py
+```
 
-3. 更新文档：
-   - Flask 服务：
-     ```bash
-     docapi update server.py
-     ```
-   - Django 服务：
-     ```bash
-     docapi update manage.py
-     ```
+#### 3. 更新文档：
+- Flask 服务：
+```bash
+docapi update server.py
+```
+- Django 服务：
+```bash
+docapi update manage.py
+```
 
-4. 启动 Web 服务以展示文档：
-   ```bash
-   docapi serve
-   ```
+#### 4. 启动 Web 服务以展示文档：
+```bash
+docapi serve
+```
 
 [更多用法请参阅](USAGE.md)
 

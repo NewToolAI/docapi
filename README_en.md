@@ -15,7 +15,7 @@
 ## Important Notes
 
 - **Version 1.x.x** introduces breaking changes compared to **0.x.x**. Please refer to the updated usage guide below.  
-- Generating or updating documentation requires running supported API services.
+- Generating or updating documents requires the dependent environment of the API service.
 
 ---
 
@@ -31,12 +31,12 @@
 
 ## Changelog
 
-- **2024-11-17**: Added support for Zhipu AI and Baidu Qianfan models, optimized documentation structure, and introduced JavaScript code examples. Removed configuration file execution mode.  
-- **2024-11-20**: Added custom documentation template support.  
-- **2024-11-24**: Enabled multithreading for faster request handling.  
-- **2024-11-26**: Introduced `.env` file support for environment variables and multi-language documentation.  
-- **2024-12-02**: Successfully tested on Windows (requires PowerShell or Windows Terminal). Improved model naming to avoid environment variable conflicts.  
-- **2024-12-05**: Fully supports and tested on Django versions 3, 4, and 5.  
+- [2024-11-17]: Added support for Zhipu AI and Baidu Qianfan models, optimized documentation structure, and introduced JavaScript code examples. Removed configuration file execution mode.  
+- [2024-11-20]: Added custom documentation template support.  
+- [2024-11-24]: Enabled multithreading for faster request handling.  
+- [2024-11-26]: Introduced `.env` file support for environment variables and multi-language documentation.  
+- [2024-12-02]: Successfully tested on Windows (requires PowerShell or Windows Terminal). Improved model naming to avoid environment variable conflicts.  
+- [2024-12-05]: Fully supports and tested on Django versions 3, 4, and 5.  
 
 ---
 
@@ -81,36 +81,36 @@ Here are typical usage examples:
 
 ### OpenAI Model Example
 
-1. Set up the model and API key:
-   ```bash
-   export DOCAPI_MODEL=openai:gpt-4o-mini
-   export OPENAI_API_KEY=your_api_key
-   ```
+#### 1. Set up the model and API key:
+```bash
+export DOCAPI_MODEL=openai:gpt-4o-mini
+export OPENAI_API_KEY=your_api_key
+```
 
-2. Generate documentation:
-   - For Flask:
-     ```bash
-     docapi generate server.py
-     ```
-   - For Django:
-     ```bash
-     docapi generate manage.py
-     ```
+#### 2. Generate documentation:
+- For Flask:
+```bash
+docapi generate server.py
+```
+- For Django:
+```bash
+docapi generate manage.py
+```
 
-3. Update documentation:
-   - For Flask:
-     ```bash
-     docapi update server.py
-     ```
-   - For Django:
-     ```bash
-     docapi update manage.py
-     ```
+#### 3. Update documentation:
+- For Flask:
+```bash
+docapi update server.py
+```
+- For Django:
+```bash
+docapi update manage.py
+```
 
-4. Start a web server to display the documentation:
-   ```bash
-   docapi serve
-   ```
+#### 4. Start a web server to display the documentation:
+```bash
+docapi serve
+```
 
 [Find more usage details in the guide](USAGE_en.md).
 

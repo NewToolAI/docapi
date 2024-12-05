@@ -129,7 +129,6 @@ To use a configuration file, create and edit a `.env` file:
 ```.env
 DOCAPI_MODEL=openai:gpt-4o-mini
 OPENAI_API_KEY=your_api_key
-DASHSCOPE_API_KEY=your_api_key
 ```
 
 Run commands with the `.env` file:

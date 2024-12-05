@@ -130,7 +130,6 @@ docapi serve
 ```.env
 DOCAPI_MODEL=openai:gpt-4o-mini
 OPENAI_API_KEY=your_api_key
-DASHSCOPE_API_KEY=your_api_key
 ```
 
 使用 `.env` 文件运行命令：
