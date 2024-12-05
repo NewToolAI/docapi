@@ -2,38 +2,34 @@
 
 *Path: `/Volumes/DATA/工作/Work/my_project/docapi/test/django_project/students/views.py`*
 
-### GET - /student/list
+### GET - /student
 
 ##### 更新时间
 
-2024-12-05 12:21
+2024-12-05 14:55
 
 ##### 描述
 
-该接口用于获取所有学生的信息列表。接口将返回包含学生ID、姓名、年龄、年级和电子邮件的JSON数组。
+该接口用于获取所有学生的列表，返回学生的基本信息，包括ID、姓名、年龄、年级和邮箱。
 
 ##### 参数
 
-无
+无需参数。
 
 ##### 返回值 - Json
 
 - `id` (integer): 学生的唯一标识符。
-
 - `name` (string): 学生的姓名。
-
 - `age` (integer): 学生的年龄。
-
-- `grade` (string): 学生的年级。
-
-- `email` (string): 学生的电子邮件地址。
+- `grade` (string): 学生所在的年级。
+- `email` (string): 学生的邮箱地址。
 
 ##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X GET http://{API_BASE}/student/list
+curl -X GET http://{API_BASE}/student
 ```
 
 **python:**
@@ -41,7 +37,7 @@ curl -X GET http://{API_BASE}/student/list
 ```python
 import requests
 
-url = "http://{API_BASE}/student/list"
+url = "http://{API_BASE}/student"
 
 response = requests.get(url)
 
@@ -54,13 +50,13 @@ print("响应内容:", response.json())
 ```javascript
 const axios = require('axios');
 
-const url = 'http://{API_BASE}/student/list';
+const url = 'http://{API_BASE}/student';
 
 axios.get(url)
     .then(response => {
-       console.log('状态码:', response.status);
+        console.log('状态码:', response.status);
         console.log('响应内容:', response.data);
-      })
+    })
     .catch(error => {
         console.error('错误:', error.response ? error.response.data : error.message);
     });
@@ -71,38 +67,31 @@ axios.get(url)
 
 ##### 更新时间
 
-2024-12-05 12:21
+2024-12-05 14:55
 
 ##### 描述
 
-该接口用于添加一个新的学生记录。用户需要通过POST请求提交学生的姓名、年龄、年级和电子邮件。
+该接口用于增加一个新的学生记录。用户需要提供学生的姓名、年龄、年级和邮箱信息，接口将创建学生记录并返回学生的ID。
 
-##### 参数 - Form Data
+##### 参数 - POST
 
-- `name` (string): 必填，学生的姓名。
-- `age` (integer): 必填，学生的年龄。
-- `grade` (string): 必填，学生的年级。
-- `email` (string): 必填，学生的电子邮件地址。
+- `name` (string): 必填，学生姓名。
+- `age` (integer): 必填，学生年龄。
+- `grade` (string): 必填，学生年级。
+- `email` (string): 必填，学生邮箱。
 
 ##### 返回值 - Json
 
-- `id` (integer): 新添加的学生记录的ID。
-- `message` (string): 操作结果信息。
-
-- `error` (string): 错误信息，成功时为空字符串。
-
-##### 状态码
-
-- 201: 创建成功。
-- 400: 请求中缺少必要的字段。
-- 405: 请求方法无效。
+- `id` (integer): 新增学生的ID。
+- `message` (string): 操作成功或失败的消息。
+- `error` (string): 错误信息，如果请求成功则为空字符串。
 
 ##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X POST http://{API_BASE}/student/add -H "Content-Type: application/x-www-form-urlencoded" -d "name=张三&age=18&grade=高一&email=zhangsan@example.com"
+curl -X POST http://{API_BASE}/student/add -d "name=张三&age=18&grade=高一&email=zhangsan@example.com"
 ```
 
 **python:**
@@ -113,7 +102,7 @@ import requests
 url = "http://{API_BASE}/student/add"
 data = {
     "name": "张三",
-    "age": "18",
+    "age": 18,
     "grade": "高一",
     "email": "zhangsan@example.com"
 }
@@ -132,7 +121,7 @@ const axios = require('axios');
 const url = 'http://{API_BASE}/student/add';
 const data = {
     name: '张三',
-    age: '18',
+    age: 18,
     grade: '高一',
     email: 'zhangsan@example.com'
 };
@@ -148,36 +137,32 @@ axios.post(url, data)
 ```
 ---
 
-### DELETE - /student/<student_id>
+### DELETE - /student/delete/{student_id}
 
 ##### 更新时间
 
-2023-04-01 12:00
+2024-12-05 14:55
 
 ##### 描述
 
-该接口用于删除指定ID的学生信息。用户需要提供学生的ID，接口将删除该学生的信息。
+该接口用于删除指定ID的学生记录。用户需要提供学生ID，接口将删除该学生记录并返回删除成功的消息。
 
-##### 参数
+##### 参数 - URL
 
 - `student_id` (integer): 必填，学生的唯一标识符。
 
-##### 返回值
+##### 返回值 - Json
 
-- `id` (integer): 删除成功的学生的ID。
-- `message` (string): 操作结果信息。
+- `id` (integer): 被删除学生的ID。
+- `message` (string): 删除成功的消息。
+- `error` (string): 错误信息，成功时为空字符串。
 
-##### 状态码
-
-- 200: 删除成功。
-- 405: 请求方法错误。
-
-##### 代码示例
+##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X DELETE http://{API_BASE}/student/123
+curl -X DELETE http://{API_BASE}/student/delete/123
 ```
 
 **python:**
@@ -185,7 +170,7 @@ curl -X DELETE http://{API_BASE}/student/123
 ```python
 import requests
 
-url = "http://{API_BASE}/student/123"
+url = "http://{API_BASE}/student/delete/123"
 
 response = requests.delete(url)
 
@@ -198,7 +183,7 @@ print("响应内容:", response.json())
 ```javascript
 const axios = require('axios');
 
-const url = 'http://{API_BASE}/student/123';
+const url = 'http://{API_BASE}/student/delete/123';
 
 axios.delete(url)
     .then(response => {
@@ -211,39 +196,39 @@ axios.delete(url)
 ```
 ---
 
-### GET | POST - /student/edit/<student_id>
+### POST - /student/edit/<int:student_id>
 
 ##### 更新时间
 
-2024-12-05 12:21
+2024-12-05 14:55
 
 ##### 描述
 
-该接口用于编辑指定学生的信息。用户需要提供学生的ID，接口将允许用户更新学生的姓名、年龄、年级和电子邮件信息。
+该接口用于编辑指定学生的信息。用户需要提供学生ID，并通过POST请求发送更新后的学生信息。
 
-##### 参数
+##### 参数 - URL
 
 - `student_id` (integer): 必填，学生的唯一标识符。
 
-##### 请求方法
+##### 参数 - POST
 
-- `POST`: 用于提交学生信息的更新。
+- `name` (string): 可选，学生的姓名。
+- `age` (integer): 可选，学生的年龄。
+- `grade` (string): 可选，学生的年级。
+- `email` (string): 可选，学生的电子邮件地址。
 
 ##### 返回值 - Json
 
-- `id` (integer): 更新后的学生ID。
-- `message` (string): 操作结果信息，成功时显示“Student updated successfully”。
+- `id` (integer): 成功更新后返回的学生ID。
+- `message` (string): 操作成功或失败的消息。
+- `error` (string): 错误信息，仅在请求方法无效时返回。
 
-##### 错误返回 - Json
-
-- `error` (string): 错误信息，当请求方法不正确时显示“Invalid request method”。
-
-##### 代码示例
+##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X POST http://{API_BASE}/student/edit/123 -H "Content-Type: application/json" -d '{"name": "张三", "age": 20, "grade": "大一", "email": "zhangsan@example.com"}'
+curl -X POST http://{API_BASE}/student/edit/123 -H "Content-Type: application/x-www-form-urlencoded" -d "name=张三&age=18&grade=高二&email=zhangsan@example.com"
 ```
 
 **python:**
@@ -252,9 +237,14 @@ curl -X POST http://{API_BASE}/student/edit/123 -H "Content-Type: application/js
 import requests
 
 url = "http://{API_BASE}/student/edit/123"
-data = {"name": "张三", "age": 20, "grade": "大一", "email": "zhangsan@example.com"}
+data = {
+    "name": "张三",
+    "age": 18,
+    "grade": "高二",
+    "email": "zhangsan@example.com"
+}
 
-response = requests.post(url, json=data)
+response = requests.post(url, data=data)
 
 print("状态码:", response.status_code)
 print("响应内容:", response.json())
@@ -266,13 +256,20 @@ print("响应内容:", response.json())
 const axios = require('axios');
 
 const url = 'http://{API_BASE}/student/edit/123';
-const data = { name: '张三', age: 20, grade: '大一', email: 'zhangsan@example.com' };
+const data = new URLSearchParams({
+    name: '张三',
+    age: 18,
+    grade: '高二',
+    email: 'zhangsan@example.com'
+});
 
-axios.post(url, data)
+axios.post(url, data.toString(), {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+})
     .then(response => {
-       console.log('状态码:', response.status);
+        console.log('状态码:', response.status);
         console.log('响应内容:', response.data);
-      })
+    })
     .catch(error => {
         console.error('错误:', error.response ? error.response.data : error.message);
     });

@@ -14,7 +14,7 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，目前支持 
 
 - 1.x.x版本相对于0.x.x使用方式发生了变化，请参照下面的使用方法。
 
-- docapi建立更新文档需要使用API服务项目环境。
+- docapi建立更新文档需要使用API服务依赖环境。
 
 ## 特性
 
@@ -40,7 +40,7 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，目前支持 
 
 - [2024-12-02] windows操作系统测试通过 (需要使用power shell 或 windows terminal)；新的模型名称提供方式，防止环境变量冲突 (参照下面使用方法)。
 
-- [2024-12-05] 支持Django，4.2.x版本测试通过。
+- [2024-12-05] 支持Django 3, 4, 5 版本, 并测试通过。
 
 ## 安装
 
@@ -48,10 +48,22 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，目前支持 
 pip install -U docapi
 ```
 
+```bash
+pip install -U "docapi[all]"
+```
+
+```bash
+pip install -U "docapi[flask]"
+```
+
+```bash
+pip install -U "docapi[django]"
+```
+
 #### pypi官方源安装
 
 ```bash
-pip install -U docapi -i https://pypi.org/simple
+pip install -U docapi[all] -i https://pypi.org/simple
 ```
 
 #### github源码安装
@@ -107,7 +119,7 @@ docapi serve
 
 - Flask (>=3.0.0)
 
-- Django (>=4.2.0)
+- Django (3, 4, 5)
   
 ## API Web页面
 
@@ -121,8 +133,10 @@ docapi serve
 
 - ~~支持自定义文档模版。~~
 
-- ~~多线程加速请求。~~
+- ~~支持多线程加速请求。~~
 
 - ~~支持Windows操作系统.~~
 
 - ~~支持django框架。~~
+
+- 支持更多的模型和api框架。

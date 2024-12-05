@@ -4,9 +4,6 @@ from pathlib import Path
 import hashlib
 import inspect
 
-import django
-from django.urls import get_resolver
-from django.urls import URLPattern, URLResolver
 
 from docapi.scanner.base_scanner import BaseScanner
 
@@ -14,6 +11,9 @@ from docapi.scanner.base_scanner import BaseScanner
 class DjangoScanner(BaseScanner):
     
     def scan(self, manager_path):
+        import django
+        from django.urls import get_resolver
+        
         project_path = Path(manager_path).parent.resolve()
 
         sys.path.insert(0, str(project_path))
@@ -23,28 +23,34 @@ class DjangoScanner(BaseScanner):
 
         resolver = get_resolver()
         structures = {}
-        self._extract_routes(resolver.url_patterns, structures, prefix='')
+        self._extract_routes(resolver.url_patterns, structures, prefix='/')
         structures = self._sort_structures(structures)
 
         return structures
 
     def _extract_routes(self, patterns, structures, prefix):
+        from django.urls import URLPattern, URLResolver
+
         for pattern in patterns:
             if isinstance(pattern, URLPattern):
                 url = prefix + str(pattern.pattern)
 
+                if url.startswith('/admin'):
+                    continue
+
                 view_func = pattern.callback
-                comments = inspect.getcomments(view_func)
+
+                try:
+                    comments = inspect.getcomments(view_func) or ''
+                except (TypeError, OSError):
+                    comments = ''
+
                 try:
                     code = inspect.getsource(view_func)
                 except (TypeError, OSError):
                     code = ''
 
-                if comments:
-                    code = comments + code
-
-                if url.startswith('admin/'):
-                    continue
+                code = f'# API Path: {url.rstrip("/")}\n\n' + comments + code
 
                 md5 = hashlib.md5(code.encode()).hexdigest()
                 path = str(Path(inspect.getfile(view_func)).resolve())
@@ -53,7 +59,7 @@ class DjangoScanner(BaseScanner):
                     structures[path] = []
 
                 structures[path].append({
-                    'url': url,
+                    'url': url.rstrip('/'),
                     'md5': md5,
                     'code': code
                  })

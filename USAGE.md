@@ -1,6 +1,6 @@
 # 使用方法 (Usage)
 
-**注意：docapi建立更新文档需要使用API服务项目环境。**
+**注意：docapi建立更新文档需要使用API服务依赖环境。**
 
 **Note: The docapi tool requires the API service project environment to generate and update documentation.**
 

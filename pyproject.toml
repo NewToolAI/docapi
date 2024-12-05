@@ -3,11 +3,11 @@ name = "docapi"
 version = "1.0.0"
 description = "DocAPI is a Python package that automatically generates API documentation using LLMs. It currently supports Flask and Django frameworks."
 authors = ["zhangshulin <zhangslwork@yeah.net>"]
-license = "Apache License Version 2.0"
+license = "Apache-2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8,<4"
 openai = "^1.35.8"
 fire = "^0.7.0"
 pyyaml = "^6.0.2"
@@ -15,8 +15,13 @@ mkdocs = "^1.6.1"
 qianfan = "^0.4.12.1"
 zhipuai = "^2.1.5.20230904"
 python-dotenv = "^1.0.1"
-flask = "^3.0.0"
-django = "^4.2.0"
+flask = { version = "^3.0.0", optional = true }
+django = { version = ">=3.0.0", optional = true }
+
+[tool.poetry.extras]
+flask = ["flask"]
+django = ["django"]
+all = ["flask", "django"]
 
 [tool.poetry.scripts]
 docapi = "docapi.main:run" 

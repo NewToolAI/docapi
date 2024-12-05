@@ -48,6 +48,18 @@ DocAPI is a Python package that automatically generates API documentation using 
 pip install -U docapi
 ```
 
+```bash
+pip install -U "docapi[all]"
+```
+
+```bash
+pip install -U "docapi[flask]"
+```
+
+```bash
+pip install -U "docapi[django]"
+```
+
 #### Install from PyPI Official Repository
 
 ```bash
@@ -106,7 +118,7 @@ docapi serve
 
 - Flask (>=3.0.0)
 
-- Django (>=4.2.0)
+- Django (3, 4, 5)
   
 ## API Web Page
 
@@ -114,14 +126,16 @@ docapi serve
 
 ## TODO
 
-- ~~Support large models like Wenxin Yiyan and Zhipu AI.~~
+- ~~Supports large models such as Wenxin Yiyan and Zhipu AI.~~
 
-- ~~Enable online web page documentation display.~~
+- ~~Supports online web page display for documents.~~
 
-- ~~Add support for custom documentation templates.~~
+- ~~Supports custom document templates.~~
 
-- ~~Implement multi-threading for accelerated requests.~~
+- ~~Supports multi-threaded request acceleration.~~
 
-- ~~Support Windows OS.~~
+- ~~Supports Windows operating system.~~
 
-- ~~Add support for Django framework.~~
+- ~~Supports Django framework.~~
+
+- Supports more models and API frameworks.

@@ -6,26 +6,26 @@
 
 ##### 更新时间
 
-2023-04-01 12:22
+2024-12-05 14:50
 
 ##### 描述
 
-该接口用于获取指定学生的成绩列表。用户需要提供学生ID，接口将返回该学生的成绩信息。
+该接口用于获取指定学生的成绩列表。用户需要提供学生的ID，接口将返回该学生的成绩信息。
 
-##### 参数 - Query String
+##### 参数 - Query
 
 - `ID` (string): 必填，学生的唯一标识符。
 
-##### 返回值 - Text
+##### 返回值 - String
 
-- 返回指定学生的成绩信息，格式为 "scores of {ID}"。
+- 返回字符串格式的学生成绩信息。
 
 ##### 代码示例 
 
 **curl:**
 
 ```bash
-curl -X GET http://{API_BASE}/users/scores?ID=123456
+curl -X GET "http://{API_BASE}/users/scores?ID=12345"
 ```
 
 **python:**
@@ -34,10 +34,11 @@ curl -X GET http://{API_BASE}/users/scores?ID=123456
 import requests
 
 url = "http://{API_BASE}/users/scores"
-params = {"ID": "123456"}
+params = {"ID": "12345"}
 
 response = requests.get(url, params=params)
 
+print("状态码:", response.status_code)
 print("响应内容:", response.text)
 ```
 
@@ -47,14 +48,15 @@ print("响应内容:", response.text)
 const axios = require('axios');
 
 const url = 'http://{API_BASE}/users/scores';
-const params = { ID: '123456' };
+const params = { ID: '12345' };
 
 axios.get(url, { params: params })
     .then(response => {
+        console.log('状态码:', response.status);
         console.log('响应内容:', response.data);
     })
     .catch(error => {
-        console.error('错误:', error.message);
+        console.error('错误:', error.response ? error.response.data : error.message);
     });
 ```
 ---
