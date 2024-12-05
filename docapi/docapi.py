@@ -75,7 +75,7 @@ class DocAPI:
 
             for path, item_list in structures.items():
                 path = Path(path).resolve()
-                print(f'Create document for {path.name}.')
+                print(f'Create document for {path.parent.name}/{path.name}.')
 
                 for item in item_list:
                     url = item['url']
@@ -111,7 +111,8 @@ class DocAPI:
         keep_path_set = new_path_set & old_path_set
 
         for path in del_path_set:
-            print(f'Delete document for {Path(path).name}.')
+            path = Path(path)
+            print(f'Delete document for {path.parent.name}/{path.name}.')
             print()
 
         add_structures = {path: item_list for path, item_list in new_structures.items() if path in add_path_set}
@@ -144,7 +145,7 @@ class DocAPI:
 
             for path, item_list in keep_structures.items():
                 path = Path(path).resolve()
-                print(f'Update document for {path.name}.')
+                print(f'Update document for {path.parent.name}/{path.name}.')
                 path = str(path)
 
                 new_item_list = item_list
@@ -221,7 +222,7 @@ class DocAPI:
             path = Path(path).resolve()
 
             doc_str = ''
-            doc_head = DOC_HEAD.format(filename=path.name, path=str(path))
+            doc_head = DOC_HEAD.format(filename=f'{path.parent.name}/{path.name}', path=str(path))
             doc_str += doc_head + '\n'
 
             item_list = sorted(item_list, key=lambda x: x['url'])
@@ -230,7 +231,7 @@ class DocAPI:
                 doc = item['doc']
                 doc_str += doc + '\n---\n\n'
 
-            doc_path = doc_dir / f'{path.stem}.md'
+            doc_path = doc_dir / f'{path.parent.name}-{path.stem}.md'
             doc_path.write_text(doc_str, encoding='utf-8')
 
         doc_json_path.write_text(json.dumps(structures, indent=2, ensure_ascii=False), encoding='utf-8')

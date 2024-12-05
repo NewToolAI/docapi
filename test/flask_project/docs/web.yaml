@@ -1,7 +1,7 @@
 docs_dir: "/Volumes/DATA/\u5DE5\u4F5C/Work/my_project/docapi/test/flask_project/docs"
 nav:
 - Home: index.md
-- sub_api: sub_api.md
-- server: server.md
+- flask_project-sub_api: flask_project-sub_api.md
+- flask_project-server: flask_project-server.md
 site_name: DocAPI
 theme: readthedocs

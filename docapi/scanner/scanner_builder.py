@@ -10,6 +10,7 @@ def build_scanner(app_path):
 
     import_code = ''
     for line in code.split('\n'):
+        line = line.strip()
         if re.match(r'from .{1,20} import .*|import .*', line):
             import_code += line + '\n'
 
