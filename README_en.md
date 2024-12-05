@@ -87,6 +87,7 @@ Here are typical usage examples:
 #### 1. Set up the model and API key:
 ```bash
 export DOCAPI_MODEL=openai:gpt-4o-mini
+
 export OPENAI_API_KEY=your_api_key
 ```
 
