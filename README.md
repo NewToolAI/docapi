@@ -58,6 +58,9 @@ pip install -U "docapi[all]"
 
 ```bash
 pip install -U "docapi[flask]"
+```
+
+```bash
 pip install -U "docapi[django]"
 ```
 
@@ -84,6 +87,7 @@ pip install git+https://github.com/Shulin-Zhang/docapi
 #### 1. 配置模型与密钥：
 ```bash
 export DOCAPI_MODEL=openai:gpt-4o-mini
+
 export OPENAI_API_KEY=your_api_key
 ```
 

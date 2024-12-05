@@ -1,6 +1,6 @@
 # 使用方法
 
-**注意**：`docapi` 工具需要在相应的 API 服务环境下运行，以生成和更新文档。
+**注意**：生成或更新文档需要 API 服务的依赖环境。
 
 ---
 
@@ -9,6 +9,7 @@
 ### OpenAI 示例
 ```bash
 export DOCAPI_MODEL=openai:gpt-4o-mini
+
 export OPENAI_API_KEY=your_api_key
 
 # 为 Flask 框架生成文档
@@ -30,8 +31,11 @@ docapi serve
 ### Azure OpenAI 示例
 ```bash
 export DOCAPI_MODEL=azure-openai:gpt-4o-mini
+
 export AZURE_OPENAI_API_KEY=your_api_key
+
 export AZURE_OPENAI_ENDPOINT=your_endpoint
+
 export OPENAI_API_VERSION=api_version
 
 # 使用自定义模板生成文档
@@ -47,6 +51,7 @@ docapi serve docs --ip 0.0.0.0 --port 9000
 ### XAI 示例
 ```bash
 export DOCAPI_MODEL=xai:grok-beta
+
 export XAI_API_KEY=your_api_key
 
 # 生成文档
@@ -62,7 +67,9 @@ docapi serve
 ### 开源模型示例
 ```bash
 export DOCAPI_MODEL=open-source:model_name
+
 export OPENAI_API_KEY=your_api_key
+
 export OPENAI_API_BASE=api_base_url
 
 # 生成文档
@@ -78,7 +85,9 @@ docapi serve
 ### 百度千帆示例
 ```bash
 export DOCAPI_MODEL=baidu:ERNIE-4.0-Turbo-8K
+
 export QIANFAN_ACCESS_KEY=your_access_key
+
 export QIANFAN_SECRET_KEY=your_secret_key
 
 # 生成文档
@@ -94,6 +103,7 @@ docapi serve
 ### 通义千问示例
 ```bash
 export DOCAPI_MODEL=aliyun:qwen-turbo
+
 export DASHSCOPE_API_KEY=your_api_key
 
 # 使用多线程生成文档
@@ -109,6 +119,7 @@ docapi serve
 ### 智谱 AI 示例
 ```bash
 export DOCAPI_MODEL=zhipu:glm-4-flash
+
 export ZHIPUAI_API_KEY=your_api_key
 
 # 生成文档
@@ -128,8 +139,11 @@ docapi serve
 可以通过配置 `.env` 文件来管理环境变量：
 
 ```.env
-DOCAPI_MODEL=openai:gpt-4o-mini
-OPENAI_API_KEY=your_api_key
+DOCAPI_MODEL = openai:gpt-4o-mini
+
+OPENAI_API_KEY = your_api_key
+
+DASHSCOPE_API_KEY = your_api_key
 ```
 
 使用 `.env` 文件运行命令：

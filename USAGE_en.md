@@ -1,6 +1,6 @@
 # Usage
 
-**Note:** The `docapi` tool requires the appropriate API service environment to generate and update documentation.  
+**Note:** Generating or updating documents requires the dependent environment of the API service. 
 
 ---
 
@@ -9,6 +9,7 @@
 ### OpenAI Example
 ```bash
 export DOCAPI_MODEL=openai:gpt-4o-mini
+
 export OPENAI_API_KEY=your_api_key
 
 # Generate documentation for Flask
@@ -30,8 +31,11 @@ docapi serve
 ### Azure OpenAI Example
 ```bash
 export DOCAPI_MODEL=azure-openai:gpt-4o-mini
+
 export AZURE_OPENAI_API_KEY=your_api_key
+
 export AZURE_OPENAI_ENDPOINT=your_endpoint
+
 export OPENAI_API_VERSION=api_version
 
 # Generate documentation with a custom template
@@ -47,6 +51,7 @@ docapi serve docs --ip 0.0.0.0 --port 9000
 ### XAI Example
 ```bash
 export DOCAPI_MODEL=xai:grok-beta
+
 export XAI_API_KEY=your_api_key
 
 # Generate documentation
@@ -62,7 +67,9 @@ docapi serve
 ### Open-Source Models Example
 ```bash
 export DOCAPI_MODEL=open-source:model_name
+
 export OPENAI_API_KEY=your_api_key
+
 export OPENAI_API_BASE=api_base_url
 
 # Generate documentation
@@ -78,7 +85,9 @@ docapi serve
 ### Baidu Qianfan Example
 ```bash
 export DOCAPI_MODEL=baidu:ERNIE-4.0-Turbo-8K
+
 export QIANFAN_ACCESS_KEY=your_access_key
+
 export QIANFAN_SECRET_KEY=your_secret_key
 
 # Generate documentation
@@ -94,6 +103,7 @@ docapi serve
 ### Tongyi Qianwen Example
 ```bash
 export DOCAPI_MODEL=aliyun:qwen-turbo
+
 export DASHSCOPE_API_KEY=your_api_key
 
 # Generate documentation with parallel processing
@@ -109,6 +119,7 @@ docapi serve
 ### Zhipu AI Example
 ```bash
 export DOCAPI_MODEL=zhipu:glm-4-flash
+
 export ZHIPUAI_API_KEY=your_api_key
 
 # Generate documentation
@@ -127,8 +138,11 @@ docapi serve
 
 To use a configuration file, create and edit a `.env` file:
 ```.env
-DOCAPI_MODEL=openai:gpt-4o-mini
-OPENAI_API_KEY=your_api_key
+DOCAPI_MODEL = openai:gpt-4o-mini
+
+OPENAI_API_KEY = your_api_key
+
+DASHSCOPE_API_KEY = your_api_key
 ```
 
 Run commands with the `.env` file:

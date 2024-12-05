@@ -58,6 +58,9 @@ Install for specific frameworks:
 
 ```bash
 pip install -U "docapi[flask]"
+```
+
+```bash
 pip install -U "docapi[django]"
 ```
 
