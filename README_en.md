@@ -1,7 +1,7 @@
 # ![image](assets/logo.png)
 
 ![Python Version](https://img.shields.io/badge/python-3.8+-aff.svg)
-![OS](https://img.shields.io/badge/os-windows%20|%20linux%20|%20macOS-blue)
+![OS](https://img.shields.io/badge/os-windows%20|%20linux%20|%20macos-blue)
 ![License](https://img.shields.io/badge/license-Apache%202-dfd.svg)
 [![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
