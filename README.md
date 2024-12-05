@@ -8,7 +8,7 @@
 
 \[ 中文 | [English](README_en.md) \]
 
-DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，支持 Flask 和 Django。
+DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，目前支持 Flask 和 Django。
 
 ## 注意
 
@@ -18,7 +18,7 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，支持 Flask 
 
 ## 特性
 
-- 支持自动扫描API服务的路由结构；
+- 支持Flask和Django，自动扫描API服务的路由结构；
   
 - 支持多种国内外主流商业和开源模型；
   
@@ -39,6 +39,8 @@ DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，支持 Flask 
 - [2024-11-26] 支持.env加载环境变量和多国语言文档。
 
 - [2024-12-02] windows操作系统测试通过 (需要使用power shell 或 windows terminal)；新的模型名称提供方式，防止环境变量冲突 (参照下面使用方法)。
+
+- [2024-12-05] 支持Django，4.2.x版本测试通过。
 
 ## 安装
 
@@ -66,17 +68,23 @@ export DOCAPI_MODEL=openai:gpt-4o-mini
 
 export OPENAI_API_KEY=api_key
 
-# Generate documentation
+# Flask框架生成文档
 docapi generate server.py
 
-# Update documentation
+# Django框架生成文档
+# docapi generate manage.py
+
+# Flask框架更新文档
 docapi update server.py
 
-# Start the web service
+# Django框架更新文档
+# docapi update manage.py
+
+# 启动文档web服务
 docapi serve
 ```
 
-**[更多使用方法](USAGE.md)**
+*[更多使用方法](USAGE.md)*
 
 
 ## 支持模型
@@ -118,5 +126,3 @@ docapi serve
 - ~~支持Windows操作系统.~~
 
 - ~~支持django框架。~~
-
-- 导入到postman。

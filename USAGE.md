@@ -12,13 +12,19 @@ export DOCAPI_MODEL=openai:gpt-4o-mini
 
 export OPENAI_API_KEY=api_key
 
-# Generate documentation
+# Generate documentation for Flask framework
 docapi generate server.py
 
-# Update documentation
+# Generate documentation for Django framework
+# docapi generate manage.py
+
+# Update documentation for Flask framework
 docapi update server.py
 
-# Start the web service
+# Update documentation for Django framework
+# docapi update manage.py
+
+# Start the documentation web service
 docapi serve
 ```
 
@@ -49,10 +55,10 @@ export DOCAPI_MODEL=xai:grok-beta
 export XAI_API_KEY=api_key
 
 # Generate documentation
-docapi generate server.py
+docapi generate manage.py
 
 # Update documentation
-docapi update server.py
+docapi update manage.py
 
 # Start the web service
 docapi serve
@@ -101,10 +107,10 @@ export DOCAPI_MODEL=aliyun:qwen-turbo
 export DASHSCOPE_API_KEY=api_key
 
 # Generate documentation
-docapi generate server.py --workers 6
+docapi generate manage.py --workers 6
 
 # Update documentation
-docapi update server.py --workers 6
+docapi update manage.py --workers 6
 
 # Start the web service
 docapi serve

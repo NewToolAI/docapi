@@ -33,17 +33,15 @@ def test_code(env_path, model):
     load_dotenv(dotenv_path=env_path)
 
     docapi = DocAPI.build(lang="zh", model=model)
-
-    docapi.generate("flask_project/server.py", "docs", )
-
-    docapi.update("flask_project/server.py", "docs")
+    docapi.generate("django_project/manage.py", "django_project/docs", )
+    docapi.update("django_project/manage.py", "django_project/docs")
 
 
-def test(env_path):
+def test(env):
     for model in MODELS:
-        test_flask(env_path, model)
+        test_flask(env, model)
 
-    test_code(env_path, MODELS[-1])
+    test_code(env, MODELS[-1])
     
     os.system(f'docapi serve flask_project/docs')
 

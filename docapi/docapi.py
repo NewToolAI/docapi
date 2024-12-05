@@ -14,9 +14,9 @@ DOC_HEAD = '''# {filename}
 *Path: `{path}`*
 '''
 
-INDEX_STR = '''## DocAPI is a Python package that automatically generates API documentation using LLM.
+INDEX_STR = '''### DocAPI is a Python package that automatically generates API documentation using LLMs. It currently supports Flask and Django frameworks.
 
-## DocAPI是一个Python包，它使用LLM自动生成API文档。
+### DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，目前支持 Flask 和 Django。。
 
 [Github: https://github.com/Shulin-Zhang/docapi](https://github.com/Shulin-Zhang/docapi)                      
 '''

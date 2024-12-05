@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 import hashlib
 import inspect
+
 import django
 from django.urls import get_resolver
 from django.urls import URLPattern, URLResolver

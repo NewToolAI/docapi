@@ -8,7 +8,7 @@
 
 \[ [中文](README.md) | English \]
 
-DocAPI is a Python package that leverages LLMs to automatically generate API documentation, supporting both Flask and Django frameworks.
+DocAPI is a Python package that automatically generates API documentation using LLMs. It currently supports Flask and Django frameworks.
 
 ## Notice
 
@@ -18,15 +18,15 @@ DocAPI is a Python package that leverages LLMs to automatically generate API doc
 
 ## Features
 
-- Supports automatic scanning of API service routing structure.
-  
-- Supports various mainstream commercial and open-source models, both domestic and international.
-  
-- Supports automatic generation and partial updates of documentation.
-  
-- Supports API documentation in multiple languages (requires large model support).
-  
-- Supports web-based deployment for displaying API documentation.
+- Supports both Flask and Django, automatically scanning the routing structure of API services.
+
+- Supports a variety of popular commercial and open-source models, both domestic and international.
+
+- Supports automatic generation of documentation and partial updates to existing documentation.
+
+- Supports API documentation in multiple languages (requires support from large models).
+
+- Supports deployment of web pages for displaying API documentation.
 
 ## Changelog
 
@@ -39,6 +39,8 @@ DocAPI is a Python package that leverages LLMs to automatically generate API doc
 - **[2024-11-26]** Added support for .env files to load environment variables and multi-language documentation.
 
 - **[2024-12-02]** Successfully tested on Windows OS (requires PowerShell or Windows Terminal); introduced a new way of specifying model names to prevent environment variable conflicts (see usage instructions below).
+
+- **[2024-12-05]** Supported Django, tested successfully with version 4.2.x.
 
 ## Installation
 
@@ -66,17 +68,23 @@ export DOCAPI_MODEL=openai:gpt-4o-mini
 
 export OPENAI_API_KEY=api_key
 
-# Generate documentation
+# Generate documentation for Flask framework
 docapi generate server.py
 
-# Update documentation
+# Generate documentation for Django framework
+# docapi generate manage.py
+
+# Update documentation for Flask framework
 docapi update server.py
 
-# Start the web service
+# Update documentation for Django framework
+# docapi update manage.py
+
+# Start the documentation web service
 docapi serve
 ```
 
-**[More usage methods](USAGE.md)**
+*[More usage methods](USAGE.md)*
 
 ## Supported Models
 
@@ -117,5 +125,3 @@ docapi serve
 - ~~Support Windows OS.~~
 
 - ~~Add support for Django framework.~~
-
-- Enable export to Postman.

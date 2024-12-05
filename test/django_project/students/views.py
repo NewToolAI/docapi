@@ -4,10 +4,12 @@ from .models import Student
 
 
 def student_list(request):
+    '''学生列表'''
     students = Student.objects.all().values('id', 'name', 'age', 'grade', 'email')
     return JsonResponse(list(students), safe=False)
 
 
+# 增加学生
 def student_add(request):
     if request.method == 'POST':
         name = request.POST.get('name')
