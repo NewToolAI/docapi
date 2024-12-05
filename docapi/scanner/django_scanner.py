@@ -34,7 +34,7 @@ class DjangoScanner(BaseScanner):
 
         for line in manager_path.read_text(encoding='utf-8').splitlines():
             if re.match(r'^os\.environ.*DJANGO_SETTINGS_MODULE', line.strip()):
-                settings = line.split('DJANGO_SETTINGS_MODULE')[-1].strip(",') ")
+                settings = line.split('DJANGO_SETTINGS_MODULE')[-1].strip(",')\"\t\n ")
                 return settings
 
         raise RuntimeError('Cannot find DJANGO_SETTINGS_MODULE')
