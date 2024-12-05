@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 from pathlib import Path
 import hashlib
 import inspect
@@ -17,7 +18,7 @@ class DjangoScanner(BaseScanner):
         project_path = Path(manager_path).parent.resolve()
 
         sys.path.insert(0, str(project_path))
-        os.environ['DJANGO_SETTINGS_MODULE'] = f'{project_path.name}.settings'
+        os.environ['DJANGO_SETTINGS_MODULE'] = self._get_settings(manager_path)
         django.setup()
         sys.path.pop(0)
 
@@ -27,6 +28,16 @@ class DjangoScanner(BaseScanner):
         structures = self._sort_structures(structures)
 
         return structures
+
+    def _get_settings(self, manager_path):
+        manager_path = Path(manager_path)
+
+        for line in manager_path.read_text(encoding='utf-8').splitlines():
+            if re.match(r'^os\.environ.*DJANGO_SETTINGS_MODULE', line.strip()):
+                settings = line.split('DJANGO_SETTINGS_MODULE')[-1].strip(",') ")
+                return settings
+
+        raise RuntimeError('Cannot find DJANGO_SETTINGS_MODULE')
 
     def _extract_routes(self, patterns, structures, prefix):
         from django.urls import URLPattern, URLResolver
