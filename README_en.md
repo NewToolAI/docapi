@@ -6,7 +6,7 @@
 [![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
 
-\[ 中文 | [English](README_en.md) \]
+\[ English | [中文](README.md) \]
 
 **DocAPI** is a Python library powered by Large Language Models (LLMs) designed for automatically generating API documentation. It currently supports **Flask** and **Django**, enabling seamless documentation generation and updates to enhance developer productivity.
 
