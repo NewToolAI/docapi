@@ -1,141 +1,146 @@
-![image](assets/logo.png)
+# ![image](assets/logo.png)
 
-![Python Version](https://img.shields.io/badge/python-3.8+-aff.svg)
-![OS](https://img.shields.io/badge/os-windows%20|%20linux%20|%20macOS-blue)
-![License](https://img.shields.io/badge/license-Apache%202-dfd.svg)
-[![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
+![Python Version](https://img.shields.io/badge/python-3.8+-aff.svg)  
+![OS](https://img.shields.io/badge/os-windows%20|%20linux%20|%20macOS-blue)  
+![License](https://img.shields.io/badge/license-Apache%202-dfd.svg)  
+[![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)  
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
 
-\[ [中文](README.md) | English \]
+\[ 中文 | [English](README_en.md) \]
 
-DocAPI is a Python package that automatically generates API documentation using LLMs. It currently supports Flask and Django frameworks.
+**DocAPI** is a Python library powered by Large Language Models (LLMs) designed for automatically generating API documentation. It currently supports **Flask** and **Django**, enabling seamless documentation generation and updates to enhance developer productivity.
 
-## Notice
+---
 
-- The usage of version 1.x.x has changed compared to 0.x.x. Please refer to the instructions below for details.
+## Important Notes
 
-- The docapi tool requires the API service project environment to generate and update documentation.
+- **Version 1.x.x** introduces breaking changes compared to **0.x.x**. Please refer to the updated usage guide below.  
+- Generating or updating documentation requires running supported API services.
 
-## Features
+---
 
-- Supports both Flask and Django, automatically scanning the routing structure of API services.
+## Key Features
 
-- Supports a variety of popular commercial and open-source models, both domestic and international.
+- **Framework Support**: Automatically scans routing structures for Flask and Django applications.  
+- **Multi-Model Compatibility**: Works with a wide range of commercial and open-source LLMs.  
+- **Documentation Management**: Generates complete documentation or performs incremental updates.  
+- **Multi-Language Support**: Creates multilingual API documentation (requires LLM support).  
+- **Web Integration**: Supports deploying documentation on a web interface.
 
-- Supports automatic generation of documentation and partial updates to existing documentation.
-
-- Supports API documentation in multiple languages (requires support from large models).
-
-- Supports deployment of web pages for displaying API documentation.
+---
 
 ## Changelog
 
-- **[2024-11-17]** Added support for Zhipu AI and Baidu Qianfan models, optimized documentation structure, included JavaScript code examples; removed the execution method using configuration files.
+- **2024-11-17**: Added support for Zhipu AI and Baidu Qianfan models, optimized documentation structure, and introduced JavaScript code examples. Removed configuration file execution mode.  
+- **2024-11-20**: Added custom documentation template support.  
+- **2024-11-24**: Enabled multithreading for faster request handling.  
+- **2024-11-26**: Introduced `.env` file support for environment variables and multi-language documentation.  
+- **2024-12-02**: Successfully tested on Windows (requires PowerShell or Windows Terminal). Improved model naming to avoid environment variable conflicts.  
+- **2024-12-05**: Fully supports and tested on Django versions 3, 4, and 5.  
 
-- **[2024-11-20]** Added support for custom documentation templates.
-
-- **[2024-11-24]** Enabled multi-threading for accelerated requests.
-
-- **[2024-11-26]** Added support for .env files to load environment variables and multi-language documentation.
-
-- **[2024-12-02]** Successfully tested on Windows OS (requires PowerShell or Windows Terminal); introduced a new way of specifying model names to prevent environment variable conflicts (see usage instructions below).
-
-- **[2024-12-05]** Supported Django, tested successfully with version 4.2.x.
+---
 
 ## Installation
+
+Install the latest version via PyPI:
 
 ```bash
 pip install -U docapi
 ```
 
+Install with all dependencies:
+
 ```bash
 pip install -U "docapi[all]"
 ```
 
-```bash
-pip install -U "docapi[flask]"
-```
+Install for specific frameworks:
 
 ```bash
+pip install -U "docapi[flask]"
 pip install -U "docapi[django]"
 ```
 
-#### Install from PyPI Official Repository
+**Install from PyPI official source:**
 
 ```bash
-pip install -U docapi -i https://pypi.org/simple
+pip install -U "docapi[all]" -i https://pypi.org/simple
 ```
 
-#### Install from GitHub Source
+**Install from GitHub:**
 
 ```bash
 pip install git+https://github.com/Shulin-Zhang/docapi
 ```
 
-## Usage
+---
 
-**OpenAI:**
-```bash
-export DOCAPI_MODEL=openai:gpt-4o-mini
+## Usage Guide
 
-export OPENAI_API_KEY=api_key
+Here are typical usage examples:
 
-# Generate documentation for Flask framework
-docapi generate server.py
+### OpenAI Model Example
 
-# Generate documentation for Django framework
-# docapi generate manage.py
+1. Set up the model and API key:
+   ```bash
+   export DOCAPI_MODEL=openai:gpt-4o-mini
+   export OPENAI_API_KEY=your_api_key
+   ```
 
-# Update documentation for Flask framework
-docapi update server.py
+2. Generate documentation:
+   - For Flask:
+     ```bash
+     docapi generate server.py
+     ```
+   - For Django:
+     ```bash
+     docapi generate manage.py
+     ```
 
-# Update documentation for Django framework
-# docapi update manage.py
+3. Update documentation:
+   - For Flask:
+     ```bash
+     docapi update server.py
+     ```
+   - For Django:
+     ```bash
+     docapi update manage.py
+     ```
 
-# Start the documentation web service
-docapi serve
-```
+4. Start a web server to display the documentation:
+   ```bash
+   docapi serve
+   ```
 
-*[More usage methods](USAGE.md)*
+[Find more usage details in the guide](USAGE_en.md).
+
+---
 
 ## Supported Models
 
-- OpenAI
+- OpenAI  
+- Azure OpenAI  
+- XAI  
+- Open-Source Models  
+- Baidu Qianfan  
+- Tongyi Qianwen  
+- Zhipu AI  
 
-- Azure OpenAI
+---
 
-- XAI
+## Supported Frameworks
 
-- Open-Source Models
+- Flask (>=3.0.0)  
+- Django (3, 4, 5)  
 
-- Baidu Qianfan
+---
 
-- Tongyi Qianwen
-
-- Zhipu AI
-
-## Supported API Frameworks
-
-- Flask (>=3.0.0)
-
-- Django (3, 4, 5)
-  
-## API Web Page
+## Example: API Documentation Web Page
 
 ![image](assets/example1.png)
 
+---
+
 ## TODO
 
-- ~~Supports large models such as Wenxin Yiyan and Zhipu AI.~~
-
-- ~~Supports online web page display for documents.~~
-
-- ~~Supports custom document templates.~~
-
-- ~~Supports multi-threaded request acceleration.~~
-
-- ~~Supports Windows operating system.~~
-
-- ~~Supports Django framework.~~
-
-- Supports more models and API frameworks.
+- Add support for additional models and frameworks.  
