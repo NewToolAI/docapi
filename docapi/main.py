@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from time import time
 
@@ -8,8 +9,12 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
+VERSION = '0.1.2'
+
+
 class Main:
     '''DocAPI is a Python package that automatically generates API documentation using LLM. '''        
+
 
     @staticmethod
     def generate(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1):
@@ -84,6 +89,10 @@ class Main:
 
 
 def run():
+    if sys.argv[1].strip() in ['--version', '-v']:
+        print(VERSION)
+        sys.exit(0)
+
     return Fire(Main)
 
 
