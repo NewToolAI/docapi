@@ -22,7 +22,7 @@ class Main:
             config (str, optional): Path to the configuration file. Defaults to None.
             template (str, optional): Path to the template file. Defaults to None.
             env (str, optional): Path to the environment file. Defaults to '.env'.
-            workers (int, optional): Number of workers. Defaults to 4.
+            workers (int, optional): Number of workers. Defaults to 1.
         '''
         start = time()
 
@@ -51,7 +51,7 @@ class Main:
             config (str, optional): Path to the configuration file. Defaults to None.
             template (str, optional): Path to the template file. Defaults to None.
             env (str, optional): Path to the environment file. Defaults to '.env'.
-            workers (int, optional): Number of workers. Defaults to 4.
+            workers (int, optional): Number of workers. Defaults to 1.
         '''
         start = time()
 
