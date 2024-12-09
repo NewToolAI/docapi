@@ -1,6 +1,6 @@
 docs_dir: "/Volumes/DATA/\u5DE5\u4F5C/Work/my_project/docapi/test/django_project/docs"
 nav:
 - Home: index.md
-- students-views: students-views.md
+- students-views.py: students-views.py.md
 site_name: DocAPI
 theme: readthedocs

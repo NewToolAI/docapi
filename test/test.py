@@ -32,7 +32,7 @@ def test_code(env_path, model):
     
     load_dotenv(dotenv_path=env_path)
 
-    docapi = DocAPI.build(lang="zh", model=model)
+    docapi = DocAPI.build(lang="en", model=model)
     docapi.generate("django_project/manage.py", "django_project/docs", )
     docapi.update("django_project/manage.py", "django_project/docs")
 

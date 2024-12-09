@@ -4,14 +4,24 @@
 # 获取年级学生列表
 @app.route('/users/list', methods=['GET', 'POST'])
 def get_users():
-    try:
-        parmams = request.get_json()
-        grade = parmams['grade']
-        data = f'List of {{grade}} students'.split(' ')
+    api_key = request.headers.get('API-KEY')
+    if api_key != EXPECTED_API_KEY:
+        return jsonify(code=1, data=[], error='Invalid API key'), 401
 
-        return jsonify(code=0, data=data, error='')
+    if request.method == 'POST':
+        params = request.get_json(silent=True) or {{}}
+    else: 
+        params = request.args.to_dict()
+
+    grade = params.get('grade')
+    if not grade:
+        return jsonify(code=1, data=[], error='grade is required'), 400
+
+    try:
+        data = stuents.get_students(grade)
+        return jsonify(code=0, data=data, error=''), 200
     except Exception as e:
-        return jsonify(code=1, data=None, error=str(e))
+        return jsonify(code=1, data=[], error=str(e)), 500
 ```
 
 ## 输出
@@ -26,7 +36,11 @@ def get_users():
 
 该接口用于获取指定年级的学生列表。用户需要提供年级参数，接口将返回该年级的学生列表。
 
-##### 参数 - Json
+##### 请求头
+
+- `API-KEY` (string): 用于身份验证的API密钥。
+
+##### 请求参数 - Json
 
 - `grade` (string): 必填，年级名称。
 
@@ -43,7 +57,8 @@ def get_users():
 **curl:**
 
 ```bash
-curl -X GET http://{{API_BASE}}/users/list -H "Content-Type: application/json" -d '{{"grade": "高一"}}'
+curl -X GET 'http://API_BASE/users/list?grade=3' \
+     -H 'API-KEY: your_api_key'
 ```
 
 **python:**
@@ -51,29 +66,24 @@ curl -X GET http://{{API_BASE}}/users/list -H "Content-Type: application/json" -
 ```python
 import requests
 
-url = "http://{{API_BASE}}/users/list"
-data = {{"grade": "高一"}}
+url = 'http://localhost:API_BASE/users/list'
+headers = {{'API-KEY': 'your_api_key'}}
 
-response = requests.get(url, json=data)
-
-print("状态码:", response.status_code)
-print("响应内容:", response.json())
+params = {{'grade': '3'}}
+response = requests.get(url, headers=headers, params=params)
+print(response.json())
 ```
 
 **javascript:**
 
 ```javascript
-const axios = require('axios');
+import axios from 'axios';
 
-const url = 'http://{{API_BASE}}/users/list';
-const data = {{ grade: '高一' }};
+const url = 'http://API_BASE/users/list';
+const headers = {{ 'API-KEY': 'your_api_key' }};
+const params = {{ 'grade': '3' }};
 
-axios.get(url, {{ params: data }})
-    .then(response => {{
-       console.log('状态码:', response.status);
-        console.log('响应内容:', response.data);
-      }})
-    .catch(error => {{
-        console.error('错误:', error.response ? error.response.data : error.message);
-    }});
+axios.get(url, {{ headers, params }})
+    .then(response => console.log(response.data))
+    .catch(error => console.error(error));
 ```
