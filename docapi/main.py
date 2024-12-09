@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '0.1.4'
+VERSION = '0.1.5'
 
 
 class Main:

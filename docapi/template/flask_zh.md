@@ -66,7 +66,7 @@ curl -X GET 'http://API_BASE/users/list?grade=3' \
 ```python
 import requests
 
-url = 'http://localhost:API_BASE/users/list'
+url = 'http://API_BASE/users/list'
 headers = {{'API-KEY': 'your_api_key'}}
 
 params = {{'grade': '3'}}
