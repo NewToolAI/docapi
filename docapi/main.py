@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 from time import time
+import toml
 
 from fire import Fire
 from dotenv import load_dotenv
@@ -9,12 +10,19 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '0.1.5'
+try:
+    with open('../pyproject.toml', 'r') as f:
+        pyproject_data = toml.load(f)
+        VERSION = pyproject_data.get('tool', {}).get('poetry', {}).get('version')
+        if not VERSION:
+            raise ValueError('Version key is missing in pyproject.toml.')
+except Exception as e:
+    VERSION = '0.0.0'
+    print(f'Warning: Could not load version from pyproject.toml: {e}')
 
 
 class Main:
     '''DocAPI is a Python package that automatically generates API documentation using LLM. '''        
-
 
     @staticmethod
     def generate(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1):
@@ -35,15 +43,13 @@ class Main:
             load_dotenv(override=True, dotenv_path=env)
 
         model = model or os.getenv('DOCAPI_MODEL')
-        if model is None:
-            raise ValueError('The parameter --model is required, or you must provide the DOCAPI_MODEL environment variable. For example: --model=openai:gpt-4o-mini.')
+        if not model:
+            raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
 
         docapi = DocAPI.build(model, lang, template, workers)
         docapi.generate(app_path, doc_dir)
         
-        end = time()
-        time_used = end - start
-        print(f'Time used: {time_used:.2f}s.\n')
+        print(f'Time used: {time() - start:.2f}s.')
 
     @staticmethod
     def update(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1):
@@ -64,36 +70,32 @@ class Main:
             load_dotenv(override=True, dotenv_path=env)
 
         model = model or os.getenv('DOCAPI_MODEL')
-        if model is None:
-            raise ValueError('The parameter --model is required, or you must provide the DOCAPI_MODEL environment variable. For example: --model=openai:gpt-4o-mini.')
+        if not model:
+            raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
 
         docapi = DocAPI.build(model, lang, template, workers)
         docapi.update(app_path, doc_dir)
 
-        end = time()
-        time_used = end - start
-        print(f'Time used: {time_used:.2f}s.\n')
+        print(f'Time used: {time() - start:.2f}s.')
 
     @staticmethod
     def serve(doc_dir='./docs', ip='127.0.0.1', port=8080):
         '''Start the document web server.
         Args:
             doc_dir (str, optional): Path to the documentation directory. Defaults to './docs'.
-            lang (str, optional): Language of the documentation. Defaults to 'zh'.
             ip (str, optional): IP address of the document web server. Defaults to '127.0.0.1'.
             port (int, optional): Port of the document web server. Defaults to 8080.
-            config (str, optional): Path to the configuration file. Defaults to None.
         '''
         docapi = DocAPI.build_empty()
         docapi.serve(doc_dir, ip, port)
 
 
 def run():
-    if sys.argv[1].strip() in ['--version', '-v']:
+    if len(sys.argv) > 1 and sys.argv[1].strip() in ['--version', '-v']:
         print(VERSION)
         sys.exit(0)
 
-    return Fire(Main)
+    Fire(Main)
 
 
 if __name__ == '__main__':
