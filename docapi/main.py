@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '1.1.3'
+VERSION = '1.1.4'
 
 
 class Main:
@@ -38,7 +38,7 @@ class Main:
             raise ValueError(f'Invalid app_path: {app_path}')
 
         if Path(doc_dir).exists():
-            user = input(f'Doc directory already exists: `./docs`. Do you want to overwrite it? (y/n) ')
+            user = input(f'The `./docs` directory already exists. Do you want to overwrite it? (y/n) ')
             print()
             if user.lower() != 'y':
                 sys.exit(0)
@@ -77,7 +77,7 @@ class Main:
         if not Path(doc_dir).is_dir():
             raise ValueError(f'Doc directory does not exist: {doc_dir}')
 
-        user = input(f'Updating the documentation will clean up the folder `./docs`. Do you want to proceed with the update? (y/n) ')
+        user = input(f'Updating the documentation will first clear the `./docs` folder. Do you want to continue? (y/n) ')
         print()
         if user.lower() != 'y':
             sys.exit(0)
