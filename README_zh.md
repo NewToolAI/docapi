@@ -97,7 +97,11 @@ export OPENAI_API_KEY=your_api_key
 - Flask 服务：
 ```bash
 docapi generate server.py
+
+# 静态路由扫描，不依赖项目环境
+# docapi generate server.py --static
 ```
+
 - Django 服务：
 ```bash
 docapi generate manage.py
@@ -107,6 +111,9 @@ docapi generate manage.py
 - Flask 服务：
 ```bash
 docapi update server.py
+
+# 静态路由扫描，不依赖项目环境
+# docapi update server.py --static
 ```
 - Django 服务：
 ```bash

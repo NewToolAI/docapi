@@ -96,6 +96,9 @@ export OPENAI_API_KEY=your_api_key
 - For Flask:
 ```bash
 docapi generate server.py
+
+# Static route scanning, independent of the project environment.
+# docapi generate server.py --static
 ```
 - For Django:
 ```bash
@@ -106,7 +109,11 @@ docapi generate manage.py
 - For Flask:
 ```bash
 docapi update server.py
+
+# Static route scanning, independent of the project environment.
+# docapi update server.py --static
 ```
+
 - For Django:
 ```bash
 docapi update manage.py
