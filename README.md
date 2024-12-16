@@ -16,7 +16,7 @@
 
 - **Version 1.x.x** introduces significant changes compared to **Version 0.x.x**. Please refer to the updated usage guide below.  
 - By default, generating or updating documentation requires the API service's dependency environment.  
-- Add the `--static` parameter for static route scanning that does not depend on the project environment. This option only supports Flask projects. The downside is that it may include unused routes in the generated documentation, making it more suitable for single-page Flask API projects.  
+- Add the `--static` parameter for static route scanning that does not depend on the project environment. This option only supports Flask projects. The downside is that it may include unused routes in the generated documentation. It suitable for single-page Flask API projects.  
 
 ---
 
