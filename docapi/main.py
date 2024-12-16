@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '1.1.0'
+VERSION = '1.1.1'
 
 
 class Main:
@@ -34,13 +34,15 @@ class Main:
         if Path(env).exists():
             load_dotenv(override=True, dotenv_path=env)
 
-        if not Path(app_path).isfile():
+        if not Path(app_path).is_file():
             raise ValueError(f'Invalid app_path: {app_path}')
-        
+
         if Path(doc_dir).exists():
-            raise ValueError(f'Doc directory already exists: {doc_dir}')
-
-
+            user = input(f'Doc directory already exists: {doc_dir}. Do you want to overwrite it? (y/n) ')
+            print()
+            if user.lower() != 'y':
+                sys.exit(0)
+        
         model = model or os.getenv('DOCAPI_MODEL')
         if not model:
             raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
@@ -69,12 +71,17 @@ class Main:
         if Path(env).exists():
             load_dotenv(override=True, dotenv_path=env)
 
-        if not Path(app_path).isfile():
+        if not Path(app_path).is_file():
             raise ValueError(f'Invalid app_path: {app_path}')
-        
-        if Path(doc_dir).exists():
-            raise ValueError(f'Doc directory already exists: {doc_dir}')
 
+        if not Path(doc_dir).is_dir():
+            raise ValueError(f'Doc directory does not exist: {doc_dir}')
+
+        user = input(f'Updating the documentation will clean up the document folder. Do you want to proceed with the update? (y/n) ')
+        print()
+        if user.lower() != 'y':
+            sys.exit(0)
+        
         model = model or os.getenv('DOCAPI_MODEL')
         if not model:
             raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
