@@ -16,7 +16,7 @@
 
 - **Version 1.x.x** introduces significant changes compared to **Version 0.x.x**. Please refer to the updated usage guide below.  
 - By default, generating or updating documentation requires the API service's dependency environment.  
-- Use the `--static` option for static route scanning without relying on the project's environment. This feature is only supported for Flask projects. Note: It may include unused routes in the generated documentation.  
+- Add the `--static` parameter for static route scanning that does not depend on the project environment. This option only supports Flask projects. The downside is that it may include unused routes in the generated documentation, making it more suitable for single-page Flask API projects.  
 
 ---
 
@@ -32,7 +32,7 @@
 
 ## Changelog
 
-- [2024-12-16]: Display a progress bar when generating or updating documentation; The Flask project supports static route scanning independent of the project environment. However, the drawback is that unused APIs might also be included in the generated documentation.  
+- [2024-12-16]: Display a progress bar when generating or updating documentation; The Flask project supports static route scanning independent of the project environment.
 - [2024-12-05]: Fully supported Django versions 3, 4, and 5, with comprehensive testing completed.  
 - [2024-12-02]: Passed Windows system testing (requires PowerShell or Windows Terminal). Optimized model name management to avoid conflicts with environment variables.  
 - [2024-11-26]: Added support for loading environment variables from `.env` files and multilingual documentation.  
