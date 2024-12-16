@@ -112,8 +112,6 @@ class DocAPI:
 
         new_structures = self.scanner.scan(app_path)
 
-
-
         merged_structures = {}
 
         new_path_set = set(new_structures.keys())
