@@ -3,11 +3,11 @@ from fire import Fire
 
 
 MODELS = [
-    'openai:gpt-4o-mini',
-    'xai:grok-beta',
+    # 'openai:gpt-4o-mini',
+    # 'xai:grok-beta',
     'aliyun:qwen-turbo',
-    'baidu:ERNIE-4.0-Turbo-8K',
-    'zhipu:glm-4-flash'
+    # 'baidu:ERNIE-4.0-Turbo-8K',
+    # 'zhipu:glm-4-flash'
 ]
 
 
@@ -22,6 +22,10 @@ def test_flask(env_path, model):
                        f'--lang zh --template ../docapi/template/flask_zh.md --env {env_path}')
     if result != 0:
         exit(1) 
+
+    result = os.system(f'docapi generate flask_project/server.py flask_project/docs --static --model {model} --env {env_path}')
+    if result != 0:
+        exit(1)
     
 
 def test_code(env_path, model):

@@ -16,7 +16,7 @@ class Main:
     '''DocAPI is a Python package that automatically generates API documentation using LLM. '''        
 
     @staticmethod
-    def generate(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1):
+    def generate(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1, static=False):
         '''Generate API documentation.
         Args:
             app_path (str, necessary): Path to the API service entry.
@@ -27,6 +27,7 @@ class Main:
             template (str, optional): Path to the template file. Defaults to None.
             env (str, optional): Path to the environment file. Defaults to '.env'.
             workers (int, optional): Number of workers. Defaults to 1.
+            static (bool, optional): Scan the routing structure in a static manner. This approach is independent of the project environment. Defaults to False.
         '''
         start = time()
 
@@ -37,13 +38,13 @@ class Main:
         if not model:
             raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
 
-        docapi = DocAPI.build(model, lang, template, workers)
+        docapi = DocAPI.build(model, lang, template, workers, static)
         docapi.generate(app_path, doc_dir)
         
         print(f'Time used: {time() - start:.2f}s.\n')
 
     @staticmethod
-    def update(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1):
+    def update(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1, static=False):
         '''Update API documentation.
         Args:
             app_path (str, necessary): Path to the API service entry.
@@ -54,6 +55,7 @@ class Main:
             template (str, optional): Path to the template file. Defaults to None.
             env (str, optional): Path to the environment file. Defaults to '.env'.
             workers (int, optional): Number of workers. Defaults to 1.
+            static (bool, optional): Scan the routing structure in a static manner. This approach is independent of the project environment. Defaults to False.
         '''
         start = time()
 
@@ -64,7 +66,7 @@ class Main:
         if not model:
             raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
 
-        docapi = DocAPI.build(model, lang, template, workers)
+        docapi = DocAPI.build(model, lang, template, workers, static)
         docapi.update(app_path, doc_dir)
 
         print(f'Time used: {time() - start:.2f}s.\n')

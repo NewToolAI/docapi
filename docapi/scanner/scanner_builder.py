@@ -1,10 +1,7 @@
 import re
 
-from docapi.scanner.flask_scanner import FlaskScanner
-from docapi.scanner.django_scanner import DjangoScanner 
 
-
-def build_scanner(app_path):
+def build_scanner(app_path, static=False):
     with open(app_path) as f:
         code = f.read()
 
@@ -15,6 +12,15 @@ def build_scanner(app_path):
             import_code += line + '\n'
 
     if import_code.count('flask') > import_code.count('django'):
-        return FlaskScanner()
+        if static:
+            from docapi.scanner.flask_static_scanner import FlaskStaticScanner
+            return FlaskStaticScanner()
+        else:
+            from docapi.scanner.flask_scanner import FlaskScanner
+            return FlaskScanner()
     else:
-        return DjangoScanner()
+        if static:
+            raise NotImplementedError('Django static scanner is not implemented yet.')
+        else:
+            from docapi.scanner.django_scanner import DjangoScanner 
+            return DjangoScanner()
