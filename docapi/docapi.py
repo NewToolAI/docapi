@@ -35,7 +35,7 @@ class DocAPI:
         prompt = prompt_builder.build_prompt(lang, template)
         llm = llm_builder.build_llm(model)
 
-        print(f'Using language: {lang}.\n')
+        print(f'Language: {lang}.\n')
 
         return cls(llm, prompt, workers=workers, static=static)
 
@@ -81,12 +81,12 @@ class DocAPI:
 
             for path, item_list in structures.items():
                 path = Path(path).resolve()
-                pbar.write(f'Create document for {path.parent.name}/{path.name}.')
+                pbar.write(f'Create documentation for `{path.parent.name}/{path.name}`.')
 
                 for item in item_list:
                     url = item['url']
                     code = item['code']
-                    pbar.write(f' - Create document for {url}.')
+                    pbar.write(f' - Create documentation for `{url}`.')
 
                     system = self.prompt.system
                     user = self.prompt.user.format(code=code)
@@ -125,7 +125,7 @@ class DocAPI:
 
         for path in del_path_set:
             path = Path(path)
-            print(f'Delete document for {path.parent.name}/{path.name}.')
+            print(f'Remove documentation for `{path.parent.name}/{path.name}`.')
             print()
 
         add_structures = {path: item_list for path, item_list in new_structures.items() if path in add_path_set}
@@ -142,7 +142,7 @@ class DocAPI:
 
             for path, item_list in add_structures.items():
                 path = Path(path).resolve()
-                pbar.write(f'Add document for {path.name}.')
+                pbar.write(f'Add documentation for `{path.name}`.')
                 path = str(path)
 
                 merged_item_list = []
@@ -157,14 +157,14 @@ class DocAPI:
                     job_list.append((job, item))
 
                     merged_item_list.append(item)
-                    pbar.write(f' - Add document for {url}.')
+                    pbar.write(f' - Add documentation for `{url}`.')
 
                 merged_structures[path] = merged_item_list
                 pbar.write('')
 
             for path, item_list in keep_structures.items():
                 path = Path(path).resolve()
-                pbar.write(f'Update document for {path.parent.name}/{path.name}.')
+                pbar.write(f'Update documentation for `{path.parent.name}/{path.name}`.')
                 path = str(path)
 
                 new_item_list = item_list
@@ -183,7 +183,7 @@ class DocAPI:
 
                 for url in del_url_set:
                     pbar.update(1)
-                    pbar.write(f' - Delete document for {url}.')
+                    pbar.write(f' - Remove documentation for `{url}`.')
 
                 for item in add_item_list:
                     url = item['url']
@@ -196,7 +196,7 @@ class DocAPI:
                     job_list.append((job, item))
 
                     merged_item_list.append(item) 
-                    pbar.write(f' - Add document for {url}.')
+                    pbar.write(f' - Add documentation for `{url}`.')
 
                 for item in keep_item_list:
                     url = item['url']
@@ -208,7 +208,7 @@ class DocAPI:
                     if old_item['md5'] == md5:
                         item['doc'] = old_item['doc']
                         pbar.update(1)
-                        pbar.write(f' - Reserve document for {url}.')
+                        pbar.write(f' - Retain documentation for `{url}`.')
                     else:
                         system = self.prompt.system
                         user = self.prompt.user.format(code=code)
@@ -216,7 +216,7 @@ class DocAPI:
                         job = executor.submit(self._llm_generate, system=system, user=user, pbar=pbar)
                         job_list.append((job, item))
 
-                        pbar.write(f' - Update document for {url}.')
+                        pbar.write(f' - Update documentation for `{url}`.')
 
                     merged_item_list.append(item)
 
