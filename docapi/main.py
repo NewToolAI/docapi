@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '1.1.1'
+VERSION = '1.1.2'
 
 
 class Main:
@@ -77,7 +77,7 @@ class Main:
         if not Path(doc_dir).is_dir():
             raise ValueError(f'Doc directory does not exist: {doc_dir}')
 
-        user = input(f'Updating the documentation will clean up the document folder. Do you want to proceed with the update? (y/n) ')
+        user = input(f'Updating the documentation will clean up the folder `./doc`. Do you want to proceed with the update? (y/n) ')
         print()
         if user.lower() != 'y':
             sys.exit(0)
