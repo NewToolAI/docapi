@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 
+from tqdm import tqdm
+
 from docapi.llm import llm_builder
 from docapi.prompt import prompt_builder   
 from docapi.scanner import scanner_builder
@@ -69,26 +71,29 @@ class DocAPI:
         doc_dir.mkdir(parents=True, exist_ok=True)
 
         structures = self.scanner.scan(app_path)
+        total = 0
+        for key, value in structures.items():
+            total += len(value)
 
-        with ThreadPoolExecutor(max_workers=self.workers) as executor:
+        with ThreadPoolExecutor(max_workers=self.workers)as executor, tqdm(total=total) as pbar:
             job_list = []
 
             for path, item_list in structures.items():
                 path = Path(path).resolve()
-                print(f'Create document for {path.parent.name}/{path.name}.')
+                pbar.write(f'Create document for {path.parent.name}/{path.name}.')
 
                 for item in item_list:
                     url = item['url']
                     code = item['code']
-                    print(f' - Create document for {url}.')
+                    pbar.write(f' - Create document for {url}.')
 
                     system = self.prompt.system
                     user = self.prompt.user.format(code=code)
 
-                    job = executor.submit(self.llm, system=system, user=user)
+                    job = executor.submit(self._llm_generate, system=system, user=user, pbar=pbar)
                     job_list.append((job, item))
 
-                print()
+                pbar.write('')
 
             for job, item in job_list:
                 item['doc'] = job.result()
@@ -99,8 +104,15 @@ class DocAPI:
         doc_dir = Path(doc_dir)
         doc_dir.mkdir(parents=True, exist_ok=True)
 
+        try:
+            old_structures = json.loads((doc_dir / 'doc.json').read_text(encoding='utf-8'))
+        except FileNotFoundError:
+            raise FileNotFoundError('No `doc.json` found. Please run `docapi generate` first.')
+
         new_structures = self.scanner.scan(app_path)
-        old_structures = json.loads((doc_dir / 'doc.json').read_text(encoding='utf-8'))
+
+
+
         merged_structures = {}
 
         new_path_set = set(new_structures.keys())
@@ -118,12 +130,18 @@ class DocAPI:
         add_structures = {path: item_list for path, item_list in new_structures.items() if path in add_path_set}
         keep_structures = {path: item_list for path, item_list in new_structures.items() if path in keep_path_set}
 
-        with ThreadPoolExecutor(max_workers=self.workers) as executor:
+        total = 0
+        for key, value in add_structures.items():
+            total += len(value)
+        for key, value in keep_structures.items():
+            total += len(value)
+
+        with ThreadPoolExecutor(max_workers=self.workers) as executor, tqdm(total=total) as pbar:
             job_list = []
 
             for path, item_list in add_structures.items():
                 path = Path(path).resolve()
-                print(f'Add document for {path.name}.')
+                pbar.write(f'Add document for {path.name}.')
                 path = str(path)
 
                 merged_item_list = []
@@ -134,18 +152,18 @@ class DocAPI:
                     system = self.prompt.system
                     user = self.prompt.user.format(code=code)
 
-                    job = executor.submit(self.llm, system=system, user=user)
+                    job = executor.submit(self._llm_generate, system=system, user=user, pbar=pbar)
                     job_list.append((job, item))
 
                     merged_item_list.append(item)
-                    print(f' - Add document for {url}.')
+                    pbar.write(f' - Add document for {url}.')
 
                 merged_structures[path] = merged_item_list
-                print()
+                pbar.write('')
 
             for path, item_list in keep_structures.items():
                 path = Path(path).resolve()
-                print(f'Update document for {path.parent.name}/{path.name}.')
+                pbar.write(f'Update document for {path.parent.name}/{path.name}.')
                 path = str(path)
 
                 new_item_list = item_list
@@ -163,7 +181,8 @@ class DocAPI:
                 keep_item_list = [item for item in new_item_list if item['url'] in keep_url_set]
 
                 for url in del_url_set:
-                    print(f' - Delete document for {url}.')
+                    pbar.update(1)
+                    pbar.write(f' - Delete document for {url}.')
 
                 for item in add_item_list:
                     url = item['url']
@@ -172,11 +191,11 @@ class DocAPI:
                     system = self.prompt.system
                     user = self.prompt.user.format(code=code)
 
-                    job = executor.submit(self.llm, system=system, user=user)
+                    job = executor.submit(self._llm_generate, system=system, user=user, pbar=pbar)
                     job_list.append((job, item))
 
                     merged_item_list.append(item) 
-                    print(f' - Add document for {url}.')
+                    pbar.write(f' - Add document for {url}.')
 
                 for item in keep_item_list:
                     url = item['url']
@@ -187,20 +206,21 @@ class DocAPI:
 
                     if old_item['md5'] == md5:
                         item['doc'] = old_item['doc']
-                        print(f' - Reserve document for {url}.')
+                        pbar.update(1)
+                        pbar.write(f' - Reserve document for {url}.')
                     else:
                         system = self.prompt.system
                         user = self.prompt.user.format(code=code)
 
-                        job = executor.submit(self.llm, system=system, user=user)
+                        job = executor.submit(self._llm_generate, system=system, user=user, pbar=pbar)
                         job_list.append((job, item))
 
-                        print(f' - Update document for {url}.')
+                        pbar.write(f' - Update document for {url}.')
 
                     merged_item_list.append(item)
 
                 merged_structures[path] = merged_item_list
-                print()
+                pbar.write('')
 
             for job, item in job_list:
                 item['doc'] = job.result()
@@ -240,3 +260,8 @@ class DocAPI:
         index_path = Path(doc_dir) / 'index.md'
         if not index_path.exists():
             index_path.write_text(INDEX_STR, encoding='utf-8')
+
+    def _llm_generate(self, system, user, pbar):
+        result = self.llm(system=system, user=user)
+        pbar.update(1)
+        return result

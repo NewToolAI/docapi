@@ -2,7 +2,6 @@ import os
 import sys
 from pathlib import Path
 from time import time
-import toml
 
 from fire import Fire
 from dotenv import load_dotenv
@@ -10,15 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-try:
-    with open('../pyproject.toml', 'r') as f:
-        pyproject_data = toml.load(f)
-        VERSION = pyproject_data.get('tool', {}).get('poetry', {}).get('version')
-        if not VERSION:
-            raise ValueError('Version key is missing in pyproject.toml.')
-except Exception as e:
-    VERSION = '0.0.0'
-    print(f'Warning: Could not load version from pyproject.toml: {e}')
+VERSION = '1.1.0'
 
 
 class Main:
@@ -49,7 +40,7 @@ class Main:
         docapi = DocAPI.build(model, lang, template, workers)
         docapi.generate(app_path, doc_dir)
         
-        print(f'Time used: {time() - start:.2f}s.')
+        print(f'Time used: {time() - start:.2f}s.\n')
 
     @staticmethod
     def update(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1):
@@ -76,7 +67,7 @@ class Main:
         docapi = DocAPI.build(model, lang, template, workers)
         docapi.update(app_path, doc_dir)
 
-        print(f'Time used: {time() - start:.2f}s.')
+        print(f'Time used: {time() - start:.2f}s.\n')
 
     @staticmethod
     def serve(doc_dir='./docs', ip='127.0.0.1', port=8080):
