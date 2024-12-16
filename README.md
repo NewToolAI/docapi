@@ -32,7 +32,7 @@
 
 ## Changelog
 
-- [2024-12-16]: Implemented a progress bar for document generation updates. Added support for static route scanning in Flask projects, independent of the project environment. However, this approach may include unused routes in the documentation.  
+- [2024-12-16]: Display a progress bar when generating or updating documentation; The Flask project supports static route scanning independent of the project environment. However, the drawback is that unused APIs might also be included in the generated documentation.  
 - [2024-12-05]: Fully supported Django versions 3, 4, and 5, with comprehensive testing completed.  
 - [2024-12-02]: Passed Windows system testing (requires PowerShell or Windows Terminal). Optimized model name management to avoid conflicts with environment variables.  
 - [2024-11-26]: Added support for loading environment variables from `.env` files and multilingual documentation.  
