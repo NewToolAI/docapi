@@ -1,34 +1,34 @@
-# Usage
+# 使用方法
 
-**Note:** Generating or updating documents requires the dependent environment of the API service. 
+**注意**：生成或更新文档需要 API 服务的依赖环境。
 
 ---
 
-## Using Environment Variables
+## 使用环境变量
 
-### OpenAI Example
+### OpenAI 示例
 ```bash
 export DOCAPI_MODEL=openai:gpt-4o-mini
 
 export OPENAI_API_KEY=your_api_key
 
-# Generate documentation for Flask
+# 为 Flask 框架生成文档
 docapi generate server.py
 
-# Generate documentation for Django
+# 为 Django 框架生成文档
 # docapi generate manage.py
 
-# Update documentation for Flask
+# 更新 Flask 框架的文档
 docapi update server.py
 
-# Update documentation for Django
+# 更新 Django 框架的文档
 # docapi update manage.py
 
-# Launch the web server to display the documentation
+# 启动文档展示的 Web 服务
 docapi serve
 ```
 
-### Azure OpenAI Example
+### Azure OpenAI 示例
 ```bash
 export DOCAPI_MODEL=azure-openai:gpt-4o-mini
 
@@ -38,33 +38,33 @@ export AZURE_OPENAI_ENDPOINT=your_endpoint
 
 export OPENAI_API_VERSION=api_version
 
-# Generate documentation with a custom template
+# 使用自定义模板生成文档
 docapi generate server.py --template <template_path>
 
-# Update documentation with a custom template
+# 使用自定义模板更新文档
 docapi update server.py --template <template_path>
 
-# Launch the web service on a custom IP and port
+# 启动 Web 服务，指定自定义 IP 和端口
 docapi serve docs --ip 0.0.0.0 --port 9000
 ```
 
-### XAI Example
+### XAI 示例
 ```bash
 export DOCAPI_MODEL=xai:grok-beta
 
 export XAI_API_KEY=your_api_key
 
-# Generate documentation
+# 生成文档
 docapi generate manage.py
 
-# Update documentation
+# 更新文档
 docapi update manage.py
 
-# Launch the web service
+# 启动 Web 服务
 docapi serve
 ```
 
-### Open-Source Models Example
+### 开源模型示例
 ```bash
 export DOCAPI_MODEL=open-source:model_name
 
@@ -72,17 +72,17 @@ export OPENAI_API_KEY=your_api_key
 
 export OPENAI_API_BASE=api_base_url
 
-# Generate documentation
+# 生成文档
 docapi generate server.py
 
-# Update documentation
+# 更新文档
 docapi update server.py
 
-# Launch the web service
+# 启动 Web 服务
 docapi serve
 ```
 
-### Baidu Qianfan Example
+### 百度千帆示例
 ```bash
 export DOCAPI_MODEL=baidu:ERNIE-4.0-Turbo-8K
 
@@ -90,53 +90,54 @@ export QIANFAN_ACCESS_KEY=your_access_key
 
 export QIANFAN_SECRET_KEY=your_secret_key
 
-# Generate documentation
+# 生成文档
 docapi generate server.py
 
-# Update documentation
+# 更新文档
 docapi update server.py
 
-# Launch the web service
+# 启动 Web 服务
 docapi serve
 ```
 
-### Tongyi Qianwen Example
+### 通义千问示例
 ```bash
 export DOCAPI_MODEL=aliyun:qwen-turbo
 
 export DASHSCOPE_API_KEY=your_api_key
 
-# Generate documentation with parallel processing
+# 使用多线程生成文档
 docapi generate manage.py --workers 6
 
-# Update documentation with parallel processing
+# 使用多线程更新文档
 docapi update manage.py --workers 6
 
-# Launch the web service
+# 启动 Web 服务
 docapi serve
 ```
 
-### Zhipu AI Example
+### 智谱 AI 示例
 ```bash
 export DOCAPI_MODEL=zhipu:glm-4-flash
 
 export ZHIPUAI_API_KEY=your_api_key
 
-# Generate documentation
+# 生成文档
 docapi generate server.py
 
-# Update documentation
+# 更新文档
 docapi update server.py
 
-# Launch the web service
+# 启动 Web 服务
 docapi serve
 ```
 
 ---
 
-## Using Environment Variable Configuration Files
+## 使用环境变量配置文件
 
-To use a configuration file, create and edit a `.env` file:
+可以通过配置 `.env` 文件来管理环境变量：
+
 ```.env
 DOCAPI_MODEL = openai:gpt-4o-mini
 
@@ -145,49 +146,49 @@ OPENAI_API_KEY = your_api_key
 DASHSCOPE_API_KEY = your_api_key
 ```
 
-Run commands with the `.env` file:
+使用 `.env` 文件运行命令：
 ```bash
-# Generate documentation
+# 生成文档
 docapi generate server.py --env .env
 
-# Update documentation
+# 更新文档
 docapi update server.py --env .env
 
-# Launch the web service
+# 启动 Web 服务
 docapi serve
 ```
 
-Example with a specific model and custom settings:
+使用具体模型和自定义配置的示例：
 ```bash
-# Generate documentation
+# 生成文档
 docapi generate server.py docs --env .env --model aliyun:qwen-turbo
 
-# Update documentation
+# 更新文档
 docapi update server.py docs --env .env --model aliyun:qwen-turbo
 
-# Launch the web service on a specific IP and port
+# 启动 Web 服务，指定 IP 和端口
 docapi serve docs --ip 0.0.0.0 --port 9000
 ```
 
 ---
 
-## Using Code Directly
+## 使用代码
 ```python
 import os
 from docapi import DocAPI
 
-# Configure API key
+# 配置 API 密钥
 os.environ['OPENAI_API_KEY'] = "your_api_key"
 
-# Initialize DocAPI with a specific model
+# 使用指定模型初始化 DocAPI
 docapi = DocAPI.build(lang="zh", model="openai:gpt-4o-mini")
 
-# Generate documentation
+# 生成文档
 docapi.generate("flask_project/server.py", "docs")
 
-# Update documentation (uncomment to use)
+# 更新文档
 # docapi.update("flask_project/server.py", "docs")
 
-# Serve documentation locally
+# 本地启动文档服务
 # docapi.serve("docs", ip="127.0.0.1", port=8080)
 ```

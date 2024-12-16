@@ -14,8 +14,9 @@
 
 ## Important Notes
 
-- **Version 1.x.x** introduces breaking changes compared to **0.x.x**. Please refer to the updated usage guide below.  
-- Generating or updating documents requires the dependent environment of the API service.
+- **Version 1.x.x** introduces significant changes compared to **Version 0.x.x**. Please refer to the updated usage guide below.  
+- By default, generating or updating documentation requires the API service's dependency environment.  
+- Use the `--static` option for static route scanning without relying on the project's environment. This feature is only supported for Flask projects. Note: It may include unused routes in the generated documentation.  
 
 ---
 
@@ -31,13 +32,13 @@
 
 ## Changelog
 
-- [2024-11-17]: Added support for Zhipu AI and Baidu Qianfan models, optimized documentation structure, and introduced JavaScript code examples. Removed configuration file execution mode.  
-- [2024-11-20]: Added custom documentation template support.  
-- [2024-11-24]: Enabled multithreading for faster request handling.  
-- [2024-11-26]: Introduced `.env` file support for environment variables and multi-language documentation.  
-- [2024-12-02]: Successfully tested on Windows (requires PowerShell or Windows Terminal). Improved model naming to avoid environment variable conflicts.  
-- [2024-12-05]: Fully supports and tested on Django versions 3, 4, and 5.  
-
+- [2024-12-16]: Implemented a progress bar for document generation updates. Added support for static route scanning in Flask projects, independent of the project environment. However, this approach may include unused routes in the documentation.  
+- [2024-12-05]: Fully supported Django versions 3, 4, and 5, with comprehensive testing completed.  
+- [2024-12-02]: Passed Windows system testing (requires PowerShell or Windows Terminal). Optimized model name management to avoid conflicts with environment variables.  
+- [2024-11-26]: Added support for loading environment variables from `.env` files and multilingual documentation.  
+- [2024-11-24]: Introduced multithreading to accelerate request processing.  
+- [2024-11-20]: Added support for custom documentation templates.  
+- [2024-11-17]: Supported Zhipu AI and Baidu Qianfan models, improved documentation structure, and added JavaScript example code. Removed configuration file execution mode.  
 ---
 
 ## Installation
@@ -116,7 +117,7 @@ docapi update manage.py
 docapi serve
 ```
 
-[Find more usage details in the guide](USAGE_en.md).
+[Find more usage details in the guide](USAGE.md).
 
 ---
 

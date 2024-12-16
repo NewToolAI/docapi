@@ -3,11 +3,11 @@ from fire import Fire
 
 
 MODELS = [
-    # 'openai:gpt-4o-mini',
-    # 'xai:grok-beta',
+    'openai:gpt-4o-mini',
+    'xai:grok-beta',
     'aliyun:qwen-turbo',
-    # 'baidu:ERNIE-4.0-Turbo-8K',
-    # 'zhipu:glm-4-flash'
+    'baidu:ERNIE-4.0-Turbo-8K',
+    'zhipu:glm-4-flash'
 ]
 
 
