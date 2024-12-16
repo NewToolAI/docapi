@@ -34,6 +34,13 @@ class Main:
         if Path(env).exists():
             load_dotenv(override=True, dotenv_path=env)
 
+        if not Path(app_path).isfile():
+            raise ValueError(f'Invalid app_path: {app_path}')
+        
+        if Path(doc_dir).exists():
+            raise ValueError(f'Doc directory already exists: {doc_dir}')
+
+
         model = model or os.getenv('DOCAPI_MODEL')
         if not model:
             raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
@@ -62,6 +69,12 @@ class Main:
         if Path(env).exists():
             load_dotenv(override=True, dotenv_path=env)
 
+        if not Path(app_path).isfile():
+            raise ValueError(f'Invalid app_path: {app_path}')
+        
+        if Path(doc_dir).exists():
+            raise ValueError(f'Doc directory already exists: {doc_dir}')
+
         model = model or os.getenv('DOCAPI_MODEL')
         if not model:
             raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
@@ -79,6 +92,9 @@ class Main:
             ip (str, optional): IP address of the document web server. Defaults to '127.0.0.1'.
             port (int, optional): Port of the document web server. Defaults to 8080.
         '''
+        if not Path(doc_dir).exists():
+            raise ValueError(f'Doc directory does not exist: {doc_dir}')
+
         docapi = DocAPI.build_empty()
         docapi.serve(doc_dir, ip, port)
 
