@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '1.1.6'
+VERSION = '1.1.7'
 
 
 class Main:
@@ -116,7 +116,10 @@ def run():
         print(VERSION)
         sys.exit(0)
 
-    Fire(Main)
+    try:    
+        Fire(Main)
+    except Exception as e:
+        print(f'Error: {e}')
 
 
 if __name__ == '__main__':
