@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '1.1.5'
+VERSION = '1.1.6'
 
 
 class Main:
@@ -34,11 +34,13 @@ class Main:
         if Path(env).exists():
             load_dotenv(override=True, dotenv_path=env)
 
-        if not Path(app_path).is_file():
+        app_path = Path(app_path)
+        if not app_path.is_file():
             raise ValueError(f'Invalid app_path: {app_path}')
 
-        if Path(doc_dir).exists():
-            user = input(f'The `./docs` directory already exists. Do you want to overwrite it? (y/n) ')
+        doc_dir = Path(doc_dir)
+        if doc_dir.exists():
+            user = input(f'The `{doc_dir.name}` directory already exists. Do you want to overwrite it? (y/n) ')
             print()
             if user.lower() != 'y':
                 sys.exit(0)
@@ -71,11 +73,13 @@ class Main:
         if Path(env).exists():
             load_dotenv(override=True, dotenv_path=env)
 
-        if not Path(app_path).is_file():
+        app_path = Path(app_path)
+        if not app_path.is_file():
             raise ValueError(f'Invalid app_path: {app_path}')
 
-        if not Path(doc_dir).is_dir():
-            raise ValueError(f'Doc directory does not exist: {doc_dir}')
+        doc_dir = Path(doc_dir)
+        if not doc_dir.is_dir():
+            raise ValueError(f'Doc directory does not exist: `{doc_dir.name}`')
 
         user = input(f'Updating the documentation will first clear the `./docs` folder. Do you want to continue? (y/n) ')
         print()
@@ -99,8 +103,9 @@ class Main:
             ip (str, optional): IP address of the document web server. Defaults to '127.0.0.1'.
             port (int, optional): Port of the document web server. Defaults to 8080.
         '''
-        if not Path(doc_dir).exists():
-            raise ValueError(f'Doc directory does not exist: {doc_dir}')
+        doc_dir = Path(doc_dir)
+        if not doc_dir.exists():
+            raise ValueError(f'Doc directory does not exist: `{doc_dir.name}`')
 
         docapi = DocAPI.build_empty()
         docapi.serve(doc_dir, ip, port)
