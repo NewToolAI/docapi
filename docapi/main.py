@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '1.1.7'
+VERSION = '1.1.8'
 
 
 class Main:
@@ -40,7 +40,7 @@ class Main:
 
         doc_dir = Path(doc_dir)
         if doc_dir.exists():
-            user = input(f'The `{doc_dir.name}` directory already exists. Do you want to overwrite it? (y/n) ')
+            user = input(f'The `{doc_dir.name}` directory already exists. Do you want to overwrite it? (y/n): ')
             print()
             if user.lower() != 'y':
                 sys.exit(0)
@@ -81,14 +81,14 @@ class Main:
         if not doc_dir.is_dir():
             raise ValueError(f'Doc directory does not exist: `{doc_dir.name}`')
 
-        user = input(f'Updating the documentation will first clear the `./docs` folder. Do you want to continue? (y/n) ')
+        user = input(f'Updating the documentation will first remove the API files in `{doc_dir.name}` folder.\nDo you want to continue? (y/n): ')
         print()
         if user.lower() != 'y':
             sys.exit(0)
         
         model = model or os.getenv('DOCAPI_MODEL')
         if not model:
-            raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
+            raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model openai:gpt-4o-mini.')
 
         docapi = DocAPI.build(model, lang, template, workers, static)
         docapi.update(app_path, doc_dir)

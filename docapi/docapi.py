@@ -233,7 +233,7 @@ class DocAPI:
         doc_json_path.unlink(missing_ok=True)
 
         for doc_file in doc_dir.glob('*.md'):
-            if doc_file.name == 'index.md':
+            if (doc_file.name == 'index.md') or (doc_file.suffix != '.md'):
                 continue
             doc_file.unlink()
 
