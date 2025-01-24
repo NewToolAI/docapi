@@ -6,7 +6,7 @@
 [![PyPI](https://img.shields.io/pypi/v/docapi)](https://pypi.org/project/docapi/)
 [![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Shulin-Zhang/docapi/pulls)
 
-\[ 中文 | [English](README.md) \]
+\[ [中文](README_zh.md) | English \]
 
 **DocAPI** is an API documentation generation tool based on large language models (LLM), currently supporting Flask and Django frameworks. With DocAPI, you can quickly generate, update, and display API documentation, significantly enhancing development efficiency.
 
