@@ -250,7 +250,7 @@ class DocAPI:
                 doc = item['doc']
                 doc_str += doc + '\n---\n\n'
 
-            doc_path = doc_dir / f'{path.parent.name}-{path.name}.md'
+            doc_path = doc_dir / f'{path.parent.name} > {path.stem}.md'
             doc_path.write_text(doc_str, encoding='utf-8')
 
         doc_json_path.write_text(json.dumps(structures, indent=2, ensure_ascii=False), encoding='utf-8')
