@@ -132,6 +132,34 @@ docapi update server.py
 docapi serve
 ```
 
+### 豆包示例
+```bash
+export DOCAPI_MODEL = doubao:endpoint
+
+export DOUBAO_API_KEY = your_api_key
+```
+
+### Kimi(Moonshot)
+```bash
+export DOCAPI_MODEL = moonshot:moonshot-v1-8k
+
+export MOONSHOT_API_KEY = your_api_key
+```
+
+### 百川智能
+```bash
+export DOCAPI_MODEL = baichuan:Baichuan4-Air
+
+export BAICHUAN_API_KEY = your_api_key
+```
+
+### Deepseek
+```bash
+export DOCAPI_MODEL = deepseek:deepseek-chat
+
+export DEEPSEEK_API_KEY = your_api_key
+```
+
 ---
 
 ## 使用环境变量配置文件

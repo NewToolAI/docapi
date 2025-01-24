@@ -32,6 +32,7 @@
 
 ## 更新日志
 
+- [2025-01-24]：支持模型：Deepseek、Moonshot、Baichuan、Doubao。
 - [2024-12-16]：生成、更新文档时显示进度条；flask项目支持不依赖项目环境的静态路由扫描。
 - [2024-12-05]：全面支持 Django 3、4、5 版本并完成测试。
 - [2024-12-02]：Windows 系统测试通过（需 PowerShell 或 Windows Terminal），优化模型名称管理，避免环境变量冲突。
@@ -125,7 +126,7 @@ docapi update manage.py
 docapi serve
 ```
 
-[更多用法请参阅](USAGE_zh.md)
+### [更多用法请参阅](USAGE_zh.md)
 
 ---
 
@@ -138,6 +139,10 @@ docapi serve
 - 百度千帆
 - 通义千问
 - 智谱 AI
+- Deepseek
+- (Kimi) Moonshot
+- 豆包
+- 百川
 
 ---
 

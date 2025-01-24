@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from docapi.docapi import DocAPI
 
 
-VERSION = '1.1.8'
+VERSION = '1.1.9'
 
 
 class Main:
@@ -81,7 +81,7 @@ class Main:
         if not doc_dir.is_dir():
             raise ValueError(f'Doc directory does not exist: `{doc_dir.name}`')
 
-        user = input(f'Updating the documentation will first remove the API files in `{doc_dir.name}` folder.\nDo you want to continue? (y/n): ')
+        user = input(f'Updating the documentation will first remove the markdown files in `{doc_dir.name}` folder.\nDo you want to continue? (y/n): ')
         print()
         if user.lower() != 'y':
             sys.exit(0)

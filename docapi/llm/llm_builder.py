@@ -6,10 +6,22 @@ def build_llm(model):
     provider = provider.strip().lower()
     model_name = model_name.strip()
 
-    if provider in ['openai', 'xai', 'aliyun', 'open-source']:
+    if provider in ['deepseek', 'baichuan', 'doubao', 'moonshot', 'openai', 'xai', 'aliyun', 'open-source']:
         from docapi.llm.openai_llm import OpenAILLM
 
-        if provider == 'openai':
+        if provider == 'deepseek':
+            api_key = os.getenv('DEEPSEEK_API_KEY')
+            base_url = 'https://api.deepseek.com'
+        elif provider == 'baichuan':
+            api_key = os.getenv('BAICHUAN_API_KEY')
+            base_url = 'https://api.baichuan-ai.com/v1'
+        elif provider == 'doubao':
+            api_key = os.getenv('DOUBAO_API_KEY')
+            base_url = 'https://ark.cn-beijing.volces.com/api/v3'
+        elif provider == 'moonshot':
+            api_key = os.getenv('MOONSHOT_API_KEY')
+            base_url = 'https://api.moonshot.cn/v1'
+        elif provider == 'openai':
             api_key = os.getenv('OPENAI_API_KEY')
             base_url = None
         elif provider == 'aliyun':
