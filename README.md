@@ -32,6 +32,7 @@
 
 ## Changelog
 
+- [2025-01-29]: The .env file by default searches upwards starting from the current directory.
 - [2025-01-24]: Support for Deepseek, Moonshot, Baichuan, Doubao models.
 - [2024-12-16]: Displays progress bar when generating or updating documentation; Flask projects support static route scanning without project environment dependency.
 - [2024-12-05]: Full support for Django versions 3, 4, and 5 with completed testing.

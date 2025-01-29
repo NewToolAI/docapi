@@ -4,19 +4,19 @@ from pathlib import Path
 from time import time
 
 from fire import Fire
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 from docapi.docapi import DocAPI
 
 
-VERSION = '1.1.10'
+VERSION = '1.1.11'
 
 
 class Main:
     '''DocAPI is a Python package that automatically generates API documentation using LLM. '''        
 
     @staticmethod
-    def generate(app_path, doc_dir='docs', model=None, lang='zh', template=None, env='.env', workers=1, static=False):
+    def generate(app_path, doc_dir='docs', model=None, lang='zh', template=None, env=None, workers=1, static=False):
         '''Generate API documentation.
         Args:
             app_path (str, necessary): Path to the API service entry.
@@ -31,8 +31,12 @@ class Main:
         '''
         start = time()
 
-        if Path(env).exists():
-            load_dotenv(override=True, dotenv_path=env)
+        if env and Path(env).exists():
+            load_dotenv(dotenv_path=env)
+        elif env is None:
+            load_dotenv(find_dotenv())
+        else:
+            raise ValueError(f'Invalid env file: {env}')
 
         app_path = Path(app_path)
         if not app_path.is_file():
@@ -47,7 +51,7 @@ class Main:
         
         model = model or os.getenv('DOCAPI_MODEL')
         if not model:
-            raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model=openai:gpt-4o-mini.')
+            raise ValueError('Missing model parameter. Either pass it as an argument or set the DOCAPI_MODEL environment variable. Example: --model openai:gpt-4o-mini.')
 
         docapi = DocAPI.build(model, lang, template, workers, static)
         docapi.generate(app_path, doc_dir)
@@ -70,8 +74,12 @@ class Main:
         '''
         start = time()
 
-        if Path(env).exists():
-            load_dotenv(override=True, dotenv_path=env)
+        if env and Path(env).exists():
+            load_dotenv(dotenv_path=env)
+        elif env is None:
+            load_dotenv(find_dotenv())
+        else:
+            raise ValueError(f'Invalid env file: {env}')
 
         app_path = Path(app_path)
         if not app_path.is_file():
