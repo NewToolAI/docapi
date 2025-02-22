@@ -20,7 +20,7 @@ INDEX_STR = '''### DocAPI is a Python package that automatically generates API d
 
 ### DocAPI 是一个使用 LLM 自动生成 API 文档的 Python 包，目前支持 Flask 和 Django。。
 
-[Github: https://github.com/Shulin-Zhang/docapi](https://github.com/Shulin-Zhang/docapi)                      
+[Github: https://github.com/NewToolAI/docapi](https://github.com/NewToolAI/docapi)                      
 '''
 
 class DocAPI:

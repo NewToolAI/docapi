@@ -77,7 +77,7 @@ pip install -U "docapi[all]" -i https://pypi.org/simple
 **从 GitHub 安装：**
 
 ```bash
-pip install git+https://github.com/Shulin-Zhang/docapi
+pip install git+https://github.com/NewToolAI/docapi
 ```
 
 ---
